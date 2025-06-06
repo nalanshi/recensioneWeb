@@ -1,0 +1,15 @@
+1) Abbiamo creato cartelle per suddividere i vari file, se si vede che c'è dei file php fuori dalla cartella php,
+è perchè quello serve per la redirect sulle pagine *.html --> così quando si apre la pagine non viene visto .html ma il .php
+
+2) Dobbiamo separare i file css per header/footer etc cioè il codice in comune per ogni file .html verrà raggruppato in un file separato
+
+3) Questa è una domanda che potete rispondermi anche su whatsapp o altro, per il resto di css utilizzati per .html diversi volete
+farlo tutto su un unico file css oppure suddividerlo?
+
+4) Dobbiamo leggere le accessibilità da rispettare che sennò ci penalizza la professoressa
+
+5) Non so dove lavorate ma vi consiglio di lavorare su vscode aggiungendo il workspace così ti facilità un sacco con il commit e altro
+perchè ho creato un branch develop dove possiamo fare modifiche per poi quando si ha finito una funzionalità possiamo fare il merge su main
+e continuare con altre funzionalità. Se volete vi posso aiutare e spiegare come si fa questa cosa.
+
+6) Intanto creo un file txt chiamato "documents/goals.txt" che andremmo a descrivere le parti che dobbiamo fare, cosa abbiamo finito, cosa ci manca
