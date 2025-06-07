@@ -1,0 +1,108 @@
+/* Reset di base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Stile dell'header */
+header {
+  background-color: #03045E;
+  padding: 1em 0;
+  color: white;
+  width: 100%;
+}
+
+/* Container della navigazione */
+.nav-container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Menu di navigazione */
+.nav-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Lista dei link di navigazione */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5em; /* Aumentato lo spazio tra gli elementi come nell'immagine */
+  font-size: 1.1em;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+}
+
+/* Container del login */
+.login-container {
+  display: flex;
+  align-items: center;
+  margin-left: 2em;
+}
+
+/* Link del login */
+.login-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+/* Icona utente */
+.user-icon {
+  background-color: white;
+  border-radius: 50%;
+  width: 2.125em; /* 50px */
+  height: 2.125em; /* 50px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+#logo {
+  height: 2.5em; /* Leggermente più piccolo del contenitore */
+}
+
+/* Testo del login */
+.login-text {
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Media query per la responsività */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .nav-links {
+    gap: 1.5em;
+  }
+  
+  .login-container {
+    margin-left: 0;
+    margin-top: 1em;
+  }
+}
+

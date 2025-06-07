@@ -7,118 +7,21 @@
 </head>
 <body>
     <header>
-        <a href="#presentazione" class="hidden">Vai al contenuto</a>
-        <nav id="menu">
-            <div class="top_menu">
+        <a href="" class="hidden">Vai al contenuto</a>
+        <nav id="">
+            <div class="">
 
-                <a href="index.php" id="logo-link"><img src="materiale/logo.webp" alt="Logo del ristorante" id="logo-img"></a>
-            
-                <button id="hamb-button"><img src="materiale/hamburger-menu-white.png" alt="Hamburger menu" id="hamb-button-img"></button>
-            
-                <ul id="menu-list">
-                    <li id="currentLink" lang="en">HOME</li>
-                    <li><a href="menu.php">MENU</a></li>
-                    <li><a href="chisiamo.php">CHI SIAMO</a></li>
-                    <li><a href="contatti.php">CONTATTI</a></li>
-                    <li><a href="area-riservata.php">AREA RISERVATA</a></li>
+                <a href="index.php" id="logo-link"><img src="../images/dishes/nome..." alt="Logo del sito" id=""></a> 
+                <ul id="">
+                    <li id="" lang="en"></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
                 </ul>
 
             </div>
-    
-            <nav id="breadcrumb">
-                <p>Ti trovi in: <span lang="en">Home</span></p>
-            </nav>
         </nav>
     </header>
-
-    <main>
-        <div id="presentazione">
-            <h1> &mdash; &nbsp;&nbsp; Forno 800 &nbsp;&nbsp; &mdash; </h1>
-            <!-- <a href="#descrizione" class="hidden">Vai alla descrizione</a> -->
-        </div>
-
-        <section>
-            <div class="text-container-left">
-                <h2>Forno 800</h2>
-                <h3>Se desideri mangiare qualcosa in centro a Padova beh allora sei nel posto giusto. Pizzeria autentica italiana che dispone di ben 2 forni a legna entrambi originali di 2 secoli fa!</h3>        
-            </div>
-            
-            <img src="materiale/facciata-edificio.jpg" alt="Immagineacciata frontale della pizzera" class="facciata">
-        </section>
-
-        <section>
-            <img src="materiale/forno.jpg" alt="Forno a legna originale del ristorante" class="facciata">
-
-            <div class="text-container-right">
-                <h2>Il nostro obiettivo</h2>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>        
-            </div>
-        </section>
-
-        <div id="ins_recensioni"></div>
-    </main>
-
-    <div class="back-up">
-        <a href="#" aria-label="torna su">&#8593;</a>
-    </div>
-
-    <footer>
-        <div id= "social">
-            <p>Seguici!</p>
-            <a href=""><p>Instagram</p></a>
-            <a href=""><p>Facebook</p></a>
-        </div>
-
-        <div id="orari">
-            <p><abbr title="11-15"></abbr><time datetime="11:00">11:00</time> - <time datetime="15:00">15:00</time></p>
-            <p><abbr title="18-22"></abbr><time datetime="18:00">18:00</time> - <time datetime="22:00">22:00</time></p>
-            <p>Aperti tutti i giorni</p>
-
-            <address><p>Via Tiziano Aspetti 13 - Padova</p></address>
-        </div>
-
-        <div id="contatti">
-            <p>Scrivici!</p>
-            <a href="tel:+393939393939"><p>+39 393 939 3939</p></a>
-            <a href="mailto:forno800@example.com"><p>forno800@example.com</p></a>
-        </div>
-    </footer>
-    <script>
-        function caricaRecensioni() {
-            // Effettua una richiesta AJAX al file PHP per ottenere le recensioni
-            fetch('visualizza_recensioni.php')
-                .then(response => response.json())
-                .then(data => {
-                    const recensioniUL = document.getElementById('recensioni-container');
-                    recensioniUL.innerHTML = ''; // Pulisce eventuali recensioni precedenti
-                    if (data.error) {
-                        recensioniUL.innerHTML = `<p>${data.error}</p>`;
-                    } else {
-                        // Loop per visualizzare ogni recensione
-                        data.forEach(recensione => {
-                            const recensioneElem = document.createElement('li');
-
-                            // Aggiungi il contenuto per ogni recensione
-                            recensioneElem.innerHTML = `
-                                <span class="username-recensioni">${recensione.Username}</span>
-                                <p class="valutazione-recensioni">${recensione.Valutazione}</p>
-                                <p class="testo-recensioni">${recensione.Testo}</p>
-                                <p class="data-recensioni">${recensione.Data}</small>
-                            `;
-
-                            // Aggiungi la recensione all'ul
-                            recensioniUL.appendChild(recensioneElem);
-                        });
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('recensioni-container').innerHTML = `<p>Errore nel caricamento delle recensioni.</p>`;
-                });
-        }
-
-        // Carica le recensioni al caricamento della pagina
-        window.onload = caricaRecensioni;
-    </script>
-    <script src="menu.js"></script>
 </body>
 </html>

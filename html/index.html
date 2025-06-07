@@ -4,20 +4,41 @@
   <meta charset="UTF-8" />
   <title>DishDiveReview</title>
   <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
 </head>
 <body>
-     <h1>Benvenuto nel sito!</h1>
-  <!--<h1>Recensioni Piatti</h1>
-  <form>
-    <label>Nome piatto: <input type="text" name="piatto" /></label><br /><br />
-    <label>Voto (1-5): <input type="number" name="voto" min="1" max="5" /></label><br /><br />
-    <label>Commento:<br />
-      <textarea name="commento" rows="4" cols="30"></textarea>
-    </label><br /><br />
-    <button type="submit">Invia recensione</button>
-  </form>
-  <h2>Recensioni</h2>
-  <p>Qui compariranno le recensioni.</p>
-  -->
+  <header>
+    <nav>
+      <div class="nav-container">
+        <a href="../index.php" id="logo-link">
+          <img src="../images/dishes/logo.png" alt="Logo DishDive" id="logo" />
+        </a> 
+        <ul class="nav-links">
+          <li><span lang = "en" >Home</span></li>
+          <li><a href="#">Recensioni</a></li>
+          <li><a href="#">Classifiche</a></li>
+          <li><a href="#">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="login-container">
+        <a href="#" class="login-link">
+          <div class="user-icon">
+            <img src="../images/icon/user.png" alt="Login" id="logo"/>
+          </div>
+          <div class="login-text">Login</div>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="welcome-title">Benvenuto su <span lang ="en">DishDiveReview!</span></h1>
+    <!--LOGIN_PLACEHOLDER-->
+  </main>
+  <footer>
+    <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+  </footer>
 </body>
 </html>
+

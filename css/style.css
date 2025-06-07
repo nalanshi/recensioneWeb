@@ -1,0 +1,50 @@
+/* css/style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f7f7f7;
+  color: #333;
+  font-size: 1em;
+}
+
+.welcome-title{
+  text-align: center;
+}
+
+main {
+  padding: 1.25em;
+}
+
+.recensione-form {
+  background-color: white;
+  padding: 1.25em;
+  margin-bottom: 2em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1); /* 10px */
+}
+
+.recensione-form input,
+.recensione-form textarea {
+  width: 100%;
+  margin-top: 0.3125em;
+  margin-bottom: 0.9375em;
+  padding: 0.625em;
+  border: 0.0625em solid #ccc;
+  border-radius: 0.25em;
+  font-size: 1em;
+}
+
+.recensione-form button {
+  background-color: #2d3e50;
+  color: white;
+  padding: 0.625em 1.25em;
+  border: none;
+  border-radius: 0.25em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.recensione-form button:hover {
+  background-color: #1a2a3a;
+}
