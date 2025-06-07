@@ -14,6 +14,7 @@ header {
   padding: 1.25em 0;
   color: black;
   width: 100%;
+  z-index: 1000; /* Assicura che l'header sia sopra tutti gli altri elementi */
 }
 
 nav {
@@ -124,7 +125,4 @@ nav {
     margin-top: 1em;
   }
 }
-
-
-
 
