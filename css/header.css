@@ -1,3 +1,8 @@
+/* 
+ * Stili per l'header del sito
+ * Colori migliorati per una migliore accessibilità e coerenza con lo sfondo
+ */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,9 +15,9 @@ body {
 
 header {
   position: fixed;
-  background: linear-gradient(to bottom, #6f7478,#DEE2E6); 
+  background-color: #03045e; /* Colore blu scuro per l'header */
   padding: 1.25em 0;
-  color: black;
+  color: white; /* Testo bianco per miglior contrasto */
   width: 100%;
   z-index: 1000; /* Assicura che l'header sia sopra tutti gli altri elementi */
 }
@@ -30,6 +35,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 3em;
+  position: relative;
 }
 
 #logo-link img {
@@ -41,12 +47,13 @@ nav {
   display: flex;
   gap: 1.5em;
   font-size: 1.1em;
+  transition: all 0.3s ease;
 }
 
 .nav-links li,
 .nav-links li a,
 .nav-links li span {
-  color: black;
+  color: white; /* Testo bianco per miglior contrasto */
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
@@ -54,6 +61,7 @@ nav {
 
 .nav-links li a:hover {
   text-decoration: underline;
+  color: #90e0ef; /* Colore azzurro chiaro per hover */
 }
 
 /* Container del login */
@@ -68,7 +76,7 @@ nav {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: black;
+  color: white; /* Testo bianco per miglior contrasto */
   gap: 0.5em;
 }
 
@@ -76,7 +84,7 @@ nav {
 .user-icon-bg {
   background-color: white;
   border-radius: 50%;
-  border: 0.05em solid black;
+  border: 0.05em solid #03045e; /* Bordo blu scuro */
   width: 2em;
   height: 2em;
   display: flex;
@@ -90,8 +98,8 @@ nav {
   transition: filter 0.3s;
 }
 
-.user-icon-bg:hover{
-  background-color:#ADE8F4;
+.user-icon-bg:hover {
+  background-color: #caf0f8; /* Azzurro molto chiaro per hover */
 }
 
 /* Testo Login */
@@ -100,8 +108,42 @@ nav {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.1em;
 }
-/* Responsive design */
-@media (max-width: 48em) {
+
+/* Hamburger Menu */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.875em; /* 30px / 16 */
+  height: 1.3125em; /* 21px / 16 */
+  cursor: pointer;
+  margin-left: auto;
+  z-index: 1001;
+}
+
+.bar {
+  height: 0.1875em; /* 3px / 16 */
+  width: 100%;
+  background-color: white; /* Barre bianche per miglior contrasto */
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hamburger menu animation */
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(0.5625em) rotate(45deg); /* 9px / 16 */
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-0.5625em) rotate(-45deg); /* -9px / 16 */
+}
+
+/* Media query per schermi mobili */
+@media only screen and (max-width: 48em) { /* 768px / 16 */
   nav {
     flex-direction: column;
     align-items: flex-start;
@@ -109,20 +151,121 @@ nav {
   }
 
   .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1em;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hamburger-menu {
+    display: flex;
   }
 
   .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #0077b6; /* Blu medio per il menu mobile */
+    padding: 1em;
     gap: 1em;
-    font-size: 1em;
-    flex-wrap: wrap;
+    border-radius: 0 0 0.625em 0.625em; /* 10px / 16 */
+    box-shadow: 0 0.3125em 0.625em rgba(0, 0, 0, 0.2); /* Ombra più visibile */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.25em); /* -20px /16 */
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
   .login-container {
     align-self: flex-end;
     margin-top: 1em;
   }
+}
+
+/* Smaller screens */
+@media only screen and (max-width: 30em) { /* 480px / 16 */
+  .login-text {
+    display: none;
+  }
+  
+  .login-container {
+    margin-right: 0.5em;
+  }
+  
+  #logo-link img {
+    height: 1.25em; /* 20px / 16 */
+  }
+  
+  header {
+    padding: 1em 0;
+  }
+  
+  .nav-links li {
+    font-size: 0.9em;
+  }
+}
+
+/* Forza la visualizzazione mobile per il test */
+@media only screen and (max-width: 37.5em) { /* 600px / 16 */
+  .hamburger-menu {
+    display: flex;
+  }
+  
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav-container {
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #0077b6; /* Blu medio per il menu mobile */
+    padding: 1em;
+    gap: 1em;
+    border-radius: 0 0 0.625em 0.625em; /* 10px / 16 */
+    box-shadow: 0 0.3125em 0.625em rgba(0, 0, 0, 0.2); /* Ombra più visibile */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.25em); /* -20px /16 */
+  }
+  
+  .login-container {
+    align-self: flex-end;
+    margin-top: 1em;
+  }
+}
+
+/* Aggiunta per accessibilità - Skip link */
+.skip-link {
+  position: absolute;
+  top: -3em;
+  left: 0;
+  background-color: #0077b6;
+  color: white;
+  padding: 0.5em 1em;
+  z-index: 1001;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
 }
 

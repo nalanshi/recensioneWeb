@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accedi - DishDiveReview</title>
+  <title>Registrati - DishDiveReview</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/footer.css">
@@ -35,7 +35,7 @@
         </ul>
       </div>
       <div class="login-container">
-        <a href="login.html" class="login-link" aria-current="page">
+        <a href="login.html" class="login-link">
           <div class="user-icon-bg">
             <img src="../images/icon/user.png" alt="Icona utente" id="userIcon">
           </div>
@@ -47,39 +47,71 @@
 
   <main id="main-content">
     <div class="auth-container">
-      <h2>Accedi al tuo account</h2>
+      <h2>Crea un nuovo account</h2>
       
       <!-- Messaggio di errore dinamico (verrà mostrato dal PHP) -->
       <div id="error-container" aria-live="polite"></div>
       
-      <form id="login-form" action="../php/login.php" method="post" onsubmit="return validateLoginForm()">
+      <form id="registration-form" action="../php/registrazione.php" method="post" onsubmit="return validateRegistrationForm()">
         <div class="form-group">
-          <label for="username">Username o Email</label>
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" autocomplete="given-name" required aria-required="true">
+          <div id="nome-error" class="error-message" aria-live="polite"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" name="cognome" autocomplete="family-name" required aria-required="true">
+          <div id="cognome-error" class="error-message" aria-live="polite"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required aria-required="true">
+          <div id="email-error" class="error-message" aria-live="polite"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="username">Username</label>
           <input type="text" id="username" name="username" autocomplete="username" required aria-required="true">
           <div id="username-error" class="error-message" aria-live="polite"></div>
         </div>
         
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" autocomplete="current-password" required aria-required="true">
+          <input type="password" id="password" name="password" autocomplete="new-password" required aria-required="true" 
+                 aria-describedby="password-requirements" onkeyup="checkPasswordStrength()">
+          <div id="password-requirements" class="info-message">
+            La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.
+          </div>
+          <div class="password-strength">
+            <div id="password-strength-bar" class="password-strength-bar"></div>
+          </div>
+          <div id="password-strength-text" class="password-strength-text"></div>
           <div id="password-error" class="error-message" aria-live="polite"></div>
         </div>
         
         <div class="form-group">
+          <label for="confirm-password">Conferma Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required aria-required="true">
+          <div id="confirm-password-error" class="error-message" aria-live="polite"></div>
+        </div>
+        
+        <div class="form-group">
           <div class="checkbox-label">
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Ricordami</label>
+            <input type="checkbox" id="terms" name="terms" required aria-required="true">
+            <label for="terms">Accetto i <a href="#" target="_blank">Termini e Condizioni</a> e la <a href="#" target="_blank">Privacy Policy</a></label>
           </div>
+          <div id="terms-error" class="error-message" aria-live="polite"></div>
         </div>
         
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Accedi</button>
-          <a href="#" class="forgot-password">Password dimenticata?</a>
+          <button type="submit" class="btn btn-primary">Registrati</button>
         </div>
       </form>
       
       <div class="auth-links">
-        <p>Non hai un account? <a href="registrazione.html">Registrati</a></p>
+        <p>Hai già un account? <a href="login.html">Accedi</a></p>
       </div>
     </div>
   </main>

@@ -1,9 +1,75 @@
+/* 
+ * Stili per il footer del sito
+ * Colori migliorati per una migliore accessibilità e coerenza con lo sfondo
+ */
+
 footer {
-  background-color: #2d3e50;
-  color: white;
+  background-color: #03045e; /* Blu scuro, stesso dell'header per coerenza */
+  color: white; /* Testo bianco per miglior contrasto */
   text-align: center;
-  padding: 1em 0;
+  padding: 1.5em 0; /* Padding aumentato per miglior leggibilità */
   margin-top: 2em;
   width: 100%;
+}
+
+/* Link nel footer */
+footer a {
+  color: #90e0ef; /* Azzurro chiaro per i link */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #caf0f8; /* Azzurro più chiaro per hover */
+  text-decoration: underline;
+}
+
+/* Sezione copyright */
+.copyright {
+  margin-top: 0.5em;
+  font-size: 0.9em;
+}
+
+/* Layout per footer con più sezioni */
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.footer-section {
+  margin: 1em;
+  min-width: 200px;
+}
+
+.footer-section h3 {
+  margin-bottom: 1em;
+  font-size: 1.2em;
+  color: #90e0ef; /* Azzurro chiaro per i titoli */
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5em;
+}
+
+/* Media query per schermi piccoli */
+@media only screen and (max-width: 48em) { /* 768px / 16 */
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-section {
+    margin: 1em 0;
+  }
 }
 

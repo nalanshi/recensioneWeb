@@ -83,5 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, { passive: false });
   }
+  
+  // Hamburger menu functionality
+  const hamburgerMenu = document.querySelector('.hamburger-menu');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (hamburgerMenu) {
+    hamburgerMenu.addEventListener('click', function() {
+      this.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  }
 });
 
