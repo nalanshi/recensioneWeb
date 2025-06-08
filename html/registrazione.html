@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrati - DishDiveReview</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/auth-styles.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/footer.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Script per la validazione del form -->
-  <script src="../js/validation.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
   <!-- Link per saltare al contenuto principale per accessibilità -->
@@ -19,122 +17,235 @@
   <header>
     <nav>
       <div class="nav-container">
-        <a href="../index.php" id="logo-link">
-          <img src="../images/logo.png" alt="Logo DishDiveReview" id="logo">
-        </a>
-        <div class="hamburger-menu" aria-label="Menu di navigazione">
+        <a href="index.html" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+          <img src="../images/logo.png" alt="Logo DishDiveReview" id="logo" />
+        </a> 
+        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
         </div>
-        <ul class="nav-links">
-          <li><a href="../index.php" lang="en">Home</a></li>
-          <li><a href="#">Recensioni</a></li>
-          <li><a href="#">Classifiche</a></li>
-          <li><a href="#">Contatti</a></li>
+        <ul class="nav-links" role="menubar">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#recensioni">Recensioni</a></li>
+          <li><a href="#classifiche">Classifiche</a></li>
+          <li><a href="#contatti">Contatti</a></li>
         </ul>
       </div>
       <div class="login-container">
-        <a href="login.html" class="login-link">
+        <a href="../html/login.html" class="login-link" aria-label="Accedi al tuo account">
           <div class="user-icon-bg">
-            <img src="../images/icon/user.png" alt="Icona utente" id="userIcon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="userIcon">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <path d="M20 8v6"></path>
+              <path d="M23 11h-6"></path>
+            </svg>
           </div>
-          <div class="login-text">Login</div>
+          <div class="login-text">Accedi</div>
         </a>
       </div>
     </nav>
   </header>
 
-  <main id="main-content">
-    <div class="auth-container">
-      <h2>Crea un nuovo account</h2>
-      
-      <!-- Messaggio di errore dinamico (verrà mostrato dal PHP) -->
+  <div class="auth-page">
+    <div class="auth-container" id="main-content">
+      <div class="auth-header">
+        <div class="auth-logo">
+          DR
+        </div>
+        <h1 class="auth-title">Crea un nuovo account</h1>
+        <p class="auth-subtitle">Unisciti alla nostra community di food lovers!</p>
+      </div>
+
+      <!-- Messaggio di errore dinamico -->
       <div id="error-container" aria-live="polite"></div>
-      
-      <form id="registration-form" action="../php/registrazione.php" method="post" onsubmit="return validateRegistrationForm()">
-        <div class="form-group">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" autocomplete="given-name" required aria-required="true">
-          <div id="nome-error" class="error-message" aria-live="polite"></div>
-        </div>
+
+      <form id="registration-form" class="auth-form" action="../php/registrazione.php" method="post" onsubmit="return validateRegistrationForm()">
         
-        <div class="form-group">
-          <label for="cognome">Cognome</label>
-          <input type="text" id="cognome" name="cognome" autocomplete="family-name" required aria-required="true">
-          <div id="cognome-error" class="error-message" aria-live="polite"></div>
+        <div class="form-group form-row">
+          <div>
+            <label for="nome" class="form-label">Nome</label>
+            <div class="form-input-wrapper">
+              <input 
+                type="text" 
+                id="nome" 
+                name="nome" 
+                class="form-input" 
+                placeholder="Il tuo nome"
+                autocomplete="given-name" 
+                required 
+                aria-required="true"
+              >
+              <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div id="nome-error" class="error-message" aria-live="polite"></div>
+          </div>
+
+          <div>
+            <label for="cognome" class="form-label">Cognome</label>
+            <div class="form-input-wrapper">
+              <input 
+                type="text" 
+                id="cognome" 
+                name="cognome" 
+                class="form-input" 
+                placeholder="Il tuo cognome"
+                autocomplete="family-name" 
+                required 
+                aria-required="true"
+              >
+              <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div id="cognome-error" class="error-message" aria-live="polite"></div>
+          </div>
         </div>
-        
+
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" required aria-required="true">
+          <label for="email" class="form-label">Email</label>
+          <div class="form-input-wrapper">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="nome@esempio.com"
+              autocomplete="email" 
+              required 
+              aria-required="true"
+            >
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
           <div id="email-error" class="error-message" aria-live="polite"></div>
         </div>
-        
+
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" autocomplete="username" required aria-required="true">
+          <label for="username" class="form-label">Username</label>
+          <div class="form-input-wrapper">
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="form-input" 
+              placeholder="Scegli un username unico"
+              autocomplete="username" 
+              required 
+              aria-required="true"
+            >
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <path d="M20 8v6"></path>
+              <path d="M23 11h-6"></path>
+            </svg>
+          </div>
           <div id="username-error" class="error-message" aria-live="polite"></div>
         </div>
-        
+
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" autocomplete="new-password" required aria-required="true" 
-                 aria-describedby="password-requirements" onkeyup="checkPasswordStrength()">
-          <div id="password-requirements" class="info-message">
-            La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.
+          <label for="password" class="form-label">Password</label>
+          <div class="form-input-wrapper">
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Crea una password sicura"
+              autocomplete="new-password" 
+              required 
+              aria-required="true"
+              aria-describedby="password-requirements"
+              onkeyup="checkPasswordStrength()"
+            >
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <circle cx="12" cy="16" r="1"></circle>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
           </div>
           <div class="password-strength">
             <div id="password-strength-bar" class="password-strength-bar"></div>
           </div>
           <div id="password-strength-text" class="password-strength-text"></div>
+          <div id="password-requirements" class="password-strength-text">
+            Almeno 8 caratteri, una maiuscola, una minuscola e un numero
+          </div>
           <div id="password-error" class="error-message" aria-live="polite"></div>
         </div>
-        
+
         <div class="form-group">
-          <label for="confirm-password">Conferma Password</label>
-          <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required aria-required="true">
+          <label for="confirm-password" class="form-label">Conferma Password</label>
+          <div class="form-input-wrapper">
+            <input 
+              type="password" 
+              id="confirm-password" 
+              name="confirm-password" 
+              class="form-input" 
+              placeholder="Ripeti la password"
+              autocomplete="new-password" 
+              required 
+              aria-required="true"
+            >
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <circle cx="12" cy="16" r="1"></circle>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
           <div id="confirm-password-error" class="error-message" aria-live="polite"></div>
         </div>
-        
-        <div class="form-group">
-          <div class="checkbox-label">
-            <input type="checkbox" id="terms" name="terms" required aria-required="true">
-            <label for="terms">Accetto i <a href="#" target="_blank">Termini e Condizioni</a> e la <a href="#" target="_blank">Privacy Policy</a></label>
-          </div>
+
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="terms" name="terms" class="checkbox-input" required aria-required="true">
+          <label for="terms" class="checkbox-label">
+            Accetto i <a href="#" target="_blank">Termini e Condizioni</a> e la <a href="#" target="_blank">Privacy Policy</a>
+          </label>
           <div id="terms-error" class="error-message" aria-live="polite"></div>
         </div>
-        
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Registrati</button>
-        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Crea Account
+        </button>
       </form>
-      
-      <div class="auth-links">
-        <p>Hai già un account? <a href="login.html">Accedi</a></p>
+
+      <div class="auth-footer">
+        <p class="auth-footer-text">
+          Hai già un account? 
+          <a href="../html/login.html" class="auth-footer-link">Accedi qui</a>
+        </p>
       </div>
     </div>
-  </main>
-  
-  <footer>
+  </div>
+    <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
         <h3>DishDiveReview</h3>
-        <p>La tua guida alle migliori recensioni gastronomiche.</p>
+        <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
       </div>
       <div class="footer-section">
         <h3>Link Utili</h3>
         <ul>
-          <li><a href="#">Chi siamo</a></li>
-          <li><a href="#">Termini e condizioni</a></li>
-          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#termini">Termini e condizioni</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#cookie">Cookie Policy</a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Contatti</h3>
         <ul>
-          <li>Email: info@dishdivereview.it</li>
-          <li>Telefono: +39 123 456 7890</li>
+          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
+          <li>Indirizzo: Via Roma 123, Milano</li>
         </ul>
       </div>
     </div>
@@ -142,8 +253,6 @@
       <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
     </div>
   </footer>
-
-  <script src="../js/main.js"></script>
 </body>
 </html>
 

@@ -1,421 +1,568 @@
 /* 
- * Stili generali per il sito
- * Colori migliorati per una migliore accessibilità e coerenza con lo sfondo
+ * Style CSS - Versione Colori AgID
+ * Palette: Blu istituzionale AgID con design moderno e accessibile
  */
+
+/* Import delle variabili dal header.css */
+:root {
+  /* Palette colori AgID */
+  --primary-agid: #0066CC;
+  --secondary-agid: #0059B3;
+  --accent-agid: #003366;
+  --success-agid: #4CAF50;
+  --info-agid: #1B558E;
+  --warning-agid: #FFA726;
+  --danger-agid: #D1344C;
+  
+  /* Gradiente navbar */
+  --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
+  
+  /* Neutri */
+  --text-primary: #1A1A1A;
+  --text-secondary: #5C6F82;
+  --text-light: #FFFFFF;
+  --background: #F0F6FC;
+  --surface: #FFFFFF;
+  --border: #EFEFEF;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 102, 204, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 102, 204, 0.15);
+  --shadow-lg: 0 8px 24px rgba(0, 102, 204, 0.2);
+  
+  /* Transitions */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  background-color: #f0f5fa; /* Azzurro molto chiaro per lo sfondo */
-  color: #03045e; /* Blu scuro per il testo principale */
-  font-size: 1em;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Layout principale */
+main {
+  padding-top: 5rem; /* Spazio per header fisso */
+  min-height: 100vh;
+}
+
+/* Titoli */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
 }
 
 .welcome-title {
   text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  color: #03045e; /* Blu scuro per i titoli */
+  margin: var(--spacing-xl) 0;
+  color: var(--primary-agid);
+  font-size: 2.5rem;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0, 102, 204, 0.1);
 }
 
-main {
-  padding-top: 5em;
+.welcome-title span {
+  color: var(--accent-agid);
+  font-weight: 700;
 }
 
 /* Link generali */
 a {
-  color: #0077b6; /* Blu medio per i link */
+  color: var(--primary-agid);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: var(--transition);
 }
 
 a:hover {
-  color: #023e8a; /* Blu più scuro per hover */
+  color: var(--secondary-agid);
   text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid var(--primary-agid);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Pulsanti */
 .btn {
-  display: inline-block;
-  padding: 0.75em 1.5em;
-  border-radius: 0.25em;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
   border: none;
-  font-size: 1em;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px; /* Accessibilità touch */
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: var(--transition);
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn-primary {
-  background-color: #0077b6; /* Blu medio per pulsanti primari */
-  color: white;
+  background: linear-gradient(135deg, var(--primary-agid), var(--secondary-agid));
+  color: var(--text-light);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  background-color: #023e8a; /* Blu più scuro per hover */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, #0052A3, #004080);
 }
 
 .btn-secondary {
-  background-color: #90e0ef; /* Azzurro chiaro per pulsanti secondari */
-  color: #03045e; /* Blu scuro per il testo */
+  background: var(--info-agid);
+  color: var(--text-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover {
-  background-color: #48cae4; /* Azzurro più intenso per hover */
-}
-
-/* Form recensione */
-.recensione-form {
-  background-color: white;
-  padding: 1.25em;
-  margin-bottom: 2em;
-  border-radius: 0.5em;
-  box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.1);
-}
-
-.recensione-form input,
-.recensione-form textarea {
-  width: 100%;
-  margin-top: 0.3125em;
-  margin-bottom: 0.9375em;
-  padding: 0.625em;
-  border: 0.0625em solid #cad2d9; /* Grigio chiaro per i bordi */
-  border-radius: 0.25em;
-  font-size: 1em;
-}
-
-.recensione-form button {
-  background-color: #0077b6; /* Blu medio per i pulsanti */
-  color: white;
-  padding: 0.625em 1.25em;
-  border: none;
-  border-radius: 0.25em;
-  cursor: pointer;
-  font-size: 1em;
-}
-
-.recensione-form button:hover {
-  background-color: #023e8a; /* Blu più scuro per hover */
+  background: var(--accent-agid);
+  color: var(--text-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Carousel Styles */
 .carousel-container {
   width: 100%;
+  height: 400px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 2em;
+  margin-bottom: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .carousel-slide {
   display: none;
   width: 100%;
-  height: 35em;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  animation: fade 1.5s ease;
+  position: relative;
+}
+
+.carousel-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0, 102, 204, 0.3), rgba(0, 89, 179, 0.2));
 }
 
 .carousel-slide.active {
   display: block;
+  animation: fadeIn 1s ease-in-out;
 }
 
-@keyframes fade {
-  from {opacity: 0.4}
-  to {opacity: 1}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .carousel-dots {
-  text-align: center;
   position: absolute;
-  bottom: 1.25em;
-  width: 100%;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-sm);
 }
 
 .dot {
-  height: 0.9375em;
-  width: 0.9375em;
-  margin: 0 0.3125em;
-  background-color: #cad2d9; /* Grigio chiaro per i dot inattivi */
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+  background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
 }
 
+.dot:hover,
 .dot.active {
-  background-color: #0077b6; /* Blu medio per il dot attivo */
+  background: var(--primary-agid);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.3);
 }
 
-/* Recommended Products Styles */
+.dot:focus {
+  outline: 2px solid var(--text-light);
+  outline-offset: 2px;
+}
+
+/* Sezione Prodotti Consigliati - Scorrevole */
 .recommended-products {
-  padding: 2em 0;
+  padding: var(--spacing-xl) 5%;
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 .recommended-products h2 {
   text-align: center;
-  margin-bottom: 1em;
-  color: #03045e; /* Blu scuro per i titoli */
+  margin-bottom: var(--spacing-xl);
+  color: var(--primary-agid);
+  font-size: 2rem;
+  position: relative;
+}
+
+.recommended-products h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-agid), var(--secondary-agid));
+  border-radius: 2px;
+}
+
+/* Container scorrevole per prodotti */
+.products-scroll-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
 }
 
 .products-container {
   display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 1em 0;
-  gap: 1.5em;
-  padding-left: 1em;
-  padding-right: 1em;
+  gap: var(--spacing-lg);
+  transition: transform 0.5s ease;
+  padding: var(--spacing-sm) 0;
 }
 
 .product-card {
-  min-width: 15.625em;
-  max-width: 15.625em;
-  background-color: white;
-  border-radius: 0.5em;
-  box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  position: relative;
+  min-width: 200px;
+  max-width: 220px;
+  flex-shrink: 0;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-agid), var(--secondary-agid), var(--accent-agid));
+  opacity: 0;
+  transition: var(--transition);
 }
 
 .product-card:hover {
-  transform: translateY(-0.3125em);
-  box-shadow: 0 0.25em 1em rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-card:focus-within {
+  outline: 1px solid var(--primary-agid);
 }
 
 .product-image {
   width: 100%;
-  height: 11.25em;
+  height: 150px;
   object-fit: cover;
+  transition: var(--transition);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
 .product-info {
-  padding: 1em;
+  padding: var(--spacing-sm);
 }
 
 .product-title {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  color: #03045e; /* Blu scuro per i titoli */
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
 }
 
 .product-description {
-  color: #4a5568; /* Grigio scuro per il testo secondario */
-  font-size: 0.9em;
-  margin-bottom: 1em;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.5;
+  font-size: 0.875rem;
 }
 
 .product-price {
-  font-weight: bold;
-  color: #0077b6; /* Blu medio per i prezzi */
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-agid);
 }
 
+/* Pulsanti di scorrimento */
 .scroll-buttons {
   display: flex;
   justify-content: center;
-  gap: 1em;
-  margin-top: 1em;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
 }
 
 .scroll-btn {
-  background-color: #0077b6; /* Blu medio per i pulsanti */
-  color: white;
+  width: 48px;
+  height: 48px;
   border: none;
   border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  font-size: 1.5em;
+  background: linear-gradient(135deg, var(--primary-agid), var(--secondary-agid));
+  color: var(--text-light);
+  font-size: 1.25rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
 }
 
 .scroll-btn:hover {
-  background-color: #023e8a; /* Blu più scuro per hover */
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Messaggi di stato */
-.success-message {
-  color: #2ecc71; /* Verde per messaggi di successo */
-  background-color: rgba(46, 204, 113, 0.1);
-  border: 1px solid #2ecc71;
-  padding: 0.75em;
-  border-radius: 0.25em;
-  margin-bottom: 1em;
+.scroll-btn:focus {
+  outline: 2px solid var(--primary-agid);
+  outline-offset: 2px;
 }
 
-.error-message {
-  color: #e74c3c; /* Rosso per messaggi di errore */
-  background-color: rgba(231, 76, 60, 0.1);
-  border: 1px solid #e74c3c;
-  padding: 0.75em;
-  border-radius: 0.25em;
-  margin-bottom: 1em;
+.scroll-btn:active {
+  transform: translateY(0) scale(0.95);
 }
 
-.info-message {
-  color: #3498db; /* Azzurro per messaggi informativi */
-  background-color: rgba(52, 152, 219, 0.1);
-  border: 1px solid #3498db;
-  padding: 0.75em;
-  border-radius: 0.25em;
-  margin-bottom: 1em;
+.scroll-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.warning-message {
-  color: #f39c12; /* Arancione per messaggi di avviso */
-  background-color: rgba(243, 156, 18, 0.1);
-  border: 1px solid #f39c12;
-  padding: 0.75em;
-  border-radius: 0.25em;
-  margin-bottom: 1em;
+/* Indicatori di scorrimento */
+.scroll-indicators {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
 }
 
-/* Stili per i form di autenticazione (login e registrazione) */
-.auth-container {
-  max-width: 30em;
-  margin: 7em auto 2em; /* Margine superiore aumentato per compensare l'header fisso */
-  padding: 2em;
-  background-color: white;
-  border-radius: 0.5em;
-  box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.1);
+.scroll-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.auth-container h2 {
-  margin-bottom: 1em;
-  color: #03045e; /* Blu scuro per i titoli */
-  text-align: center;
+.scroll-indicator.active {
+  background: var(--primary-agid);
+  transform: scale(1.2);
 }
 
+/* Form Styles */
 .form-group {
-  margin-bottom: 1.5em;
+  margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-  color: #4a5568; /* Grigio scuro per le label */
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input,
+.form-group textarea {
   width: 100%;
-  padding: 0.75em;
-  border: 1px solid #cad2d9; /* Grigio chiaro per i bordi */
-  border-radius: 0.25em;
-  font-size: 1em;
-  transition: border-color 0.3s ease;
+  padding: var(--spacing-sm);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--surface);
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group input[type="password"]:focus {
-  border-color: #0077b6; /* Blu medio per il focus */
+.form-group input:focus,
+.form-group textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 0.125em rgba(0, 119, 182, 0.2); /* Ombra blu chiaro per il focus */
+  border-color: var(--primary-agid);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
-.form-group input[type="checkbox"] {
-  margin-right: 0.5em;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem;
+    margin: var(--spacing-lg) 0;
+  }
+
+  .recommended-products {
+    padding: var(--spacing-lg) 5%;
+  }
+
+  .product-card {
+    min-width: 180px;
+    max-width: 200px;
+  }
+
+  .carousel-container {
+    height: 300px;
+    margin-bottom: var(--spacing-lg);
+  }
 }
 
-.form-group .checkbox-label {
-  display: inline-flex;
-  align-items: center;
+@media (max-width: 480px) {
+  main {
+    padding-top: 4rem;
+  }
+
+  .welcome-title {
+    font-size: 1.75rem;
+  }
+
+  .recommended-products h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-card {
+    min-width: 160px;
+    max-width: 180px;
+  }
+
+  .carousel-container {
+    height: 250px;
+    border-radius: var(--radius-md);
+  }
+
+  .product-info {
+    padding: var(--spacing-sm);
+  }
+
+  .scroll-buttons {
+    gap: var(--spacing-xs);
+  }
+
+  .scroll-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
 }
 
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2em;
+/* Accessibilità */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.auth-links {
-  margin-top: 1.5em;
-  text-align: center;
+@media (prefers-contrast: high) {
+  .product-card {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+  }
 }
 
-.auth-links a {
-  color: #0077b6; /* Blu medio per i link */
-  text-decoration: none;
+/* Focus visible per migliore accessibilità */
+.product-card:focus-visible,
+.btn:focus-visible,
+.scroll-btn:focus-visible {
+  outline: 3px solid var(--primary-agid);
+  outline-offset: 2px;
 }
 
-.auth-links a:hover {
-  text-decoration: underline;
-}
-
-.error-message {
-  color: #e74c3c; /* Rosso per messaggi di errore */
-  margin-top: 0.5em;
-  font-size: 0.9em;
-}
-
-.success-message {
-  color: #2ecc71; /* Verde per messaggi di successo */
-  margin-top: 0.5em;
-  font-size: 0.9em;
-}
-
-/* Indicatore di forza della password */
-.password-strength {
-  margin-top: 0.5em;
-  height: 0.5em;
-  border-radius: 0.25em;
-  background-color: #cad2d9; /* Grigio chiaro per sfondo */
-  overflow: hidden;
-}
-
-.password-strength-bar {
-  height: 100%;
-  width: 0;
-  transition: width 0.3s ease, background-color 0.3s ease;
-}
-
-.password-strength-bar.weak {
-  width: 33.33%;
-  background-color: #e74c3c; /* Rosso per password debole */
-}
-
-.password-strength-bar.medium {
-  width: 66.66%;
-  background-color: #f39c12; /* Arancione per password media */
-}
-
-.password-strength-bar.strong {
-  width: 100%;
-  background-color: #2ecc71; /* Verde per password forte */
-}
-
-.password-strength-text {
-  font-size: 0.8em;
-  margin-top: 0.25em;
-}
-
-/* Accessibilità - Focus visibile */
-a:focus,
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
-  outline: 0.125em solid #0077b6; /* Blu medio per il focus */
-  outline-offset: 0.125em;
-}
-
-/* Accessibilità - Nascondere visivamente ma mantenere accessibile agli screen reader */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+/* Print styles */
+@media print {
+  header {
+    position: static;
+    background: none !important;
+    color: black !important;
+  }
+  
+  main {
+    padding-top: 0;
+  }
+  
+  .carousel-container,
+  .scroll-buttons {
+    display: none;
+  }
 }
 

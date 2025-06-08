@@ -1,75 +1,128 @@
 /* 
- * Stili per il footer del sito
- * Colori migliorati per una migliore accessibilità e coerenza con lo sfondo
+ * Footer CSS - Versione Colori AgID
+ * Coordinato con la palette blu istituzionale AgID
  */
 
 footer {
-  background-color: #03045e; /* Blu scuro, stesso dell'header per coerenza */
-  color: white; /* Testo bianco per miglior contrasto */
-  text-align: center;
-  padding: 1.5em 0; /* Padding aumentato per miglior leggibilità */
-  margin-top: 2em;
-  width: 100%;
+  background: linear-gradient(135deg, var(--primary-agid, #0066CC) 0%, var(--secondary-agid, #0059B3) 100%);
+  color: var(--text-light, #FFFFFF);
+  padding: var(--spacing-xl, 3rem) 0 var(--spacing-lg, 2rem);
+  margin-top: var(--spacing-xl, 3rem);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Link nel footer */
-footer a {
-  color: #90e0ef; /* Azzurro chiaro per i link */
-  text-decoration: none;
-  transition: color 0.3s ease;
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-agid, #003366), var(--info-agid, #1B558E), var(--secondary-agid, #0059B3));
 }
 
-footer a:hover {
-  color: #caf0f8; /* Azzurro più chiaro per hover */
-  text-decoration: underline;
-}
-
-/* Sezione copyright */
-.copyright {
-  margin-top: 0.5em;
-  font-size: 0.9em;
-}
-
-/* Layout per footer con più sezioni */
 .footer-content {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1em;
-}
-
-.footer-section {
-  margin: 1em;
-  min-width: 200px;
+  padding: 0 5%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg, 2rem);
 }
 
 .footer-section h3 {
-  margin-bottom: 1em;
-  font-size: 1.2em;
-  color: #90e0ef; /* Azzurro chiaro per i titoli */
+  color: var(--text-light, #FFFFFF);
+  margin-bottom: var(--spacing-md, 1.5rem);
+  font-size: 1.25rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--info-agid, #1B558E);
+  border-radius: 2px;
+}
+
+.footer-section p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm, 1rem);
 }
 
 .footer-section ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-section ul li {
-  margin-bottom: 0.5em;
+  margin-bottom: var(--spacing-xs, 0.5rem);
 }
 
-/* Media query per schermi piccoli */
-@media only screen and (max-width: 48em) { /* 768px / 16 */
+.footer-section ul li a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: var(--transition, all 0.3s ease);
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.footer-section ul li a:hover {
+  color: var(--info-agid, #1B558E);
+  text-decoration: underline;
+  transform: translateX(5px);
+}
+
+.footer-section ul li a:focus {
+  outline: 2px solid var(--info-agid, #1B558E);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: var(--spacing-lg, 2rem);
+  padding-top: var(--spacing-lg, 2rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.copyright p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer {
+    padding: var(--spacing-lg, 2rem) 0 var(--spacing-md, 1.5rem);
+  }
+  
   .footer-content {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md, 1.5rem);
     text-align: center;
   }
   
-  .footer-section {
-    margin: 1em 0;
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
+@media (max-width: 480px) {
+  footer {
+    padding: var(--spacing-md, 1.5rem) 0 var(--spacing-sm, 1rem);
+  }
+  
+  .footer-content {
+    padding: 0 var(--spacing-sm, 1rem);
+  }
+}

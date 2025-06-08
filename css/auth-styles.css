@@ -1,0 +1,522 @@
+/* 
+ * Auth Styles CSS - Versione Colori AgID
+ * Pagine di login e registrazione con palette blu istituzionale AgID
+ */
+
+/* CSS Custom Properties - Colori AgID */
+:root {
+  /* Palette colori AgID per auth */
+  --color-primary: #0066CC;
+  --color-secondary: #0059B3;
+  --color-accent: #003366;
+  --color-success: #4CAF50;
+  --color-info: #1B558E;
+  --color-warning: #FFA726;
+  --color-danger: #D1344C;
+  
+  /* Colori testo */
+  --color-text: #1A1A1A;
+  --color-text-secondary: #5C6F82;
+  --color-text-light: #ffffff;
+  
+  /* Sfondi */
+  --color-background: #F0F6FC;
+  --color-background-secondary: #E8F2FF;
+  --color-surface: #ffffff;
+  --color-border: #EFEFEF;
+  --color-border-focus: var(--color-primary);
+  
+  /* Gradiente navbar (stesso dell'header) */
+  --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
+  
+  /* Design tokens */
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 2px 4px rgba(0, 102, 204, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 102, 204, 0.15);
+  --shadow-lg: 0 8px 24px rgba(0, 102, 204, 0.2);
+}
+
+/* Reset e base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-secondary) 100%);
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Layout principale per auth pages */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  padding-top: calc(5rem + var(--spacing-md)); /* Spazio per header fisso */
+}
+
+.auth-container {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+}
+
+/* Header auth */
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.auth-logo {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--spacing-md);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 24px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+}
+
+.auth-title {
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs);
+}
+
+.auth-subtitle {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Form */
+.auth-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+  position: relative;
+}
+
+.form-group.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-input-wrapper {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--spacing-sm) 0 52px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background: var(--color-surface);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.form-input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-input.success {
+  border-color: var(--color-success);
+}
+
+.form-input.success:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.form-input.error {
+  border-color: var(--color-danger);
+}
+
+.form-input.error:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(209, 52, 76, 0.1);
+}
+
+/* Icone nei campi - Colori AgID */
+.form-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-secondary);
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.form-input:focus + .form-icon {
+  color: var(--color-primary);
+}
+
+.form-input.success + .form-icon {
+  color: var(--color-success);
+}
+
+.form-input.error + .form-icon {
+  color: var(--color-danger);
+}
+
+/* Checkbox */
+.checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-md) 0;
+}
+
+.checkbox-input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.checkbox-label {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.checkbox-label a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.checkbox-label a:hover {
+  text-decoration: underline;
+  color: var(--color-secondary);
+}
+
+/* Password strength indicator */
+.password-strength {
+  margin-top: var(--spacing-xs);
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.password-strength-bar {
+  height: 100%;
+  width: 0;
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.password-strength-bar.weak {
+  width: 33.33%;
+  background: var(--color-danger);
+}
+
+.password-strength-bar.medium {
+  width: 66.66%;
+  background: var(--color-warning);
+}
+
+.password-strength-bar.strong {
+  width: 100%;
+  background: var(--color-success);
+}
+
+.password-strength-text {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+}
+
+/* Pulsanti */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-text-light);
+  width: 100%;
+  height: 56px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, #0052A3, #004080);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Link di supporto */
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.auth-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--transition);
+  padding: 0.25rem 0;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+  color: var(--color-secondary);
+}
+
+.auth-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.auth-footer-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.auth-footer-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.auth-footer-link:hover {
+  text-decoration: underline;
+  color: var(--color-secondary);
+}
+
+/* Messaggi di errore e successo */
+.message {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-md);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.message.error {
+  background: rgba(209, 52, 76, 0.1);
+  color: var(--color-danger);
+  border: 1px solid rgba(209, 52, 76, 0.2);
+}
+
+.message.success {
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.error-message {
+  color: var(--color-danger);
+  font-size: 12px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: var(--spacing-sm);
+    padding-top: calc(4rem + var(--spacing-sm));
+  }
+  
+  .auth-container {
+    padding: var(--spacing-lg);
+    max-width: 100%;
+  }
+  
+  .auth-title {
+    font-size: 24px;
+  }
+  
+  .form-group.form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .auth-links {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Animazioni */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Focus accessibilità */
+.btn:focus-visible,
+.form-input:focus-visible,
+.checkbox-input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.btn-loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Accessibilità */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .auth-container {
+    border: 2px solid var(--color-text);
+  }
+  
+  .form-input {
+    border-width: 2px;
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
+
