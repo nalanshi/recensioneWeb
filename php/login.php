@@ -1,13 +1,4 @@
 <?php
-/**
- * Script per la gestione del login degli utenti
- * 
- * Questo script gestisce l'autenticazione degli utenti, verificando le credenziali
- * inserite nel form di login e creando una sessione in caso di successo.
- * 
- * @author DishDiveReview Team
- * @version 1.0
- */
 
 // Avvio della sessione con impostazioni di sicurezza
 session_set_cookie_params([

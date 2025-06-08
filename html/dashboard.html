@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ReviewDiver</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Skip link per accessibilità -->
+  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
+  
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="dashboard.html" class="logo-link" aria-label="Torna alla dashboard di ReviewDiver">
+          <img src="../images/logo.png" alt="Logo ReviewDiver" class="logo">
+        </a>
+        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <div class="nav-links" role="menubar">
+          <li><a href="#home" class="nav-link-item">Home</a></li>
+          <li><a href="#recensioni" class="nav-link-item">Recensioni</a></li>
+          <li><a href="#classifiche" class="nav-link-item">Classifiche</a></li>
+          <li><a href="#contatti" class="nav-link-item">Contatti</a></li>
+        </div>
+      </div>
+        <div class="nav-right">
+          <div class="user-info">
+            <img src="../images/profileimage/image1.jpg" alt="Avatar utente" class="user-avatar" id="userAvatar">
+            <span class="user-name" id="userName">Lin Ruize</span>
+          </div>
+          
+          <button class="logout-btn" id="logoutBtn" aria-label="Esci dal tuo account">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+          
+          <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Apri menu laterale">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Chiudi menu laterale">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul class="nav-menu">
+        <li class="nav-item active">
+          <a href="#profilo" class="nav-link" data-section="profilo">
+            <i class="fas fa-user"></i>
+            <span>Il mio profilo</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#recensioni" class="nav-link" data-section="recensioni">
+            <i class="fas fa-star"></i>
+            <span>Le mie recensioni</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#impostazioni" class="nav-link" data-section="impostazioni">
+            <i class="fas fa-cog"></i>
+            <span>Impostazioni</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+    <div class="content-wrapper">
+      
+      <!-- Sezione Il mio profilo -->
+      <section id="profilo-section" class="content-section active">
+        <div class="section-header">
+          <h1>Il mio profilo</h1>
+          <p>Gestisci le informazioni del tuo account</p>
+        </div>
+        <div class="profile-container">
+          <!-- Informazioni profilo -->
+          <div class="profile-info-section">
+              <div class="profile-basic-info">
+                <div class="profile-name-section">
+                  <h2 class="profile-name">Lin Ruize</h2>
+                  <p class="profile-username">@alexshu2002</p>
+                </div>
+                <div class="basic-fields">
+                  <div class="form-group">
+                    <label for="lastName">Cognome*</label>
+                    <input type="text" id="lastName" name="lastName" value="Lin" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="firstName">Nome*</label>
+                    <input type="text" id="firstName" name="firstName" value="Ruize" required>
+                  </div>
+                </div>
+                <div class="photo-container">
+                <img src="/images/profileimage/image1.jpg" alt="Foto profilo" class="profile-photo" id="profilePhoto">
+                <div class="photo-overlay">
+                  <button class="change-photo-btn" id="changePhotoBtn" aria-label="Cambia foto profilo">
+                    <i class="fas fa-camera"></i>
+                    <span>Cambia foto</span>
+                  </button>
+                </div>
+              </div>
+              </div>
+            <form class="profile-form" id="profileForm">
+              
+              <div class="form-group">
+                <label for="email">Indirizzo email*</label>
+                <input type="email" id="email" name="email" value="shualex16042002@gmail.com" required>
+                <small class="form-note">Ti manderemo la conferma del tuo ordine qui</small>
+              </div>
+              
+              <div class="form-group">
+                <label for="username">Nome utente</label>
+                <input type="text" id="username" name="username" value="alexshu2002" readonly>
+                <small class="form-note">Il nome utente non può essere modificato</small>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="birthDay">Giorno</label>
+                  <select id="birthDay" name="birthDay">
+                    <option value="1" selected>1</option>
+                    <!-- Altri giorni generati dinamicamente -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="birthMonth">Mese</label>
+                  <select id="birthMonth" name="birthMonth">
+                    <option value="1" selected>Gennaio</option>
+                    <!-- Altri mesi -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="birthYear">Anno</label>
+                  <select id="birthYear" name="birthYear">
+                    <option value="2002" selected>2002</option>
+                    <!-- Altri anni generati dinamicamente -->
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i>
+                  Salva modifiche
+                </button>
+                <button type="button" class="btn btn-secondary" id="changePasswordBtn">
+                  <i class="fas fa-key"></i>
+                  Cambia password
+                </button>
+              </div>
+            </form>
+            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+          </div>
+        </div>
+        
+        <!-- Sezione pericolosa -->
+        <div class="danger-zone">
+          <h3>Zona pericolosa</h3>
+          <p>Le azioni seguenti sono irreversibili. Procedi con cautela.</p>
+          <button class="btn btn-danger" id="deleteAccountBtn">
+            <i class="fas fa-trash"></i>
+            Elimina account
+          </button>
+        </div>
+      </section>
+
+      <!-- Sezione Le mie recensioni -->
+      <section id="recensioni-section" class="content-section">
+        <div class="section-header">
+          <h1>Le mie recensioni</h1>
+          <p>Visualizza e gestisci tutte le tue recensioni</p>
+        </div>
+        
+        <div class="reviews-container">
+          <!-- Barra di ricerca -->
+          <div class="search-container">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="reviewSearch" placeholder="Cerca nelle tue recensioni...">
+            </div>
+            <div class="filter-options">
+              <select id="ratingFilter">
+                <option value="">Tutte le valutazioni</option>
+                <option value="5">5 stelle</option>
+                <option value="4">4 stelle</option>
+                <option value="3">3 stelle</option>
+                <option value="2">2 stelle</option>
+                <option value="1">1 stella</option>
+              </select>
+              <select id="dateFilter">
+                <option value="">Tutte le date</option>
+                <option value="week">Ultima settimana</option>
+                <option value="month">Ultimo mese</option>
+                <option value="year">Ultimo anno</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Lista recensioni -->
+          <div class="reviews-list" id="reviewsList">
+            <!-- Le recensioni verranno caricate dinamicamente -->
+          </div>
+          
+          <!-- Paginazione -->
+          <div class="pagination" id="reviewsPagination">
+            <!-- Paginazione generata dinamicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Sezione Impostazioni -->
+      <section id="impostazioni-section" class="content-section">
+        <div class="section-header">
+          <h1>Impostazioni</h1>
+          <p>Personalizza la tua esperienza su ReviewDiver</p>
+        </div>
+        
+        <div class="settings-container">
+          <!-- Tema -->
+          <div class="setting-group">
+            <h3>Aspetto</h3>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="themeSelect">Tema</label>
+                <p>Scegli il tema che preferisci per l'interfaccia</p>
+              </div>
+              <select id="themeSelect" class="setting-control">
+                <option value="light">Chiaro</option>
+                <option value="dark">Scuro</option>
+                <option value="auto">Automatico</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Notifiche -->
+          <div class="setting-group">
+            <h3>Notifiche</h3>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="emailNotifications">Notifiche email</label>
+                <p>Ricevi aggiornamenti via email</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="emailNotifications" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="reviewNotifications">Notifiche recensioni</label>
+                <p>Ricevi notifiche quando qualcuno risponde alle tue recensioni</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="reviewNotifications" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Privacy -->
+          <div class="setting-group">
+            <h3>Privacy</h3>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="profileVisibility">Profilo pubblico</label>
+                <p>Rendi il tuo profilo visibile agli altri utenti</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="profileVisibility" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="showEmail">Mostra email</label>
+                <p>Permetti ad altri utenti di vedere la tua email</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="showEmail">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Lingua -->
+          <div class="setting-group">
+            <h3>Lingua e regione</h3>
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="languageSelect">Lingua</label>
+                <p>Seleziona la lingua dell'interfaccia</p>
+              </div>
+              <select id="languageSelect" class="setting-control">
+                <option value="it" selected>Italiano</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="settings-actions">
+            <button type="button" class="btn btn-primary" id="saveSettingsBtn">
+              <i class="fas fa-save"></i>
+              Salva impostazioni
+            </button>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <!-- Modal per cambio password -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Cambia password</h3>
+        <button class="modal-close" id="passwordModalClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form class="modal-body" id="passwordForm">
+        <div class="form-group">
+          <label for="currentPassword">Password attuale*</label>
+          <input type="password" id="currentPassword" name="currentPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="newPassword">Nuova password*</label>
+          <input type="password" id="newPassword" name="newPassword" required>
+          <small class="form-note">Minimo 8 caratteri, almeno una maiuscola e un numero</small>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Conferma nuova password*</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelPasswordBtn">Annulla</button>
+          <button type="submit" class="btn btn-primary">Cambia password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal per conferma eliminazione account -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Elimina account</h3>
+        <button class="modal-close" id="deleteModalClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e comporterà:</p>
+          <ul>
+            <li>Perdita di tutte le tue recensioni</li>
+            <li>Cancellazione dei dati del profilo</li>
+            <li>Impossibilità di recuperare l'account</li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="deleteConfirmation">Digita "ELIMINA" per confermare:</label>
+          <input type="text" id="deleteConfirmation" placeholder="ELIMINA">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Annulla</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>Elimina account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay per mobile -->
+  <div class="overlay" id="overlay"></div>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
+
