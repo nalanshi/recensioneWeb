@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReviewDiver</title>
+  <title>DishDiveReview</title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
@@ -11,13 +11,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- Link per saltare al contenuto principale per accessibilità -->
-  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
-  
+
   <header>
     <nav>
       <div class="nav-container">
-        <a href="index.html" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
         <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
@@ -26,22 +24,14 @@
           <div class="bar"></div>
         </div>
         <ul class="nav-links" role="menubar">
-          <li><span lang="en">Home</span></li>
+          <li><a href="../index.php" lang="en">Home</a></li>
           <li><a href="#recensioni">Recensioni</a></li>
           <li><a href="#classifiche">Classifiche</a></li>
           <li><a href="#contatti">Contatti</a></li>
         </ul>
       </div>
       <div class="login-container">
-        <a href="../html/login.html" class="login-link" aria-label="Accedi al tuo account">
-          <div class="user-icon-bg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="userIcon">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <div class="login-text">Login</div>
-        </a>
+        <!-- HEADER_LOGIN_PLACEHOLDER -->
       </div>
     </nav>
   </header>
@@ -52,20 +42,22 @@
       <div class="carousel-slide active" style="background-image: url('../images/products/product1.jpg')" role="img" aria-label="Smartphone XYZ Pro in evidenza"></div>
       <div class="carousel-slide" style="background-image: url('../images/products/product2.jpg')" role="img" aria-label="Fotocamera DSLR 4K in evidenza"></div>
       <div class="carousel-slide" style="background-image: url('../images/products/product3.jpg')" role="img" aria-label="Cuffie Wireless Premium in evidenza"></div>
-      
+
       <div class="carousel-dots" role="tablist" aria-label="Selettore slide carousel">
         <button class="dot active" role="tab" aria-selected="true" aria-label="Slide 1" tabindex="0"></button>
         <button class="dot" role="tab" aria-selected="false" aria-label="Slide 2" tabindex="-1"></button>
         <button class="dot" role="tab" aria-selected="false" aria-label="Slide 3" tabindex="-1"></button>
       </div>
     </section>
-    
-    <h1 class="welcome-title">Benvenuto su <span lang="en">ReviewDiver!</span></h1>
-    
+
+    <h1 class="welcome-title">Benvenuto su <span lang="en">DishDiveReview!</span></h1>
+
+    <!--LOGIN_PLACEHOLDER-->
+
     <!-- Recommended Products Section -->
     <section class="recommended-products" aria-labelledby="prodotti-consigliati">
       <h2 id="prodotti-consigliati">Prodotti Consigliati</h2>
-      
+
       <div class="products-scroll-container">
         <div class="products-container" role="grid" aria-label="Griglia prodotti consigliati">
         <article class="product-card" role="gridcell" tabindex="0">
@@ -76,7 +68,7 @@
             <div class="product-price" aria-label="Prezzo: 899 euro e 99 centesimi">€899,99</div>
           </div>
         </article>
-        
+
         <article class="product-card" role="gridcell" tabindex="0">
           <img src="../images/products/product2.jpg" alt="Fotocamera DSLR 4K" class="product-image" loading="lazy">
           <div class="product-info">
@@ -85,7 +77,7 @@
             <div class="product-price" aria-label="Prezzo: 1299 euro e 99 centesimi">€1.299,99</div>
           </div>
         </article>
-        
+
         <article class="product-card" role="gridcell" tabindex="0">
           <img src="../images/products/product3.jpg" alt="Cuffie Wireless Premium" class="product-image" loading="lazy">
           <div class="product-info">
@@ -94,7 +86,7 @@
             <div class="product-price" aria-label="Prezzo: 349 euro e 99 centesimi">€349,99</div>
           </div>
         </article>
-        
+
         <article class="product-card" role="gridcell" tabindex="0">
           <img src="../images/products/product1.jpg" alt="Tablet Ultra Slim" class="product-image" loading="lazy">
           <div class="product-info">
@@ -103,7 +95,7 @@
             <div class="product-price" aria-label="Prezzo: 599 euro e 99 centesimi">€599,99</div>
           </div>
         </article>
-        
+
         <article class="product-card" role="gridcell" tabindex="0">
           <img src="../images/products/product2.jpg" alt="Action Camera HD" class="product-image" loading="lazy">
           <div class="product-info">
@@ -114,7 +106,7 @@
         </article>
       </div>
       </div>
-      
+
       <div class="scroll-buttons" role="group" aria-label="Controlli scorrimento prodotti">
         <button id="scroll-left" class="scroll-btn" aria-label="Scorri prodotti a sinistra" type="button">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -129,11 +121,11 @@
       </div>
     </section>
   </main>
-  
+
   <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>DiveReview</h3>
+        <h3>DishDiveReview</h3>
         <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
       </div>
       <div class="footer-section">
@@ -158,8 +150,7 @@
       <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
     </div>
   </footer>
-  
+
   <script src="../js/main.js"></script>
 </body>
 </html>
-

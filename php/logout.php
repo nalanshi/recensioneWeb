@@ -12,24 +12,18 @@
 // Avvio della sessione
 session_start();
 
+// Inclusione del file di configurazione del database
+require_once 'database.php';
+
 // Verifica che l'utente sia effettivamente loggato
 if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) {
     // Elimina il cookie "remember_token" se esiste
     if (isset($_COOKIE['remember_token'])) {
         // Connessione al database per eliminare il token
         try {
-            // Dati di connessione al database (da spostare in un file di configurazione)
-            $host = 'localhost';
-            $port = '5432';
-            $dbname = 'progettotecweb';
-            $userdbname = 'root';
-            $passwordDB = '';
-            
-            // Creazione della connessione PDO
-            $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-            $pdo = new PDO($dsn, $userdbname, $passwordDB);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
+            // Utilizzo della connessione dal file database.php
+            $pdo = DatabaseConfig::getConnection();
+
             // Elimina il token dal database
             $stmt = $pdo->prepare("UPDATE utenti SET remember_token = NULL WHERE id = :id");
             $stmt->bindParam(':id', $_SESSION['user_id'], PDO::PARAM_INT);
@@ -38,14 +32,14 @@ if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) {
             // Registra l'errore ma continua con il logout
             error_log("Errore durante l'eliminazione del token: " . $e->getMessage());
         }
-        
+
         // Elimina il cookie lato client
         setcookie('remember_token', '', time() - 3600, '/', '', true, true);
     }
-    
+
     // Distruggi tutti i dati della sessione
     $_SESSION = array();
-    
+
     // Se è stato avviato un cookie di sessione, distruggilo
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
@@ -54,7 +48,7 @@ if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) {
             $params["secure"], $params["httponly"]
         );
     }
-    
+
     // Distruggi la sessione
     session_destroy();
 }
@@ -67,4 +61,3 @@ $_SESSION['logout_success'] = "Hai effettuato il logout con successo.";
 header("Location: ../index.php");
 exit();
 ?>
-

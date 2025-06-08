@@ -224,7 +224,7 @@ class DashboardManager {
     toggleMobileSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
-        
+
         if (sidebar && overlay) {
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
@@ -238,7 +238,7 @@ class DashboardManager {
     closeMobileSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
-        
+
         if (sidebar && overlay) {
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
@@ -251,7 +251,7 @@ class DashboardManager {
      */
     async loadUserData() {
         try {
-            const response = await fetch('php/profile_api.php');
+            const response = await fetch('../php/profile_api.php');
             const data = await response.json();
 
             if (data.success) {
@@ -315,7 +315,7 @@ class DashboardManager {
      */
     async handleProfileSubmit(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(e.target);
         const data = {
             last_name: formData.get('lastName'),
@@ -328,7 +328,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('php/profile_api.php', {
+            const response = await fetch('../php/profile_api.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -374,7 +374,7 @@ class DashboardManager {
         formData.append('csrf_token', this.csrfToken);
 
         try {
-            const response = await fetch('php/actions_api.php?action=upload_photo', {
+            const response = await fetch('../php/actions_api.php?action=upload_photo', {
                 method: 'POST',
                 body: formData
             });
@@ -402,7 +402,7 @@ class DashboardManager {
      */
     async handlePasswordChange(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(e.target);
         const data = {
             current_password: formData.get('currentPassword'),
@@ -412,7 +412,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('php/actions_api.php?action=change_password', {
+            const response = await fetch('../php/actions_api.php?action=change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -440,14 +440,14 @@ class DashboardManager {
      */
     async handleAccountDelete() {
         const confirmation = document.getElementById('deleteConfirmation').value;
-        
+
         if (confirmation !== 'ELIMINA') {
             this.showNotification('Conferma non valida', 'error');
             return;
         }
 
         try {
-            const response = await fetch('php/profile_api.php', {
+            const response = await fetch('../php/profile_api.php', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -463,7 +463,7 @@ class DashboardManager {
             if (result.success) {
                 this.showNotification('Account eliminato con successo', 'success');
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = '../php/login_form.php';
                 }, 2000);
             } else {
                 this.showNotification(result.message || 'Errore durante l\'eliminazione', 'error');
@@ -491,7 +491,7 @@ class DashboardManager {
         });
 
         try {
-            const response = await fetch(`php/reviews_api.php?${params}`);
+            const response = await fetch(`../php/reviews_api.php?${params}`);
             const data = await response.json();
 
             if (data.success) {
@@ -621,7 +621,7 @@ class DashboardManager {
         }
 
         try {
-            const response = await fetch(`php/reviews_api.php?id=${reviewId}`, {
+            const response = await fetch(`../php/reviews_api.php?id=${reviewId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -650,16 +650,42 @@ class DashboardManager {
      */
     async loadUserSettings() {
         try {
-            const response = await fetch('php/settings_api.php');
-            const data = await response.json();
+            const response = await fetch('/php/settings_api.php', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            // Verifica se la risposta è OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Prova a parsare il JSON
+            let data;
+            try {
+                data = await response.json();
+            } catch (jsonError) {
+                console.error('Errore nel parsing del JSON:', jsonError);
+                // Se fallisce il parsing del JSON, prova a leggere il testo della risposta
+                const textResponse = await response.text();
+                console.error('Risposta non JSON:', textResponse);
+                showMessage('Errore di comunicazione con il server', 'error');
+                return false;
+            }
 
             if (data.success) {
                 this.populateSettings(data.data);
             } else {
-                this.showNotification('Errore nel caricamento delle impostazioni', 'error');
+                console.error('Errore nel caricamento delle impostazioni:', data.message);
+                showMessage('Errore nel caricamento delle impostazioni', 'error');
+                return false;
             }
         } catch (error) {
             console.error('Errore caricamento impostazioni:', error);
+            showMessage('Errore di connessione al server', 'error');
+            return false;
         }
     }
 
@@ -694,7 +720,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('php/settings_api.php', {
+            const response = await fetch('../php/settings_api.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -720,16 +746,16 @@ class DashboardManager {
      */
     setupTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
-        
+
         // Imposta il valore del selettore tema
         const themeSelect = document.getElementById('themeSelect');
         if (themeSelect) {
             themeSelect.value = savedTheme;
         }
-        
+
         // Applica il tema salvato
         this.applyTheme(savedTheme);
-        
+
         // Listener per i cambiamenti delle preferenze di sistema
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         mediaQuery.addEventListener('change', (e) => {
@@ -754,22 +780,22 @@ class DashboardManager {
     applyTheme(theme) {
         // Salva il tema originale per riferimento
         this.currentTheme = theme;
-        
+
         let actualTheme = theme;
         if (theme === 'auto') {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             actualTheme = prefersDark ? 'dark' : 'light';
         }
-        
+
         // Applica il tema al documento
         document.documentElement.setAttribute('data-theme', actualTheme);
-        
+
         // Aggiorna anche il selettore se necessario
         const themeSelect = document.getElementById('themeSelect');
         if (themeSelect && themeSelect.value !== theme) {
             themeSelect.value = theme;
         }
-        
+
         console.log(`Tema applicato: ${theme} (effettivo: ${actualTheme})`);
     }
 
@@ -839,7 +865,7 @@ class DashboardManager {
         // Validazione password
         const newPasswordInput = document.getElementById('newPassword');
         const confirmPasswordInput = document.getElementById('confirmPassword');
-        
+
         if (newPasswordInput) {
             newPasswordInput.addEventListener('input', (e) => {
                 this.validatePassword(e.target);
@@ -856,7 +882,7 @@ class DashboardManager {
     validateEmail(input) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValid = emailRegex.test(input.value);
-        
+
         this.setFieldValidation(input, isValid, 'Email non valida');
         return isValid;
     }
@@ -866,14 +892,14 @@ class DashboardManager {
         const minLength = password.length >= 8;
         const hasUpper = /[A-Z]/.test(password);
         const hasNumber = /[0-9]/.test(password);
-        
+
         const isValid = minLength && hasUpper && hasNumber;
         let message = '';
-        
+
         if (!minLength) message = 'Minimo 8 caratteri';
         else if (!hasUpper) message = 'Almeno una maiuscola';
         else if (!hasNumber) message = 'Almeno un numero';
-        
+
         this.setFieldValidation(input, isValid, message);
         return isValid;
     }
@@ -881,7 +907,7 @@ class DashboardManager {
     validatePasswordConfirmation(input) {
         const newPassword = document.getElementById('newPassword')?.value;
         const isValid = input.value === newPassword;
-        
+
         this.setFieldValidation(input, isValid, 'Le password non coincidono');
         return isValid;
     }
@@ -940,7 +966,7 @@ class DashboardManager {
         if (modal) {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+
             // Focus sul primo input
             const firstInput = modal.querySelector('input, textarea, select');
             if (firstInput) {
@@ -954,7 +980,7 @@ class DashboardManager {
         if (modal) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
-            
+
             // Reset form se presente
             const form = modal.querySelector('form');
             if (form) {
@@ -980,7 +1006,7 @@ class DashboardManager {
      */
     logout() {
         if (confirm('Sei sicuro di voler uscire?')) {
-            window.location.href = 'php/logout.php';
+            window.location.href = '../php/logout.php';
         }
     }
 
@@ -1126,23 +1152,23 @@ style.textContent = `
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
     }
-    
+
     @keyframes slideOutRight {
         from { transform: translateX(0); opacity: 1; }
         to { transform: translateX(100%); opacity: 0; }
     }
-    
+
     .no-reviews {
         text-align: center;
         padding: var(--spacing-xl);
         color: var(--text-secondary);
     }
-    
+
     .pagination-dots {
         padding: var(--spacing-xs) var(--spacing-sm);
         color: var(--text-secondary);
     }
-    
+
     .btn-action {
         background: none;
         border: 1px solid var(--border);
@@ -1153,17 +1179,17 @@ style.textContent = `
         transition: var(--transition);
         font-size: 0.85rem;
     }
-    
+
     .btn-action:hover {
         color: var(--primary-agid);
         border-color: var(--primary-agid);
     }
-    
+
     .btn-action.btn-danger:hover {
         color: var(--danger-agid);
         border-color: var(--danger-agid);
     }
-    
+
     .pagination-btn {
         padding: var(--spacing-xs) var(--spacing-sm);
         border: 1px solid var(--border);
@@ -1176,12 +1202,12 @@ style.textContent = `
         height: 40px;
         margin: 0 2px;
     }
-    
+
     .pagination-btn:hover {
         color: var(--primary-agid);
         border-color: var(--primary-agid);
     }
-    
+
     .pagination-btn.active {
         background: var(--primary-agid);
         color: var(--text-light);
@@ -1189,4 +1215,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-

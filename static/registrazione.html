@@ -11,29 +11,22 @@
   <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
-  <!-- Link per saltare al contenuto principale per accessibilità -->
-  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
-  
+
   <header>
     <nav>
       <div class="nav-container">
-        <a href="index.html" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
-        </a> 
-        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
+        </a>
         <ul class="nav-links" role="menubar">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="../index.php">Home</a></li>
           <li><a href="#recensioni">Recensioni</a></li>
           <li><a href="#classifiche">Classifiche</a></li>
           <li><a href="#contatti">Contatti</a></li>
         </ul>
       </div>
       <div class="login-container">
-        <a href="../html/login.html" class="login-link" aria-label="Accedi al tuo account">
+        <a href="../php/login_form.php" class="login-link" aria-label="Accedi al tuo account">
           <div class="user-icon-bg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="userIcon">
               <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -42,7 +35,7 @@
               <path d="M23 11h-6"></path>
             </svg>
           </div>
-          <div class="login-text">Accedi</div>
+          <div class="login-text">Login</div>
         </a>
       </div>
     </nav>
@@ -62,7 +55,7 @@
       <div id="error-container" aria-live="polite"></div>
 
       <form id="registration-form" class="auth-form" action="../php/registrazione.php" method="post" onsubmit="return validateRegistrationForm()">
-        
+
         <div class="form-group form-row">
           <div>
             <label for="nome" class="form-label">Nome</label>
@@ -220,7 +213,7 @@
       <div class="auth-footer">
         <p class="auth-footer-text">
           Hai già un account? 
-          <a href="../html/login.html" class="auth-footer-link">Accedi qui</a>
+          <a href="../php/login_form.php" class="auth-footer-link">Accedi qui</a>
         </p>
       </div>
     </div>
@@ -255,4 +248,3 @@
   </footer>
 </body>
 </html>
-

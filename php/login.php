@@ -1,4 +1,16 @@
 <?php
+/**
+ * Script per la gestione del login degli utenti
+ * 
+ * Questo script gestisce il processo di autenticazione, verificando le credenziali
+ * dell'utente e creando una sessione in caso di successo.
+ * 
+ * @author DishDiveReview Team
+ * @version 1.1
+ */
+
+// Inclusione del file di configurazione del database
+require_once 'database.php';
 
 // Avvio della sessione con impostazioni di sicurezza
 session_set_cookie_params([
@@ -8,89 +20,81 @@ session_set_cookie_params([
     'httponly' => true,           // Cookie non accessibile via JavaScript
     'samesite' => 'Strict'        // Protezione contro attacchi CSRF
 ]);
-session_start();
-
-// Inclusione del file di configurazione del database
-// require_once '../config/database.php';
+SessionManager::start();
 
 // Funzione per reindirizzare con un messaggio di errore
 function redirectWithError($error) {
     $_SESSION['login_error'] = $error;
-    header("Location: ../html/login.html");
+    header("Location: login_form.php");
     exit();
-}
-
-// Funzione per sanificare gli input
-function sanitizeInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 
 // Verifica se la richiesta è di tipo POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recupero e sanificazione dei dati dal form
-    $username = isset($_POST['username']) ? sanitizeInput($_POST['username']) : '';
+    $username = isset($_POST['username']) ? Utils::sanitizeInput($_POST['username']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : ''; // Non sanifichiamo la password
     $remember = isset($_POST['remember']) ? true : false;
-    
+
     // Validazione dei dati
     if (empty($username)) {
         redirectWithError("Il campo username è obbligatorio.");
     }
-    
+
     if (empty($password)) {
         redirectWithError("Il campo password è obbligatorio.");
     }
-    
+
     // Connessione al database
     try {
-        // Dati di connessione al database (da spostare in un file di configurazione)
-        $host = 'localhost';
-        $port = '5432';
-        $dbname = 'progettotecweb';
-        $userdbname = 'root';
-        $passwordDB = '';
-        
-        // Creazione della connessione PDO
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-        $pdo = new PDO($dsn, $userdbname, $passwordDB);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+        // Utilizzo della connessione dal file database.php
+        $pdo = DatabaseConfig::getConnection();
+
         // Preparazione della query per verificare le credenziali
         // Verifica sia per username che per email
-        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE username = :username OR email = :email");
+        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE (username = :username OR email = :email) AND deleted_at IS NULL");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':email', $username, PDO::PARAM_STR); // Utilizziamo lo stesso valore per email
         $stmt->execute();
-        
+
         // Verifica se l'utente esiste
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             // Verifica della password
             if (password_verify($password, $user['password'])) {
-                // Creazione della sessione
+                // Utilizzo della classe SessionManager per il login
+                $userData = [
+                    'id' => $user['id'],
+                    'username' => $user['username'],
+                    'email' => $user['email'],
+                    'role' => $user['role'],
+                    'nome' => $user['nome'],
+                    'cognome' => $user['cognome']
+                ];
+
+                SessionManager::login($user['id'], $userData);
+
+                // Imposta anche le variabili di sessione tradizionali per compatibilità
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['is_logged_in'] = true;
                 $_SESSION['role'] = $user['role'];
-                
+
                 // Se l'utente ha selezionato "Ricordami", impostiamo un cookie
                 if ($remember) {
                     $token = bin2hex(random_bytes(32)); // Genera un token sicuro
-                    
+
                     // Salva il token nel database
                     $stmt = $pdo->prepare("UPDATE utenti SET remember_token = :token WHERE id = :id");
                     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
                     $stmt->bindParam(':id', $user['id'], PDO::PARAM_INT);
                     $stmt->execute();
-                    
+
                     // Imposta il cookie (valido per 30 giorni)
                     setcookie('remember_token', $token, time() + (86400 * 30), '/', '', true, true);
                 }
-                
+
                 // Reindirizzamento alla pagina principale
                 header("Location: ../index.php");
                 exit();
@@ -109,8 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // Se la richiesta non è di tipo POST, reindirizza alla pagina di login
-    header("Location: ../html/login.html");
+    header("Location: login_form.php");
     exit();
 }
 ?>
-

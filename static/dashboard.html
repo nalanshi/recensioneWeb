@@ -10,14 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- Skip link per accessibilità -->
-  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
-  
+
   <!-- Header -->
   <header class="header">
     <nav class="navbar">
       <div class="nav-container">
-        <a href="dashboard.html" class="logo-link" aria-label="Torna alla dashboard di ReviewDiver">
+        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di ReviewDiver">
           <img src="../images/logo.png" alt="Logo ReviewDiver" class="logo">
         </a>
         <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
@@ -26,7 +24,7 @@
           <div class="bar"></div>
         </div>
         <div class="nav-links" role="menubar">
-          <li><a href="#home" class="nav-link-item">Home</a></li>
+          <li><a href="../index.php" class="nav-link-item">Home</a></li>
           <li><a href="#recensioni" class="nav-link-item">Recensioni</a></li>
           <li><a href="#classifiche" class="nav-link-item">Classifiche</a></li>
           <li><a href="#contatti" class="nav-link-item">Contatti</a></li>
@@ -37,17 +35,16 @@
             <img src="../images/profileimage/image1.jpg" alt="Avatar utente" class="user-avatar" id="userAvatar">
             <span class="user-name" id="userName">Lin Ruize</span>
           </div>
-          
+
           <button class="logout-btn" id="logoutBtn" aria-label="Esci dal tuo account">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
           </button>
-          
+
           <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Apri menu laterale">
             <i class="fas fa-bars"></i>
           </button>
         </div>
-      </div>
     </nav>
   </header>
 
@@ -59,7 +56,7 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
-    
+
     <nav class="sidebar-nav">
       <ul class="nav-menu">
         <li class="nav-item active">
@@ -87,7 +84,7 @@
   <!-- Main Content -->
   <main class="main-content" id="main-content">
     <div class="content-wrapper">
-      
+
       <!-- Sezione Il mio profilo -->
       <section id="profilo-section" class="content-section active">
         <div class="section-header">
@@ -98,44 +95,46 @@
           <!-- Informazioni profilo -->
           <div class="profile-info-section">
               <div class="profile-basic-info">
-                <div class="profile-name-section">
-                  <h2 class="profile-name">Lin Ruize</h2>
-                  <p class="profile-username">@alexshu2002</p>
-                </div>
-                <div class="basic-fields">
-                  <div class="form-group">
-                    <label for="lastName">Cognome*</label>
-                    <input type="text" id="lastName" name="lastName" value="Lin" required>
+                <div class="profile-header">
+                  <div class="profile-name-section">
+                    <h2 class="profile-name">Lin Ruize</h2>
+                    <div class="basic-fields">
+                      <div class="form-group">
+                        <label for="lastName">Cognome*</label>
+                        <input type="text" id="lastName" name="lastName" value="Lin" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="firstName">Nome*</label>
+                        <input type="text" id="firstName" name="firstName" value="Ruize" required>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="firstName">Nome*</label>
-                    <input type="text" id="firstName" name="firstName" value="Ruize" required>
+                  <div class="photo-container">
+                    <img src="../images/profileimage/image1.jpg" alt="Foto profilo" class="profile-photo" id="profilePhoto">
+                    <div class="photo-overlay">
+                      <button class="change-photo-btn" id="changePhotoBtn" aria-label="Cambia foto profilo">
+                        <i class="fas fa-camera"></i>
+                        <span>Cambia foto</span>
+                      </button>
+                    </div>
+                    <p class="profile-username">@alexshu2002</p>
                   </div>
                 </div>
-                <div class="photo-container">
-                <img src="/images/profileimage/image1.jpg" alt="Foto profilo" class="profile-photo" id="profilePhoto">
-                <div class="photo-overlay">
-                  <button class="change-photo-btn" id="changePhotoBtn" aria-label="Cambia foto profilo">
-                    <i class="fas fa-camera"></i>
-                    <span>Cambia foto</span>
-                  </button>
-                </div>
-              </div>
               </div>
             <form class="profile-form" id="profileForm">
-              
+
               <div class="form-group">
                 <label for="email">Indirizzo email*</label>
                 <input type="email" id="email" name="email" value="shualex16042002@gmail.com" required>
                 <small class="form-note">Ti manderemo la conferma del tuo ordine qui</small>
               </div>
-              
+
               <div class="form-group">
                 <label for="username">Nome utente</label>
                 <input type="text" id="username" name="username" value="alexshu2002" readonly>
                 <small class="form-note">Il nome utente non può essere modificato</small>
               </div>
-              
+
               <div class="form-row">
                 <div class="form-group">
                   <label for="birthDay">Giorno</label>
@@ -159,7 +158,7 @@
                   </select>
                 </div>
               </div>
-              
+
               <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                   <i class="fas fa-save"></i>
@@ -174,7 +173,7 @@
             <input type="file" id="photoInput" accept="image/*" style="display: none;">
           </div>
         </div>
-        
+
         <!-- Sezione pericolosa -->
         <div class="danger-zone">
           <h3>Zona pericolosa</h3>
@@ -192,7 +191,7 @@
           <h1>Le mie recensioni</h1>
           <p>Visualizza e gestisci tutte le tue recensioni</p>
         </div>
-        
+
         <div class="reviews-container">
           <!-- Barra di ricerca -->
           <div class="search-container">
@@ -217,12 +216,12 @@
               </select>
             </div>
           </div>
-          
+
           <!-- Lista recensioni -->
           <div class="reviews-list" id="reviewsList">
             <!-- Le recensioni verranno caricate dinamicamente -->
           </div>
-          
+
           <!-- Paginazione -->
           <div class="pagination" id="reviewsPagination">
             <!-- Paginazione generata dinamicamente -->
@@ -236,7 +235,7 @@
           <h1>Impostazioni</h1>
           <p>Personalizza la tua esperienza su ReviewDiver</p>
         </div>
-        
+
         <div class="settings-container">
           <!-- Tema -->
           <div class="setting-group">
@@ -253,7 +252,7 @@
               </select>
             </div>
           </div>
-          
+
           <!-- Notifiche -->
           <div class="setting-group">
             <h3>Notifiche</h3>
@@ -278,7 +277,7 @@
               </label>
             </div>
           </div>
-          
+
           <!-- Privacy -->
           <div class="setting-group">
             <h3>Privacy</h3>
@@ -303,7 +302,7 @@
               </label>
             </div>
           </div>
-          
+
           <!-- Lingua -->
           <div class="setting-group">
             <h3>Lingua e regione</h3>
@@ -320,7 +319,7 @@
               </select>
             </div>
           </div>
-          
+
           <div class="settings-actions">
             <button type="button" class="btn btn-primary" id="saveSettingsBtn">
               <i class="fas fa-save"></i>
@@ -329,7 +328,7 @@
           </div>
         </div>
       </section>
-      
+
     </div>
   </main>
 
@@ -401,4 +400,3 @@
   <script src="../js/dashboard.js"></script>
 </body>
 </html>
-

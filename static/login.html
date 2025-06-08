@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accedi - DishDiveReview</title>
+  <meta http-equiv="refresh" content="0;url=../php/login_form.php">
   <link rel="stylesheet" href="../css/auth-styles.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/footer.css">
@@ -11,20 +12,20 @@
   <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
-  <!-- Link per saltare al contenuto principale per accessibilità -->
-  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
-  
+
+  <div style="text-align: center; margin-top: 50px; font-family: 'Montserrat', sans-serif;">
+    <h1>Reindirizzamento in corso...</h1>
+    <p>Stai per essere reindirizzato alla nuova pagina di login.</p>
+    <p>Se non vieni reindirizzato automaticamente, <a href="../php/login_form.php">clicca qui</a>.</p>
+  </div>
+
   <header>
     <nav>
       <div class="nav-container">
-        <a href="index.html" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
-        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
+
         <ul class="nav-links" role="menubar">
           <li><a href="#recensioni">Recensioni</a></li>
           <li><a href="#classifiche">Classifiche</a></li>
@@ -32,7 +33,7 @@
         </ul>
       </div>
       <div class="login-container">
-        <a href="index.html" class="login-link" aria-label="Torna alla homepage" aria-current="page">
+        <a href="../index.php" class="login-link" aria-label="Torna alla homepage" aria-current="page">
           <div class="user-icon-bg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="userIcon">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -155,4 +156,3 @@
   </footer>
 </body>
 </html>
-

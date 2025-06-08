@@ -13,10 +13,10 @@
   --info-agid: #1B558E;
   --warning-agid: #FFA726;
   --danger-agid: #D1344C;
-  
+
   /* Gradiente navbar */
   --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
-  
+
   /* Neutri */
   --text-primary: #1A1A1A;
   --text-secondary: #5C6F82;
@@ -24,27 +24,27 @@
   --background: #F0F6FC;
   --surface: #FFFFFF;
   --border: #EFEFEF;
-  
+
   /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 102, 204, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 102, 204, 0.15);
-  --shadow-lg: 0 8px 24px rgba(0, 102, 204, 0.2);
-  
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
+  --shadow-md: 0 0.25rem 0.75rem rgba(0, 102, 204, 0.15);
+  --shadow-lg: 0 0.5rem 1.5rem rgba(0, 102, 204, 0.2);
+
   /* Transitions */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
   --spacing-lg: 2rem;
   --spacing-xl: 3rem;
-  
+
   /* Border radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
 /* Reset e base */
@@ -59,7 +59,7 @@ body {
   background-color: var(--background);
   color: var(--text-primary);
   line-height: 1.6;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Layout principale */
@@ -94,7 +94,7 @@ h3 {
   color: var(--primary-agid);
   font-size: 2.5rem;
   font-weight: 300;
-  text-shadow: 0 2px 4px rgba(0, 102, 204, 0.1);
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
 }
 
 .welcome-title span {
@@ -115,9 +115,9 @@ a:hover {
 }
 
 a:focus {
-  outline: 2px solid var(--primary-agid);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 0.125rem solid var(--primary-agid);
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
 }
 
 /* Pulsanti */
@@ -136,7 +136,7 @@ a:focus {
   outline: none;
   position: relative;
   overflow: hidden;
-  min-height: 48px; /* Accessibilità touch */
+  min-height: 3rem; /* Accessibilità touch */
 }
 
 .btn::before {
@@ -161,7 +161,7 @@ a:focus {
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
   box-shadow: var(--shadow-lg);
   background: linear-gradient(135deg, #0052A3, #004080);
 }
@@ -175,14 +175,14 @@ a:focus {
 .btn-secondary:hover {
   background: var(--accent-agid);
   color: var(--text-light);
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
   box-shadow: var(--shadow-md);
 }
 
 /* Carousel Styles */
 .carousel-container {
   width: 100%;
-  height: 400px;
+  height: 25rem;
   position: relative;
   overflow: hidden;
   margin-bottom: var(--spacing-xl);
@@ -229,31 +229,31 @@ a:focus {
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: var(--transition);
-  border: 2px solid transparent;
+  border: 0.125rem solid transparent;
 }
 
 .dot:hover,
 .dot.active {
   background: var(--primary-agid);
   transform: scale(1.2);
-  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.3);
 }
 
 .dot:focus {
-  outline: 2px solid var(--text-light);
-  outline-offset: 2px;
+  outline: 0.125rem solid var(--text-light);
+  outline-offset: 0.125rem;
 }
 
 /* Sezione Prodotti Consigliati - Scorrevole */
 .recommended-products {
   padding: var(--spacing-xl) 5%;
-  max-width: 2000px;
+  max-width: 125rem;
   margin: 0 auto;
 }
 
@@ -268,13 +268,13 @@ a:focus {
 .recommended-products h2::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -0.625rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
+  width: 5rem;
+  height: 0.25rem;
   background: linear-gradient(90deg, var(--primary-agid), var(--secondary-agid));
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
 /* Container scorrevole per prodotti */
@@ -297,10 +297,10 @@ a:focus {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: var(--transition);
-  border: 1px solid var(--border);
+  border: 0.0625rem solid var(--border);
   position: relative;
-  min-width: 200px;
-  max-width: 220px;
+  min-width: 12.5rem;
+  max-width: 13.75rem;
   flex-shrink: 0;
 }
 
@@ -310,14 +310,14 @@ a:focus {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 0.25rem;
   background: linear-gradient(90deg, var(--primary-agid), var(--secondary-agid), var(--accent-agid));
   opacity: 0;
   transition: var(--transition);
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-0.5rem);
   box-shadow: var(--shadow-lg);
 }
 
@@ -326,12 +326,12 @@ a:focus {
 }
 
 .product-card:focus-within {
-  outline: 1px solid var(--primary-agid);
+  outline: 0.0625rem solid var(--primary-agid);
 }
 
 .product-image {
   width: 100%;
-  height: 150px;
+  height: 9.375rem;
   object-fit: cover;
   transition: var(--transition);
 }
@@ -373,8 +373,8 @@ a:focus {
 }
 
 .scroll-btn {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border: none;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-agid), var(--secondary-agid));
@@ -390,13 +390,13 @@ a:focus {
 }
 
 .scroll-btn:hover {
-  transform: translateY(-2px) scale(1.1);
+  transform: translateY(-0.125rem) scale(1.1);
   box-shadow: var(--shadow-lg);
 }
 
 .scroll-btn:focus {
-  outline: 2px solid var(--primary-agid);
-  outline-offset: 2px;
+  outline: 0.125rem solid var(--primary-agid);
+  outline-offset: 0.125rem;
 }
 
 .scroll-btn:active {
@@ -418,8 +418,8 @@ a:focus {
 }
 
 .scroll-indicator {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: var(--border);
   cursor: pointer;
@@ -447,7 +447,7 @@ a:focus {
 .form-group textarea {
   width: 100%;
   padding: var(--spacing-sm);
-  border: 2px solid var(--border);
+  border: 0.125rem solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 1rem;
   transition: var(--transition);
@@ -458,11 +458,11 @@ a:focus {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-agid);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgba(0, 102, 204, 0.1);
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .welcome-title {
     font-size: 2rem;
     margin: var(--spacing-lg) 0;
@@ -473,8 +473,8 @@ a:focus {
   }
 
   .product-card {
-    min-width: 180px;
-    max-width: 200px;
+    min-width: 11.25rem;
+    max-width: 12.5rem;
   }
 
   .carousel-container {
@@ -530,11 +530,11 @@ a:focus {
   }
 }
 
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   .product-card {
     border: 2px solid var(--text-primary);
   }
-  
+
   .btn {
     border: 2px solid currentColor;
   }
@@ -548,6 +548,56 @@ a:focus {
   outline-offset: 2px;
 }
 
+
+/* User Menu Dropdown Styles */
+.user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  width: 180px;
+  z-index: 100;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--transition);
+}
+
+.user-menu:hover .user-dropdown,
+.user-menu:focus-within .user-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-dropdown a {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.user-dropdown a:hover {
+  background: var(--background);
+  color: var(--primary-agid);
+  border-left-color: var(--primary-agid);
+  text-decoration: none;
+}
+
+.user-dropdown a:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
 /* Print styles */
 @media print {
   header {
@@ -555,14 +605,14 @@ a:focus {
     background: none !important;
     color: black !important;
   }
-  
+
   main {
     padding-top: 0;
   }
-  
+
   .carousel-container,
-  .scroll-buttons {
+  .scroll-buttons,
+  .user-dropdown {
     display: none;
   }
 }
-
