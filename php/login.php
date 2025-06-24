@@ -13,13 +13,7 @@
 require_once 'database.php';
 
 // Avvio della sessione con impostazioni di sicurezza
-session_set_cookie_params([
-    'lifetime' => 3600,           // Durata del cookie di sessione (1 ora)
-    'path' => '/',                // Percorso del cookie
-    'secure' => true,             // Cookie inviato solo su HTTPS
-    'httponly' => true,           // Cookie non accessibile via JavaScript
-    'samesite' => 'Strict'        // Protezione contro attacchi CSRF
-]);
+require_once __DIR__ . '/classes/SessionManager.php';
 SessionManager::start();
 
 // Funzione per reindirizzare con un messaggio di errore

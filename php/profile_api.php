@@ -4,7 +4,8 @@
  */
 
 require_once 'database.php';
-
+require_once __DIR__ . '/classes/SessionManager.php';
+require_once __DIR__ . '/classes/Utils.php';
 // Avvia la sessione
 SessionManager::start();
 
@@ -46,40 +47,60 @@ try {
             break;
             
         case 'POST':
-            // Aggiorna profilo
-            $input = json_decode(file_get_contents('php://input'), true);
-            
-            // Verifica CSRF token
-            if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                http_response_code(403);
-                echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                break;
-            }
-            
-            // Sanitizza i dati
-            $data = [
-                'first_name' => Utils::sanitizeInput($input['first_name'] ?? ''),
-                'last_name' => Utils::sanitizeInput($input['last_name'] ?? ''),
-                'email' => Utils::sanitizeInput($input['email'] ?? ''),
-                'birth_day' => (int)($input['birth_day'] ?? 0),
-                'birth_month' => (int)($input['birth_month'] ?? 0),
-                'birth_year' => (int)($input['birth_year'] ?? 0)
-            ];
-            
-            // Valida i dati
-            $errors = Utils::validateProfileData($data);
-            if (!empty($errors)) {
-                http_response_code(400);
-                echo json_encode(['success' => false, 'message' => implode(', ', $errors)]);
-                break;
-            }
-            
-            // Aggiorna il profilo
-            if ($userManager->updateProfile($userId, $data)) {
-                echo json_encode(['success' => true, 'message' => 'Profilo aggiornato con successo']);
+            // Distingui tra aggiornamento profilo e upload immagine
+            if (isset($_FILES['profile_image'])) {
+                // Gestione upload immagine profilo
+                $uploadResult = Utils::handlePhotoUpload($_FILES['profile_image'], $userId);
+                
+                if ($uploadResult['success']) {
+                    if ($userManager->updateProfilePhoto($userId, $uploadResult['path'])) {
+                        echo json_encode(['success' => true, 'message' => 'Immagine profilo aggiornata con successo', 'image_path' => '../' . $uploadResult['path']]);
+                    } else {
+                        // Se l'aggiornamento del database fallisce, rimuovi il file caricato
+                        unlink('../' . $uploadResult['path']);
+                        http_response_code(500);
+                        echo json_encode(['success' => false, 'message' => 'Errore durante l\'aggiornamento del percorso immagine nel database']);
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => $uploadResult['message']]);
+                }
             } else {
-                http_response_code(500);
-                echo json_encode(['success' => false, 'message' => 'Errore durante l\'aggiornamento']);
+                // Aggiorna profilo (dati testuali)
+                $input = json_decode(file_get_contents('php://input'), true);
+                
+                // Verifica CSRF token
+                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
+                    http_response_code(403);
+                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
+                    break;
+                }
+                
+                // Sanitizza i dati
+                $data = [
+                    'first_name' => Utils::sanitizeInput($input['first_name'] ?? ''),
+                    'last_name' => Utils::sanitizeInput($input['last_name'] ?? ''),
+                    'email' => Utils::sanitizeInput($input['email'] ?? ''),
+                    'birth_day' => (int)($input['birth_day'] ?? 0),
+                    'birth_month' => (int)($input['birth_month'] ?? 0),
+                    'birth_year' => (int)($input['birth_year'] ?? 0)
+                ];
+                
+                // Valida i dati
+                $errors = Utils::validateProfileData($data);
+                if (!empty($errors)) {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => implode(', ', $errors)]);
+                    break;
+                }
+                
+                // Aggiorna il profilo
+                if ($userManager->updateProfile($userId, $data)) {
+                    echo json_encode(['success' => true, 'message' => 'Profilo aggiornato con successo']);
+                } else {
+                    http_response_code(500);
+                    echo json_encode(['success' => false, 'message' => 'Errore durante l\'aggiornamento']);
+                }
             }
             break;
             

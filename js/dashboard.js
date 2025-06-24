@@ -374,7 +374,7 @@ class DashboardManager {
         formData.append('csrf_token', this.csrfToken);
 
         try {
-            const response = await fetch('../php/actions_api.php?action=upload_photo', {
+            const response = await fetch('../php/dashboard.php?action=upload_photo', {
                 method: 'POST',
                 body: formData
             });
@@ -412,7 +412,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('../php/actions_api.php?action=change_password', {
+            const response = await fetch('../php/dashboard.php?action=change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -650,7 +650,7 @@ class DashboardManager {
      */
     async loadUserSettings() {
         try {
-            const response = await fetch('/php/settings_api.php', {
+            const response = await fetch('../php/settings_api.php', {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'

@@ -17,7 +17,7 @@ DELETE FROM utenti where id != -1;
 -- All sample passwords are 'Password123' for testing purposes
 INSERT INTO utenti (id, username, email, password, nome, cognome, profile_photo, birth_day, birth_month, birth_year, role, created_at)
 VALUES
-    (1, 'admin', 'admin@reviewdiver.com', '$2y$10$w37S7ZfpSIPhMZ8wFtWKTOZiCPSVN4gTvacaXs.eQHezFSHnNCyG.', 'Admin', 'User', 'images/profiles/admin.jpg', 15, 5, 1985, 'admin', NOW()),
+    (1, 'admin', 'admin@reviewdiver.com', '$2y$10$w37S7ZfpSIPhMZ8wFtWKTOZiCPSVN4gTvacaXs.eQHezFSHnNCyG.', 'Admin', 'User', 'images/profileimage/image1.png', 15, 5, 1985, 'admin', NOW()),
     (2, 'mario_rossi', 'mario.rossi@example.com', '$2y$10$w37S7ZfpSIPhMZ8wFtWKTOZiCPSVN4gTvacaXs.eQHezFSHnNCyG.', 'Mario', 'Rossi', 'images/profiles/mario.jpg', 10, 7, 1990, 'user', NOW()),
     (3, 'giulia_bianchi', 'giulia.bianchi@example.com', '$2y$10$w37S7ZfpSIPhMZ8wFtWKTOZiCPSVN4gTvacaXs.eQHezFSHnNCyG.', 'Giulia', 'Bianchi', 'images/profiles/giulia.jpg', 22, 3, 1988, 'user', NOW()),
     (4, 'luca_verdi', 'luca.verdi@example.com', '$2y$10$w37S7ZfpSIPhMZ8wFtWKTOZiCPSVN4gTvacaXs.eQHezFSHnNCyG.', 'Luca', 'Verdi', 'images/profiles/luca.jpg', 5, 11, 1995, 'user', NOW()),
