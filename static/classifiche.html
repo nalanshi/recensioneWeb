@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classifiche - DishDiveReview</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/classifiche.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="nav-container">
+        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+          <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
+        </a> 
+        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <ul class="nav-links" role="menubar">
+          <li><a href="../index.php">Home</a></li>
+          <li><a href="../php/recensioni.php">Recensioni</a></li>
+          <li><a href="../php/contatti.php">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="login-container">
+        <!-- HEADER_LOGIN_PLACEHOLDER -->
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="rankings-hero">
+      <div class="rankings-container">
+        <h1>Classifiche</h1>
+        <p>Scopri i prodotti più apprezzati e le tendenze del momento nelle nostre classifiche aggiornate</p>
+      </div>
+    </section>
+
+    <div class="rankings-container">
+      <!-- Tabs per le diverse categorie -->
+      <div class="rankings-tabs">
+        <button class="tab-button active" data-tab="tecnologia">Tecnologia</button>
+        <button class="tab-button" data-tab="gastronomia">Gastronomia</button>
+        <button class="tab-button" data-tab="casa">Casa e Giardino</button>
+        <button class="tab-button" data-tab="sport">Sport e Fitness</button>
+      </div>
+
+      <!-- Tab Tecnologia -->
+      <div class="tab-content active" id="tecnologia">
+        <!-- Podio Top 3 -->
+        <div class="podium-container">
+          <div class="podium-item second">
+            <div class="podium-rank silver">2°</div>
+            <img src="../images/products/product2.jpg" alt="Fotocamera DSLR 4K" class="podium-image">
+            <div class="podium-title">Fotocamera DSLR 4K</div>
+            <div class="podium-rating">
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star empty"></i>
+            </div>
+            <div class="podium-price">€1.299,99</div>
+          </div>
+
+          <div class="podium-item first">
+            <div class="podium-rank gold">1°</div>
+            <img src="../images/products/product1.jpg" alt="Smartphone XYZ Pro" class="podium-image">
+            <div class="podium-title">Smartphone XYZ Pro</div>
+            <div class="podium-rating">
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+            </div>
+            <div class="podium-price">€899,99</div>
+          </div>
+
+          <div class="podium-item third">
+            <div class="podium-rank bronze">3°</div>
+            <img src="../images/products/product3.jpg" alt="Cuffie Wireless Premium" class="podium-image">
+            <div class="podium-title">Cuffie Wireless Premium</div>
+            <div class="podium-rating">
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+              <i class="fas fa-star star"></i>
+            </div>
+            <div class="podium-price">€349,99</div>
+          </div>
+        </div>
+
+        <!-- Classifica Completa -->
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2 class="ranking-title">Top 10 Prodotti Tecnologici</h2>
+            <span class="ranking-period">Gennaio 2025</span>
+          </div>
+
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th>Pos.</th>
+                <th>Prodotto</th>
+                <th>Valutazione</th>
+                <th>Prezzo</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="ranking-row">
+                <td class="rank-position gold">1</td>
+                <td class="product-info">
+                  <img src="../images/products/product1.jpg" alt="Smartphone XYZ Pro" class="product-image">
+                  <div class="product-details">
+                    <h4>Smartphone XYZ Pro</h4>
+                    <p>Smartphone di ultima generazione</p>
+                  </div>
+                </td>
+                <td class="rating-display">
+                  <div class="rating-stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                  </div>
+                  <span class="rating-number">4.9</span>
+                  <span class="rating-count">(1,247)</span>
+                </td>
+                <td class="price-display">€899,99</td>
+                <td class="trend-indicator trend-up">
+                  <i class="fas fa-arrow-up"></i> +2
+                </td>
+              </tr>
+
+              <tr class="ranking-row">
+                <td class="rank-position silver">2</td>
+                <td class="product-info">
+                  <img src="../images/products/product2.jpg" alt="Fotocamera DSLR 4K" class="product-image">
+                  <div class="product-details">
+                    <h4>Fotocamera DSLR 4K</h4>
+                    <p>Fotocamera professionale</p>
+                  </div>
+                </td>
+                <td class="rating-display">
+                  <div class="rating-stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star empty"></i>
+                  </div>
+                  <span class="rating-number">4.7</span>
+                  <span class="rating-count">(892)</span>
+                </td>
+                <td class="price-display">€1.299,99</td>
+                <td class="trend-indicator trend-stable">
+                  <i class="fas fa-minus"></i> 0
+                </td>
+              </tr>
+
+              <tr class="ranking-row">
+                <td class="rank-position bronze">3</td>
+                <td class="product-info">
+                  <img src="../images/products/product3.jpg" alt="Cuffie Wireless Premium" class="product-image">
+                  <div class="product-details">
+                    <h4>Cuffie Wireless Premium</h4>
+                    <p>Audio di alta qualità</p>
+                  </div>
+                </td>
+                <td class="rating-display">
+                  <div class="rating-stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                  </div>
+                  <span class="rating-number">4.8</span>
+                  <span class="rating-count">(1,156)</span>
+                </td>
+                <td class="price-display">€349,99</td>
+                <td class="trend-indicator trend-up">
+                  <i class="fas fa-arrow-up"></i> +1
+                </td>
+              </tr>
+
+              <tr class="ranking-row">
+                <td class="rank-position">4</td>
+                <td class="product-info">
+                  <img src="../images/products/product1.jpg" alt="Tablet Ultra Slim" class="product-image">
+                  <div class="product-details">
+                    <h4>Tablet Ultra Slim</h4>
+                    <p>Tablet per lavoro e intrattenimento</p>
+                  </div>
+                </td>
+                <td class="rating-display">
+                  <div class="rating-stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star empty"></i>
+                  </div>
+                  <span class="rating-number">4.6</span>
+                  <span class="rating-count">(743)</span>
+                </td>
+                <td class="price-display">€599,99</td>
+                <td class="trend-indicator trend-down">
+                  <i class="fas fa-arrow-down"></i> -1
+                </td>
+              </tr>
+
+              <tr class="ranking-row">
+                <td class="rank-position">5</td>
+                <td class="product-info">
+                  <img src="../images/products/product2.jpg" alt="Action Camera HD" class="product-image">
+                  <div class="product-details">
+                    <h4>Action Camera HD</h4>
+                    <p>Camera per sport estremi</p>
+                  </div>
+                </td>
+                <td class="rating-display">
+                  <div class="rating-stars">
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star"></i>
+                    <i class="fas fa-star star empty"></i>
+                  </div>
+                  <span class="rating-number">4.5</span>
+                  <span class="rating-count">(567)</span>
+                </td>
+                <td class="price-display">€249,99</td>
+                <td class="trend-indicator trend-up">
+                  <i class="fas fa-arrow-up"></i> +3
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Gastronomia -->
+      <div class="tab-content" id="gastronomia">
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2 class="ranking-title">Top Ristoranti</h2>
+            <span class="ranking-period">Gennaio 2025</span>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i class="fas fa-utensils" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche gastronomiche saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei ristoranti.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab Casa e Giardino -->
+      <div class="tab-content" id="casa">
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2 class="ranking-title">Top Prodotti Casa e Giardino</h2>
+            <span class="ranking-period">Gennaio 2025</span>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i class="fas fa-home" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche per casa e giardino saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei prodotti.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab Sport e Fitness -->
+      <div class="tab-content" id="sport">
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2 class="ranking-title">Top Prodotti Sport e Fitness</h2>
+            <span class="ranking-period">Gennaio 2025</span>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i class="fas fa-dumbbell" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche per sport e fitness saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei prodotti.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>DishDiveReview</h3>
+        <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Link Utili</h3>
+        <ul>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#termini">Termini e condizioni</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contatti</h3>
+        <ul>
+          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
+          <li>Indirizzo: Via Roma 123, Milano</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Script per la gestione dei tab
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetTab = this.dataset.tab;
+
+          // Rimuovi classe active da tutti i tab
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Aggiungi classe active al tab selezionato
+          this.classList.add('active');
+          document.getElementById(targetTab).classList.add('active');
+        });
+      });
+
+      // Gestione click su righe della classifica
+      const rankingRows = document.querySelectorAll('.ranking-row');
+      rankingRows.forEach(row => {
+        row.addEventListener('click', function() {
+          // Qui si implementerebbe l'apertura del dettaglio prodotto
+          console.log('Apertura dettaglio prodotto');
+        });
+      });
+
+      // Gestione click su elementi del podio
+      const podiumItems = document.querySelectorAll('.podium-item');
+      podiumItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Qui si implementerebbe l'apertura del dettaglio prodotto
+          console.log('Apertura dettaglio prodotto dal podio');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

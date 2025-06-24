@@ -18,7 +18,7 @@
     <p>Stai per essere reindirizzato alla nuova pagina di login.</p>
     <p>Se non vieni reindirizzato automaticamente, <a href="../php/login_form.php">clicca qui</a>.</p>
   </div>
-
+  
   <header>
     <nav>
       <div class="nav-container">
@@ -27,9 +27,9 @@
         </a> 
 
         <ul class="nav-links" role="menubar">
-          <li><a href="#recensioni">Recensioni</a></li>
-          <li><a href="#classifiche">Classifiche</a></li>
-          <li><a href="#contatti">Contatti</a></li>
+          <li><a href="../php/recensioni.php">Recensioni</a></li>
+          <li><a href="../php/classifiche.php">Classifiche</a></li>
+          <li><a href="../php/contatti.php">Contatti</a></li>
         </ul>
       </div>
       <div class="login-container">
@@ -58,7 +58,6 @@
 
       <!-- Messaggio di errore dinamico -->
       <div id="error-container" aria-live="polite"></div>
-
       <form id="login-form" class="auth-form" action="../php/login.php" method="post" onsubmit="return validateLoginForm()">
         <div class="form-group">
           <label for="username" class="form-label">Username o Email</label>
