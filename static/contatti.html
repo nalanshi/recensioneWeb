@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
   <header>
     <nav>
       <div class="nav-container">
-        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
         <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
@@ -34,7 +35,7 @@
     </nav>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="main-content">
     <!-- Hero Section -->
     <section class="contact-hero">
       <div class="contact-container">
@@ -49,17 +50,17 @@
         <!-- Form di contatto -->
         <div class="contact-form-section">
           <h2 class="section-title">
-            <i class="fas fa-envelope"></i>
+            <i aria-hidden="true" class="fas fa-envelope"></i>
             Invia un messaggio
           </h2>
 
           <div class="success-message" id="success-message">
-            <i class="fas fa-check-circle"></i>
+            <i aria-hidden="true" class="fas fa-check-circle"></i>
             Messaggio inviato con successo! Ti risponderemo al più presto.
           </div>
 
           <div class="error-message" id="error-message">
-            <i class="fas fa-exclamation-circle"></i>
+            <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
             Si è verificato un errore. Riprova più tardi.
           </div>
 
@@ -103,7 +104,7 @@
             </div>
 
             <button type="submit" class="form-submit">
-              <i class="fas fa-paper-plane"></i>
+              <i aria-hidden="true" class="fas fa-paper-plane"></i>
               Invia messaggio
             </button>
           </form>
@@ -112,14 +113,14 @@
         <!-- Informazioni di contatto -->
         <div class="contact-info-section">
           <h2 class="section-title">
-            <i class="fas fa-info-circle"></i>
+            <i aria-hidden="true" class="fas fa-info-circle"></i>
             Informazioni di contatto
           </h2>
 
           <div class="contact-info">
             <div class="info-item">
               <div class="info-icon">
-                <i class="fas fa-envelope"></i>
+                <i aria-hidden="true" class="fas fa-envelope"></i>
               </div>
               <div class="info-content">
                 <h4>Email</h4>
@@ -130,7 +131,7 @@
 
             <div class="info-item">
               <div class="info-icon">
-                <i class="fas fa-phone"></i>
+                <i aria-hidden="true" class="fas fa-phone"></i>
               </div>
               <div class="info-content">
                 <h4>Telefono</h4>
@@ -141,7 +142,7 @@
 
             <div class="info-item">
               <div class="info-icon">
-                <i class="fas fa-map-marker-alt"></i>
+                <i aria-hidden="true" class="fas fa-map-marker-alt"></i>
               </div>
               <div class="info-content">
                 <h4>Indirizzo</h4>
@@ -151,7 +152,7 @@
 
             <div class="info-item">
               <div class="info-icon">
-                <i class="fas fa-clock"></i>
+                <i aria-hidden="true" class="fas fa-clock"></i>
               </div>
               <div class="info-content">
                 <h4>Orari di apertura</h4>
@@ -164,19 +165,19 @@
 
           <div class="social-links">
             <a href="#" class="social-link" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
+              <i aria-hidden="true" class="fab fa-facebook-f"></i>
             </a>
             <a href="#" class="social-link" aria-label="Twitter">
-              <i class="fab fa-twitter"></i>
+              <i aria-hidden="true" class="fab fa-twitter"></i>
             </a>
             <a href="#" class="social-link" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
+              <i aria-hidden="true" class="fab fa-instagram"></i>
             </a>
             <a href="#" class="social-link" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
+              <i aria-hidden="true" class="fab fa-linkedin-in"></i>
             </a>
             <a href="#" class="social-link" aria-label="YouTube">
-              <i class="fab fa-youtube"></i>
+              <i aria-hidden="true" class="fab fa-youtube"></i>
             </a>
           </div>
         </div>
@@ -185,12 +186,12 @@
       <!-- Mappa -->
       <div class="map-section">
         <h2 class="section-title">
-          <i class="fas fa-map"></i>
+          <i aria-hidden="true" class="fas fa-map"></i>
           Dove siamo
         </h2>
         <div class="map-container">
           <div style="text-align: center;">
-            <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <i aria-hidden="true" class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
             <p>Mappa interattiva<br>Via Roma 123, Milano</p>
             <p style="font-size: 0.9rem; opacity: 0.7;">La mappa sarà integrata con Google Maps</p>
           </div>
@@ -200,14 +201,14 @@
       <!-- FAQ -->
       <div class="faq-section">
         <h2 class="section-title">
-          <i class="fas fa-question-circle"></i>
+          <i aria-hidden="true" class="fas fa-question-circle"></i>
           Domande frequenti
         </h2>
 
         <div class="faq-item">
           <button class="faq-question">
             Come posso richiedere una recensione?
-            <i class="fas fa-chevron-down faq-icon"></i>
+            <i aria-hidden="true" class="fas fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
             Puoi richiedere una recensione compilando il form di contatto selezionando "Richiesta recensione" come argomento. Il nostro team valuterà la richiesta e ti contatterà per i dettagli.
@@ -217,7 +218,7 @@
         <div class="faq-item">
           <button class="faq-question">
             Quanto tempo ci vuole per una recensione?
-            <i class="fas fa-chevron-down faq-icon"></i>
+            <i aria-hidden="true" class="fas fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
             I tempi di recensione variano in base al tipo di prodotto. Generalmente, per prodotti tecnologici servono 1-2 settimane, mentre per ristoranti e servizi gastronomici 3-5 giorni lavorativi.
@@ -227,7 +228,7 @@
         <div class="faq-item">
           <button class="faq-question">
             Posso collaborare con voi?
-            <i class="fas fa-chevron-down faq-icon"></i>
+            <i aria-hidden="true" class="fas fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
             Siamo sempre aperti a nuove collaborazioni! Contattaci selezionando "Collaborazione" nel form e descrivi la tua proposta. Valutiamo partnership con aziende, influencer e content creator.
@@ -237,7 +238,7 @@
         <div class="faq-item">
           <button class="faq-question">
             Le recensioni sono imparziali?
-            <i class="fas fa-chevron-down faq-icon"></i>
+            <i aria-hidden="true" class="fas fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
             Assolutamente sì. Manteniamo la massima indipendenza editoriale e trasparenza. Tutte le nostre recensioni sono basate su test approfonditi e esperienza diretta con i prodotti.
@@ -247,7 +248,7 @@
         <div class="faq-item">
           <button class="faq-question">
             Come posso segnalare un problema?
-            <i class="fas fa-chevron-down faq-icon"></i>
+            <i aria-hidden="true" class="fas fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
             Per segnalazioni tecniche o contenuti inappropriati, utilizza il form di contatto selezionando "Segnalazione". Risponderemo entro 24 ore lavorative.
@@ -302,7 +303,7 @@
         const submitBtn = this.querySelector('.form-submit');
         const originalText = submitBtn.innerHTML;
         
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Invio in corso...';
+        submitBtn.innerHTML = '<i aria-hidden="true" class="fas fa-spinner fa-spin"></i> Invio in corso...';
         submitBtn.disabled = true;
         
         setTimeout(() => {
