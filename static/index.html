@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DishDiveReview</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+
+  <header>
+    <nav>
+      <div class="nav-container">
+        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+          <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
+        </a> 
+        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <ul class="nav-links" role="menubar">
+          <li><a href="../index.php" lang="en">Home</a></li>
+          <li><a href="../php/recensioni.php">Recensioni</a></li>
+          <li><a href="../php/classifiche.php">Classifiche</a></li>
+          <li><a href="../php/contatti.php">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="login-container">
+        <!-- HEADER_LOGIN_PLACEHOLDER -->
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="main-content">
+    <!-- Carousel Section -->
+    <section class="carousel-container" aria-label="Prodotti in evidenza">
+      <div class="carousel-slide active" style="background-image: url('../images/products/product1.jpg')" role="img" aria-label="Smartphone XYZ Pro in evidenza"></div>
+      <div class="carousel-slide" style="background-image: url('../images/products/product2.jpg')" role="img" aria-label="Fotocamera DSLR 4K in evidenza"></div>
+      <div class="carousel-slide" style="background-image: url('../images/products/product3.jpg')" role="img" aria-label="Cuffie Wireless Premium in evidenza"></div>
+
+      <div class="carousel-dots" role="tablist" aria-label="Selettore slide carousel">
+        <button class="dot active" role="tab" aria-selected="true" aria-label="Slide 1" tabindex="0"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-label="Slide 2" tabindex="-1"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-label="Slide 3" tabindex="-1"></button>
+      </div>
+    </section>
+
+    <h1 class="welcome-title">Benvenuto su <span lang="en">DishDiveReview!</span></h1>
+
+    <!--LOGIN_PLACEHOLDER-->
+
+    <!-- Recommended Products Section -->
+    <section class="recommended-products" aria-labelledby="prodotti-consigliati">
+      <h2 id="prodotti-consigliati">Prodotti Consigliati</h2>
+
+      <div class="products-scroll-container">
+        <div class="products-container" role="grid" aria-label="Griglia prodotti consigliati">
+        <article class="product-card" role="gridcell" tabindex="0">
+          <img src="../images/products/product1.jpg" alt="Smartphone XYZ Pro" class="product-image" loading="lazy">
+          <div class="product-info">
+            <h3 class="product-title">Smartphone XYZ Pro</h3>
+            <p class="product-description">L'ultimo modello con fotocamera avanzata e prestazioni eccezionali per foto e video professionali.</p>
+            <div class="product-price" aria-label="Prezzo: 899 euro e 99 centesimi">€899,99</div>
+          </div>
+        </article>
+
+        <article class="product-card" role="gridcell" tabindex="0">
+          <img src="../images/products/product2.jpg" alt="Fotocamera DSLR 4K" class="product-image" loading="lazy">
+          <div class="product-info">
+            <h3 class="product-title">Fotocamera DSLR 4K</h3>
+            <p class="product-description">Cattura momenti indimenticabili con questa fotocamera professionale ad alta risoluzione.</p>
+            <div class="product-price" aria-label="Prezzo: 1299 euro e 99 centesimi">€1.299,99</div>
+          </div>
+        </article>
+
+        <article class="product-card" role="gridcell" tabindex="0">
+          <img src="../images/products/product3.jpg" alt="Cuffie Wireless Premium" class="product-image" loading="lazy">
+          <div class="product-info">
+            <h3 class="product-title">Cuffie Wireless Premium</h3>
+            <p class="product-description">Audio di alta qualità con cancellazione del rumore attiva per un'esperienza immersiva.</p>
+            <div class="product-price" aria-label="Prezzo: 349 euro e 99 centesimi">€349,99</div>
+          </div>
+        </article>
+
+        <article class="product-card" role="gridcell" tabindex="0">
+          <img src="../images/products/product1.jpg" alt="Tablet Ultra Slim" class="product-image" loading="lazy">
+          <div class="product-info">
+            <h3 class="product-title">Tablet Ultra Slim</h3>
+            <p class="product-description">Perfetto per lavoro e intrattenimento con display retina e design ultraleggero.</p>
+            <div class="product-price" aria-label="Prezzo: 599 euro e 99 centesimi">€599,99</div>
+          </div>
+        </article>
+
+        <article class="product-card" role="gridcell" tabindex="0">
+          <img src="../images/products/product2.jpg" alt="Action Camera HD" class="product-image" loading="lazy">
+          <div class="product-info">
+            <h3 class="product-title">Action Camera HD</h3>
+            <p class="product-description">Registra le tue avventure in alta definizione con stabilizzazione avanzata.</p>
+            <div class="product-price" aria-label="Prezzo: 249 euro e 99 centesimi">€249,99</div>
+          </div>
+        </article>
+      </div>
+      </div>
+
+      <div class="scroll-buttons" role="group" aria-label="Controlli scorrimento prodotti">
+        <button id="scroll-left" class="scroll-btn" aria-label="Scorri prodotti a sinistra" type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        <button id="scroll-right" class="scroll-btn" aria-label="Scorri prodotti a destra" type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>DishDiveReview</h3>
+        <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Link Utili</h3>
+        <ul>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#termini">Termini e condizioni</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contatti</h3>
+        <ul>
+          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
+          <li>Indirizzo: Via Roma 123, Milano</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
