@@ -64,6 +64,52 @@ try {
                 echo json_encode(['success' => false, 'message' => 'Errore nel recupero delle recensioni']);
             }
             break;
+
+        case 'POST':
+            // Crea nuova recensione
+            $input = json_decode(file_get_contents('php://input'), true);
+
+            // Verifica CSRF token
+            if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
+                break;
+            }
+
+            // Sanitizza i dati
+            $data = [
+                'title' => Utils::sanitizeInput($input['title'] ?? ''),
+                'content' => Utils::sanitizeInput($input['content'] ?? ''),
+                'rating' => (int)($input['rating'] ?? 0),
+                'product_name' => Utils::sanitizeInput($input['product_name'] ?? ''),
+                'product_image' => Utils::sanitizeInput($input['product_image'] ?? '')
+            ];
+
+            // Valida i dati
+            $errors = [];
+            if (empty($data['title']) || strlen($data['title']) < 3) {
+                $errors[] = "Il titolo deve contenere almeno 3 caratteri";
+            }
+            if (empty($data['content']) || strlen($data['content']) < 10) {
+                $errors[] = "Il contenuto deve contenere almeno 10 caratteri";
+            }
+            if ($data['rating'] < 1 || $data['rating'] > 5) {
+                $errors[] = "La valutazione deve essere tra 1 e 5 stelle";
+            }
+
+            if (!empty($errors)) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'message' => implode(', ', $errors)]);
+                break;
+            }
+
+            if ($reviewManager->createReview($userId, $data)) {
+                echo json_encode(['success' => true, 'message' => 'Recensione creata con successo']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['success' => false, 'message' => 'Errore durante la creazione']);
+            }
+            break;
             
         case 'PUT':
             // Aggiorna recensione
