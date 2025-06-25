@@ -13,6 +13,26 @@ class DashboardManager {
     }
 
     /**
+     * Mostra la schermata di caricamento
+     */
+    showLoading() {
+        const loader = document.getElementById('loadingOverlay');
+        if (loader) {
+            loader.classList.add('active');
+        }
+    }
+
+    /**
+     * Nasconde la schermata di caricamento
+     */
+    hideLoading() {
+        const loader = document.getElementById('loadingOverlay');
+        if (loader) {
+            loader.classList.remove('active');
+        }
+    }
+
+    /**
      * Inizializzazione del dashboard
      */
     init() {
@@ -37,6 +57,17 @@ class DashboardManager {
         return Array.from(crypto.getRandomValues(new Uint8Array(32)))
             .map(b => b.toString(16).padStart(2, '0'))
             .join('');
+    }
+
+    /**
+     * Restituisce il percorso corretto per le immagini
+     */
+    formatImagePath(path) {
+        if (!path) return '';
+        if (/^(https?:\/\/|\.|\/)/.test(path)) {
+            return path;
+        }
+        return '../' + path;
     }
 
     /**
@@ -250,6 +281,7 @@ class DashboardManager {
      * Carica dati utente
      */
     async loadUserData() {
+        this.showLoading();
         try {
             const response = await fetch('../php/profile_api.php');
             const data = await response.json();
@@ -262,6 +294,8 @@ class DashboardManager {
         } catch (error) {
             console.error('Errore caricamento dati utente:', error);
             this.showNotification('Errore di connessione', 'error');
+        } finally {
+            this.hideLoading();
         }
     }
 
@@ -284,11 +318,11 @@ class DashboardManager {
         }
 
         if (userAvatar && userData.profile_photo) {
-            userAvatar.src = userData.profile_photo;
+            userAvatar.src = this.formatImagePath(userData.profile_photo);
         }
 
         if (profilePhoto && userData.profile_photo) {
-            profilePhoto.src = userData.profile_photo;
+            profilePhoto.src = this.formatImagePath(userData.profile_photo);
         }
 
         if (profileUsername) {
@@ -395,8 +429,9 @@ class DashboardManager {
                 // Aggiorna le immagini
                 const userAvatar = document.getElementById('userAvatar');
                 const profilePhoto = document.getElementById('profilePhoto');
-                if (userAvatar) userAvatar.src = result.photo_url + '?t=' + Date.now();
-                if (profilePhoto) profilePhoto.src = result.photo_url + '?t=' + Date.now();
+                const updatedPath = this.formatImagePath(result.photo_url) + '?t=' + Date.now();
+                if (userAvatar) userAvatar.src = updatedPath;
+                if (profilePhoto) profilePhoto.src = updatedPath;
             } else {
                 this.showNotification(result.message || 'Errore durante l\'upload', 'error');
             }
