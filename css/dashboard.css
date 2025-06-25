@@ -61,7 +61,7 @@ body {
 }
 
 .sidebar-close {
-  display: none;
+  display: block;
   background: none;
   border: none;
   color: var(--text-secondary);
