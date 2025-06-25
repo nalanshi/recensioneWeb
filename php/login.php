@@ -70,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'email' => $user['email'],
                     'role' => $user['role'],
                     'nome' => $user['nome'],
-                    'cognome' => $user['cognome']
+                    'cognome' => $user['cognome'],
+                    'profile_photo' => $user['profile_photo']
                 ];
 
                 SessionManager::login($user['id'], $userData);
@@ -80,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['is_logged_in'] = true;
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['profile_photo'] = $user['profile_photo'];
 
                 // Se l'utente ha selezionato "Ricordami", impostiamo un cookie
                 if ($remember) {
