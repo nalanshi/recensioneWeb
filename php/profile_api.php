@@ -48,6 +48,10 @@ try {
         case 'POST':
             // Aggiorna profilo
             $input = json_decode(file_get_contents('php://input'), true);
+
+            // Supporto a chiavi camelCase per retrocompatibilità
+            $input['first_name'] = $input['first_name'] ?? ($input['firstName'] ?? '');
+            $input['last_name']  = $input['last_name']  ?? ($input['lastName'] ?? '');
             
             // Verifica CSRF token
             if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
