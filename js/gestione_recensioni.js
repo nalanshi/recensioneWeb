@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const section = link.dataset.section;
+      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+      const target = document.getElementById(`${section}-section`);
+      if (target) target.classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      link.closest('.nav-item').classList.add('active');
+    });
+  });
   const form = document.getElementById('create-review-form');
   const list = document.getElementById('reviews-list');
   const submitBtn = form.querySelector('button[type="submit"]');
