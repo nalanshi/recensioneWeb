@@ -149,13 +149,15 @@ body {
 }
 
 .form-input-wrapper {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .form-input {
-  width: 100%;
+  flex: 1;
   height: 56px;
-  padding: 0 var(--spacing-sm) 0 52px;
+  padding: 0 var(--spacing-sm);
   border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
   font-size: 16px;
@@ -194,16 +196,13 @@ body {
 
 /* Icone nei campi - Colori AgID */
 .form-icon {
-  position: absolute;
-  left: var(--spacing-sm);
-  top: 50%;
-  transform: translateY(-50%);
+  order: -1;
   width: 20px;
   height: 20px;
   pointer-events: none;
   color: var(--color-text-secondary);
   transition: var(--transition);
-  z-index: 1;
+  flex-shrink: 0;
 }
 
 .form-input:focus + .form-icon {
