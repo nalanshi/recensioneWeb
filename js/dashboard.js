@@ -35,8 +35,8 @@ class DashboardManager {
     /**
      * Inizializzazione del dashboard
      */
-    init() {
-        this.generateCSRFToken();
+    async init() {
+        await this.generateCSRFToken();
         this.setupEventListeners();
         this.setupSidebar();
         this.loadUserData();
@@ -49,7 +49,17 @@ class DashboardManager {
     /**
      * Genera token CSRF
      */
-    generateCSRFToken() {
+    async generateCSRFToken() {
+        try {
+            const response = await fetch('../php/csrf_token.php');
+            const data = await response.json();
+            if (data.csrf_token) {
+                this.csrfToken = data.csrf_token;
+                return;
+            }
+        } catch (error) {
+            console.error('Errore nel recupero del token CSRF:', error);
+        }
         this.csrfToken = this.generateRandomToken();
     }
 
