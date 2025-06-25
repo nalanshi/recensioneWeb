@@ -15,6 +15,12 @@ require_once 'database.php';
 // Avvio della sessione
 SessionManager::start();
 
+// Caricamento di header e footer comuni
+$header = file_get_contents("../static/header.html");
+$footer = file_get_contents("../static/footer.html");
+$homeLink = "<a href='../index.php' class='login-link' aria-label='Torna alla homepage' aria-current='page'>\n  <div class='user-icon-bg'>\n    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='userIcon'>\n      <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path>\n      <polyline points='9,22 9,12 15,12 15,22'></polyline>\n    </svg>\n  </div>\n  <div class='login-text'>Home</div>\n</a>";
+$header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $homeLink, $header);
+
 // Recupera eventuali messaggi di errore dalla sessione
 $errorMessage = '';
 if (isset($_SESSION['login_error'])) {
@@ -36,32 +42,7 @@ if (isset($_SESSION['login_error'])) {
 <body>
   <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
-  <header>
-    <nav>
-      <div class="nav-container">
-        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di DishDiveReview">
-          <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
-        </a> 
-
-        <ul class="nav-links" role="menubar">
-          <li><a href="#recensioni">Recensioni</a></li>
-          <li><a href="#classifiche">Classifiche</a></li>
-          <li><a href="#contatti">Contatti</a></li>
-        </ul>
-      </div>
-      <div class="login-container">
-        <a href="../index.php" class="login-link" aria-label="Torna alla homepage" aria-current="page">
-          <div class="user-icon-bg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="userIcon">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9,22 9,12 15,12 15,22"></polyline>
-            </svg>
-          </div>
-          <div class="login-text">Home</div>
-        </a>
-      </div>
-    </nav>
-  </header>
+  <?php echo $header; ?>
 
   <div class="auth-page">
     <div id="main-content" class="auth-container main-content">
@@ -154,33 +135,6 @@ if (isset($_SESSION['login_error'])) {
       </div>
     </div>
   </div>
-    <footer role="contentinfo">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>DishDiveReview</h3>
-        <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Link Utili</h3>
-        <ul>
-          <li><a href="#chi-siamo">Chi siamo</a></li>
-          <li><a href="#termini">Termini e condizioni</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
-          <li><a href="#cookie">Cookie Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Contatti</h3>
-        <ul>
-          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
-          <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
-          <li>Indirizzo: Via Roma 123, Milano</li>
-        </ul>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
-    </div>
-  </footer>
+    <?php echo $footer; ?>
 </body>
 </html>

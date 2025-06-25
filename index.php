@@ -14,8 +14,15 @@ require_once 'php/database.php';
 // Avvio della sessione
 SessionManager::start();
 
+// Caricamento di header e footer comuni
+$header = file_get_contents("static/header.html");
+$footer = file_get_contents("static/footer.html");
+
 // Caricamento del template HTML
 $DOM = file_get_contents("static/index.html");
+// Inserimento header e footer
+$DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
+$DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
 
 // Personalizzazione del contenuto in base allo stato di login
 $contenutoLogin = "";
