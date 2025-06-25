@@ -1163,9 +1163,10 @@ nav {
 footer {
   background: linear-gradient(135deg, var(--primary-agid, #0066CC) 0%, var(--secondary-agid, #0059B3) 100%);
   color: var(--text-light, #FFFFFF);
-  padding: var(--spacing-lg, 2rem) 0 var(--spacing-md, 1.5rem);
+  padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
   margin-top: var(--spacing-lg, 2rem);
   position: relative;
+  z-index: 1000;
   overflow: hidden;
 }
 
