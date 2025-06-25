@@ -285,7 +285,6 @@
       // Gestione caricamento altre recensioni
       loadMoreBtn.addEventListener('click', function() {
         // Qui si implementerebbe la chiamata AJAX per caricare altre recensioni
-        console.log('Caricamento altre recensioni...');
         
         // Simulazione caricamento
         this.innerHTML = '<i aria-hidden="true" class="fas fa-spinner fa-spin"></i> Caricamento...';
@@ -301,7 +300,6 @@
         const reviewCard = e.target.closest('.review-card');
         if (reviewCard) {
           // Qui si implementerebbe l'apertura del dettaglio recensione
-          console.log('Apertura dettaglio recensione');
         }
       });
     });

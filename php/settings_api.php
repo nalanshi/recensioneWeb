@@ -75,7 +75,6 @@ ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 require_once 'database.php';
-require_once 'classes/SettingsManager.php';
 
 // Avvia la sessione
 SessionManager::start();
@@ -121,7 +120,7 @@ try {
                 echo json_encode(['success' => true, 'data' => $settings]);
             } else {
                 http_response_code(500);
-                echo json_encode(['success' => false, 'message' => 'Errore nel recupero delle impostazioni', 'debug' => 'Database query failed']);
+                echo json_encode(['success' => false, 'message' => 'Errore nel recupero delle impostazioni']);
             }
             break;
             

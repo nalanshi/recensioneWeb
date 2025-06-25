@@ -315,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         // Simula click o naviga al dettaglio prodotto
-        console.log('Product card activated:', card.querySelector('.product-title').textContent);
       }
     });
   });
