@@ -850,7 +850,6 @@ class DashboardManager {
             themeSelect.value = theme;
         }
 
-        console.log(`Tema applicato: ${theme} (effettivo: ${actualTheme})`);
     }
 
     /**
