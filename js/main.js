@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Carousel functionality
+  // Funzionalità del carosello
   let slideIndex = 0;
   const slides = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.dot');
-  const interval = 5000; // Change slide every 5 seconds
+  const interval = 5000; // Cambia slide ogni 5 secondi
   
   function showSlides() {
-    // Hide all slides
+    // Nasconde tutte le slide
     for (let i = 0; i < slides.length; i++) {
       slides[i].classList.remove('active');
       dots[i].classList.remove('active');
@@ -14,22 +14,22 @@ document.addEventListener('DOMContentLoaded', function() {
       dots[i].setAttribute('tabindex', '-1');
     }
     
-    // Increment slide index
+    // Incrementa l'indice della slide
     slideIndex++;
     
-    // Reset to first slide if at the end
+    // Torna alla prima slide se si arriva alla fine
     if (slideIndex > slides.length) {
       slideIndex = 1;
     }
     
-    // Show current slide
+    // Mostra la slide corrente
     slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].setAttribute('aria-selected', 'true');
     dots[slideIndex - 1].setAttribute('tabindex', '0');
   }
   
-  // Initialize carousel
+  // Inizializza il carosello
   if (slides.length > 0) {
     slides[0].classList.add('active');
     dots[0].classList.add('active');
@@ -38,13 +38,13 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(showSlides, interval);
   }
   
-  // Add click event to dots
+  // Aggiunge gestione click ai punti
   dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-      // Reset slideIndex and update display
+      // Resetta l'indice e aggiorna la visualizzazione
       slideIndex = index;
       
-      // Hide all slides
+      // Nasconde tutte le slide
       for (let i = 0; i < slides.length; i++) {
         slides[i].classList.remove('active');
         dots[i].classList.remove('active');
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
         dots[i].setAttribute('tabindex', '-1');
       }
       
-      // Show selected slide
+      // Mostra la slide selezionata
       slides[index].classList.add('active');
       dots[index].classList.add('active');
       dots[index].setAttribute('aria-selected', 'true');
       dots[index].setAttribute('tabindex', '0');
     });
     
-    // Keyboard navigation for dots
+    // Navigazione da tastiera per i punti del carosello
     dot.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Products scroll functionality - Horizontal scrolling
+  // Scorrimento prodotti in orizzontale
   const scrollLeftBtn = document.getElementById('scroll-left');
   const scrollRightBtn = document.getElementById('scroll-right');
   const productsContainer = document.querySelector('.products-container');
@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (scrollLeftBtn && scrollRightBtn && productsContainer && productsScrollContainer) {
     let currentPosition = 0;
-    const cardWidth = 220; // Updated to match new card width
-    const gap = 32; // gap between cards (2rem = 32px)
+    const cardWidth = 220; // Larghezza card aggiornata
+    const gap = 32; // Spazio tra le card (2rem = 32px)
     const scrollAmount = cardWidth + gap;
     const totalCards = document.querySelectorAll('.product-card').length;
     
@@ -95,11 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
       scrollLeftBtn.disabled = currentPosition <= 0;
       scrollRightBtn.disabled = currentPosition >= maxPosition;
       
-      // Update ARIA attributes
+      // Aggiorna attributi ARIA
       scrollLeftBtn.setAttribute('aria-disabled', currentPosition <= 0);
       scrollRightBtn.setAttribute('aria-disabled', currentPosition >= maxPosition);
       
-      // Add visual feedback for disabled state
+      // Aggiunge feedback visivo per lo stato disabilitato
       if (currentPosition <= 0) {
         scrollLeftBtn.style.opacity = '0.5';
       } else {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateScrollIndicators() {
-      // Remove existing indicators
+      // Rimuove gli indicatori esistenti
       const existingIndicators = document.querySelector('.scroll-indicators');
       if (existingIndicators) {
         existingIndicators.remove();
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const visibleCards = getVisibleCards();
       
-      // Create new indicators if needed
+      // Crea nuovi indicatori se necessario
       if (totalCards > visibleCards) {
         const indicatorsContainer = document.createElement('div');
         indicatorsContainer.className = 'scroll-indicators';
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Scroll left function
+    // Funzione di scorrimento a sinistra
     function scrollLeft() {
       if (currentPosition > 0) {
         currentPosition = Math.max(0, currentPosition - scrollAmount);
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Scroll right function
+    // Funzione di scorrimento a destra
     function scrollRight() {
       const maxPosition = getMaxPosition();
       if (currentPosition < maxPosition) {
@@ -183,11 +183,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Event listeners for scroll buttons
+    // Gestione dei pulsanti di scorrimento
     scrollLeftBtn.addEventListener('click', scrollLeft);
     scrollRightBtn.addEventListener('click', scrollRight);
     
-    // Keyboard navigation for scroll buttons
+    // Navigazione da tastiera per i pulsanti di scorrimento
     [scrollLeftBtn, scrollRightBtn].forEach(btn => {
       btn.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Mouse wheel scrolling for products container
+    // Scorrimento con la rotella del mouse sui prodotti
     productsScrollContainer.addEventListener('wheel', (e) => {
       e.preventDefault();
       
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const maxPosition = getMaxPosition();
       
       if (delta > 0) {
-        // Scroll right
+        // Scorri a destra
         if (currentPosition < maxPosition) {
           currentPosition = Math.min(maxPosition, currentPosition + (scrollAmount / 2));
           productsContainer.style.transform = `translateX(-${currentPosition}px)`;
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
           updateScrollIndicators();
         }
       } else {
-        // Scroll left
+        // Scorri a sinistra
         if (currentPosition > 0) {
           currentPosition = Math.max(0, currentPosition - (scrollAmount / 2));
           productsContainer.style.transform = `translateX(-${currentPosition}px)`;
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, { passive: false });
     
-    // Touch/swipe support for mobile
+    // Supporto touch/swipe per mobile
     let startX = 0;
     let isDragging = false;
     
@@ -243,12 +243,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const endX = e.changedTouches[0].clientX;
       const diffX = startX - endX;
       
-      if (Math.abs(diffX) > 50) { // Minimum swipe distance
+      if (Math.abs(diffX) > 50) { // Distanza minima per lo swipe
         if (diffX > 0) {
-          // Swipe left - scroll right
+          // Swipe a sinistra - scorri a destra
           scrollRight();
         } else {
-          // Swipe right - scroll left
+          // Swipe a destra - scorri a sinistra
           scrollLeft();
         }
       }
@@ -256,11 +256,11 @@ document.addEventListener('DOMContentLoaded', function() {
       isDragging = false;
     }, { passive: true });
     
-    // Initialize scroll state
+    // Inizializza lo stato di scorrimento
     updateScrollButtons();
     updateScrollIndicators();
     
-    // Update on window resize
+    // Aggiornamento al ridimensionamento finestra
     window.addEventListener('resize', () => {
       const maxPosition = getMaxPosition();
       
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Hamburger menu functionality
+  // Funzionalità menu hamburger
   const hamburgerMenu = document.querySelector('.hamburger-menu');
   const navLinks = document.querySelector('.nav-links');
   
@@ -283,13 +283,13 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.toggle('active');
       navLinks.classList.toggle('active');
       
-      // Update ARIA attributes
+      // Aggiorna attributi ARIA
       const isExpanded = this.classList.contains('active');
       this.setAttribute('aria-expanded', isExpanded);
       navLinks.setAttribute('aria-hidden', !isExpanded);
     });
     
-    // Keyboard navigation for hamburger menu
+    // Navigazione da tastiera per il menu hamburger
     hamburgerMenu.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Close menu when clicking outside
+    // Chiude il menu cliccando fuori
     document.addEventListener('click', (e) => {
       if (!hamburgerMenu.contains(e.target) && !navLinks.contains(e.target)) {
         hamburgerMenu.classList.remove('active');
@@ -308,13 +308,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Enhanced accessibility for product cards
+  // Accessibilità migliorata per le card prodotto
   const productCards = document.querySelectorAll('.product-card');
   productCards.forEach(card => {
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        // Simulate click or navigate to product detail
+        // Simula click o naviga al dettaglio prodotto
         console.log('Product card activated:', card.querySelector('.product-title').textContent);
       }
     });

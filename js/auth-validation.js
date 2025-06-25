@@ -1,7 +1,7 @@
 // Validazione migliorata per i form di autenticazione
 // Ispirata al design Huawei con feedback visivo immediato
 
-// Utility functions
+// Funzioni di utilità
 function showError(fieldId, message) {
   const field = document.getElementById(fieldId);
   const errorDiv = document.getElementById(fieldId + '-error');
@@ -55,14 +55,14 @@ function showMessage(message, type = 'error') {
       </div>
     `;
     
-    // Auto-hide after 5 seconds
+    // Scomparsa automatica dopo 5 secondi
     setTimeout(() => {
       container.innerHTML = '';
     }, 5000);
   }
 }
 
-// Validation functions
+// Funzioni di validazione
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -115,7 +115,7 @@ function validateName(name) {
   return minLength && maxLength && validChars;
 }
 
-// Password strength indicator
+// Indicatore di forza della password
 function checkPasswordStrength() {
   const passwordField = document.getElementById('password');
   const strengthBar = document.getElementById('password-strength-bar');
@@ -126,13 +126,13 @@ function checkPasswordStrength() {
   const password = passwordField.value;
   const validation = validatePassword(password);
   
-  // Update strength bar
+  // Aggiorna barra di forza
   strengthBar.className = 'password-strength-bar';
   if (password.length > 0) {
     strengthBar.classList.add(validation.strength);
   }
   
-  // Update strength text
+  // Aggiorna testo di forza
   if (password.length === 0) {
     strengthText.textContent = '';
   } else {
@@ -147,9 +147,9 @@ function checkPasswordStrength() {
   }
 }
 
-// Real-time validation
+// Validazione in tempo reale
 function setupRealTimeValidation() {
-  // Email validation
+  // Validazione email
   const emailField = document.getElementById('email');
   if (emailField) {
     emailField.addEventListener('blur', function() {
@@ -168,7 +168,7 @@ function setupRealTimeValidation() {
     });
   }
   
-  // Username validation
+  // Validazione username
   const usernameField = document.getElementById('username');
   if (usernameField) {
     usernameField.addEventListener('blur', function() {
@@ -187,7 +187,7 @@ function setupRealTimeValidation() {
     });
   }
   
-  // Name validation
+  // Validazione nome e cognome
   ['nome', 'cognome'].forEach(fieldName => {
     const field = document.getElementById(fieldName);
     if (field) {
@@ -208,7 +208,7 @@ function setupRealTimeValidation() {
     }
   });
   
-  // Password validation
+  // Validazione password
   const passwordField = document.getElementById('password');
   if (passwordField) {
     passwordField.addEventListener('input', function() {
@@ -227,7 +227,7 @@ function setupRealTimeValidation() {
         showSuccess('password');
       }
       
-      // Check confirm password if it exists
+      // Controlla la conferma password se presente
       const confirmField = document.getElementById('confirm-password');
       if (confirmField && confirmField.value) {
         if (this.value !== confirmField.value) {
@@ -239,7 +239,7 @@ function setupRealTimeValidation() {
     });
   }
   
-  // Confirm password validation
+  // Validazione conferma password
   const confirmPasswordField = document.getElementById('confirm-password');
   if (confirmPasswordField) {
     confirmPasswordField.addEventListener('input', function() {
@@ -253,14 +253,14 @@ function setupRealTimeValidation() {
   }
 }
 
-// Login form validation
+// Validazione modulo login
 function validateLoginForm() {
   let isValid = true;
   
-  // Clear previous messages
+  // Pulisce i messaggi precedenti
   document.getElementById('error-container').innerHTML = '';
   
-  // Username/Email validation
+  // Validazione username/email
   const username = document.getElementById('username').value.trim();
   if (!username) {
     showError('username', 'Username o email è richiesto');
@@ -269,7 +269,7 @@ function validateLoginForm() {
     showSuccess('username');
   }
   
-  // Password validation
+  // Validazione password
   const password = document.getElementById('password').value;
   if (!password) {
     showError('password', 'Password è richiesta');
@@ -283,7 +283,7 @@ function validateLoginForm() {
     return false;
   }
   
-  // Show loading state
+  // Mostra stato di caricamento
   const submitBtn = document.querySelector('.btn-primary');
   if (submitBtn) {
     submitBtn.classList.add('btn-loading');
@@ -293,14 +293,14 @@ function validateLoginForm() {
   return true;
 }
 
-// Registration form validation
+// Validazione modulo registrazione
 function validateRegistrationForm() {
   let isValid = true;
   
-  // Clear previous messages
+  // Pulisce i messaggi precedenti
   document.getElementById('error-container').innerHTML = '';
   
-  // Name validation
+  // Validazione nome
   const nome = document.getElementById('nome').value.trim();
   if (!nome) {
     showError('nome', 'Nome è richiesto');
@@ -312,7 +312,7 @@ function validateRegistrationForm() {
     showSuccess('nome');
   }
   
-  // Surname validation
+  // Validazione cognome
   const cognome = document.getElementById('cognome').value.trim();
   if (!cognome) {
     showError('cognome', 'Cognome è richiesto');
@@ -324,7 +324,7 @@ function validateRegistrationForm() {
     showSuccess('cognome');
   }
   
-  // Email validation
+  // Validazione email
   const email = document.getElementById('email').value.trim();
   if (!email) {
     showError('email', 'Email è richiesta');
@@ -336,7 +336,7 @@ function validateRegistrationForm() {
     showSuccess('email');
   }
   
-  // Username validation
+  // Validazione username
   const username = document.getElementById('username').value.trim();
   if (!username) {
     showError('username', 'Username è richiesto');
@@ -348,7 +348,7 @@ function validateRegistrationForm() {
     showSuccess('username');
   }
   
-  // Password validation
+  // Validazione password
   const password = document.getElementById('password').value;
   if (!password) {
     showError('password', 'Password è richiesta');
@@ -369,7 +369,7 @@ function validateRegistrationForm() {
     }
   }
   
-  // Confirm password validation
+  // Validazione conferma password
   const confirmPassword = document.getElementById('confirm-password').value;
   if (!confirmPassword) {
     showError('confirm-password', 'Conferma password è richiesta');
@@ -381,7 +381,7 @@ function validateRegistrationForm() {
     showSuccess('confirm-password');
   }
   
-  // Terms validation
+  // Validazione accettazione termini
   const terms = document.getElementById('terms').checked;
   if (!terms) {
     showError('terms', 'Devi accettare i termini e condizioni');
@@ -393,7 +393,7 @@ function validateRegistrationForm() {
     return false;
   }
   
-  // Show loading state
+  // Mostra stato di caricamento
   const submitBtn = document.querySelector('.btn-primary');
   if (submitBtn) {
     submitBtn.classList.add('btn-loading');
@@ -403,17 +403,17 @@ function validateRegistrationForm() {
   return true;
 }
 
-// Initialize when DOM is loaded
+// Inizializza quando il DOM è pronto
 document.addEventListener('DOMContentLoaded', function() {
   setupRealTimeValidation();
   
-  // Setup password strength checker
+  // Imposta il controllo forza password
   const passwordField = document.getElementById('password');
   if (passwordField) {
     passwordField.addEventListener('input', checkPasswordStrength);
   }
   
-  // Clear validation on input focus
+  // Pulisce la validazione al focus dell'input
   const inputs = document.querySelectorAll('.form-input');
   inputs.forEach(input => {
     input.addEventListener('focus', function() {
