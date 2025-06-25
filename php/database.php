@@ -333,13 +333,13 @@ class ReviewManager {
     /**
      * Elimina una recensione (soft delete)
      */
-    public function deleteReview($reviewId, $userId) {
+    public function deleteReview($reviewId, $userId = null) {
         try {
-            $stmt = $this->db->prepare("
-                UPDATE reviews 
-                SET deleted_at = NOW()
-                WHERE id = ? AND user_id = ? AND deleted_at IS NULL
-            ");
+            if ($userId === null) {
+                $stmt = $this->db->prepare("UPDATE reviews SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL");
+                return $stmt->execute([$reviewId]);
+            }
+            $stmt = $this->db->prepare("UPDATE reviews SET deleted_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
             return $stmt->execute([$reviewId, $userId]);
         } catch (PDOException $e) {
             error_log("Errore deleteReview: " . $e->getMessage());
@@ -350,17 +350,26 @@ class ReviewManager {
     /**
      * Aggiorna una recensione
      */
-    public function updateReview($reviewId, $userId, $data) {
+    public function updateReview($reviewId, $data, $userId = null) {
         try {
-            $stmt = $this->db->prepare("
-                UPDATE reviews 
-                SET title = ?, content = ?, rating = ?, updated_at = NOW()
-                WHERE id = ? AND user_id = ? AND deleted_at IS NULL
-            ");
+            if ($userId === null) {
+                $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, rating = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND deleted_at IS NULL");
+                return $stmt->execute([
+                    $data['title'],
+                    $data['content'],
+                    $data['rating'],
+                    $data['product_name'],
+                    $data['product_image'],
+                    $reviewId
+                ]);
+            }
+            $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, rating = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
             return $stmt->execute([
                 $data['title'],
                 $data['content'],
                 $data['rating'],
+                $data['product_name'],
+                $data['product_image'],
                 $reviewId,
                 $userId
             ]);
@@ -369,6 +378,20 @@ class ReviewManager {
             return false;
         }
     }
+    public function getAllReviews($page = 1, $limit = 10) {
+        try {
+            $offset = ($page - 1) * $limit;
+            $stmt = $this->db->prepare("SELECT r.id, r.title, r.content, r.rating, r.product_name, r.product_image, r.created_at, r.updated_at, u.username FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.deleted_at IS NULL ORDER BY r.created_at DESC LIMIT ? OFFSET ?");
+            $stmt->execute([$limit, $offset]);
+            $reviews = $stmt->fetchAll();
+            $count = $this->db->query("SELECT COUNT(*) as total FROM reviews WHERE deleted_at IS NULL")->fetch()['total'];
+            return ['reviews' => $reviews, 'total' => $count, 'page' => $page, 'limit' => $limit, 'total_pages' => ceil($count / $limit)];
+        } catch (PDOException $e) {
+            error_log('Errore getAllReviews: ' . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 
 /**
@@ -537,6 +560,37 @@ class Utils {
         } else {
             return ['success' => false, 'message' => 'Errore durante l\'upload'];
         }
+    }
+
+    /**
+     * Gestisce l'upload dell'immagine prodotto
+     */
+    public static function handleProductImageUpload($file) {
+        $uploadDir = '../images/products/';
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $maxSize = 5 * 1024 * 1024;
+
+        if (!in_array($file['type'], $allowedTypes)) {
+            return ['success' => false, 'message' => 'Tipo di file non supportato'];
+        }
+
+        if ($file['size'] > $maxSize) {
+            return ['success' => false, 'message' => 'File troppo grande (max 5MB)'];
+        }
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = 'product_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $extension;
+        $filepath = $uploadDir . $filename;
+
+        if (move_uploaded_file($file['tmp_name'], $filepath)) {
+            return ['success' => true, 'path' => 'images/products/' . $filename];
+        }
+
+        return ['success' => false, 'message' => 'Errore durante l\'upload'];
     }
 
     /**
