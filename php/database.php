@@ -26,8 +26,8 @@ class DatabaseConfig {
 
             $pdo = new PDO($dsn, self::$username, self::$password, $options);
 
-            // Stampa le tabelle presenti nel database
-            self::printDatabaseTables($pdo);
+            // self::printDatabaseTables($pdo);
+            // Disabilitato per evitare output HTML che compromette le API
 
             return $pdo;
         } catch (PDOException $e) {
