@@ -47,7 +47,7 @@
   --radius-xl: 1.5rem;
 }
 html {
-  font-size: 1vmax;
+  font-size: 100%;
 }
 
 /* Reset e base */
