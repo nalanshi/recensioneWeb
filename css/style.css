@@ -698,7 +698,7 @@ a:focus {
 
   /* Layout */
   --sidebar-width: 17.5rem;
-  --header-height: 4.375rem;
+  --header-height: 5rem;
 }
 
 * {
@@ -1163,8 +1163,8 @@ nav {
 footer {
   background: linear-gradient(135deg, var(--primary-agid, #0066CC) 0%, var(--secondary-agid, #0059B3) 100%);
   color: var(--text-light, #FFFFFF);
-  padding: var(--spacing-xl, 3rem) 0 var(--spacing-lg, 2rem);
-  margin-top: var(--spacing-xl, 3rem);
+  padding: var(--spacing-lg, 2rem) 0 var(--spacing-md, 1.5rem);
+  margin-top: var(--spacing-lg, 2rem);
   position: relative;
   overflow: hidden;
 }
@@ -1191,7 +1191,7 @@ footer::before {
 .footer-section h3 {
   color: var(--text-light, #FFFFFF);
   margin-bottom: var(--spacing-md, 1.5rem);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   position: relative;
 }
@@ -1211,6 +1211,7 @@ footer::before {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   margin-bottom: var(--spacing-sm, 1rem);
+  font-size: 0.9rem;
 }
 
 .footer-section ul {
@@ -1229,6 +1230,7 @@ footer::before {
   transition: var(--transition, all 0.3s ease);
   padding: 0.25rem 0;
   display: inline-block;
+  font-size: 0.9rem;
 }
 
 .footer-section ul li a:hover {
