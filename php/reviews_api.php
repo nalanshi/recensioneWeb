@@ -27,13 +27,19 @@ if (!SessionManager::isLoggedIn()) {
     exit;
 }
 
+
 $userId = SessionManager::getUserId();
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $reviewManager = new ReviewManager();
 
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method === 'POST' && isset($_POST['_method'])) {
+    $method = strtoupper($_POST['_method']);
+}
+
 try {
-    switch ($_SERVER['REQUEST_METHOD']) {
+    switch ($method) {
         case 'GET':
-            // Ottieni recensioni dell'utente
             $page = (int)($_GET['page'] ?? 1);
             $limit = (int)($_GET['limit'] ?? 10);
             
@@ -46,7 +52,11 @@ try {
             // Rimuovi filtri vuoti
             $filters = array_filter($filters);
             
-            $result = $reviewManager->getUserReviews($userId, $page, $limit, $filters);
+            if ($isAdmin && isset($_GET['all'])) {
+                $result = $reviewManager->getAllReviews($page, $limit);
+            } else {
+                $result = $reviewManager->getUserReviews($userId, $page, $limit, $filters);
+            }
             
             if ($result !== false) {
                 // Formatta le date e aggiungi stelle
@@ -67,7 +77,7 @@ try {
 
         case 'POST':
             // Crea nuova recensione
-            $input = json_decode(file_get_contents('php://input'), true);
+            $input = $_POST;
 
             // Verifica CSRF token
             if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
@@ -76,13 +86,26 @@ try {
                 break;
             }
 
+            // Gestione upload immagine prodotto
+            $productImagePath = $input['old_image'] ?? '';
+            if (!empty($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
+                $upload = Utils::handleProductImageUpload($_FILES['product_image']);
+                if ($upload['success']) {
+                    $productImagePath = $upload['path'];
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => $upload['message']]);
+                    break;
+                }
+            }
+
             // Sanitizza i dati
             $data = [
                 'title' => Utils::sanitizeInput($input['title'] ?? ''),
                 'content' => Utils::sanitizeInput($input['content'] ?? ''),
                 'rating' => (int)($input['rating'] ?? 0),
                 'product_name' => Utils::sanitizeInput($input['product_name'] ?? ''),
-                'product_image' => Utils::sanitizeInput($input['product_image'] ?? '')
+                'product_image' => $productImagePath
             ];
 
             // Valida i dati
@@ -113,7 +136,7 @@ try {
             
         case 'PUT':
             // Aggiorna recensione
-            $input = json_decode(file_get_contents('php://input'), true);
+            $input = $_POST;
             $reviewId = (int)($_GET['id'] ?? 0);
             
             if (!$reviewId) {
@@ -129,11 +152,25 @@ try {
                 break;
             }
             
+            $productImagePath = $input['old_image'] ?? '';
+            if (!empty($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
+                $upload = Utils::handleProductImageUpload($_FILES['product_image']);
+                if ($upload['success']) {
+                    $productImagePath = $upload['path'];
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => $upload['message']]);
+                    break;
+                }
+            }
+
             // Sanitizza i dati
             $data = [
                 'title' => Utils::sanitizeInput($input['title'] ?? ''),
                 'content' => Utils::sanitizeInput($input['content'] ?? ''),
-                'rating' => (int)($input['rating'] ?? 0)
+                'rating' => (int)($input['rating'] ?? 0),
+                'product_name' => Utils::sanitizeInput($input['product_name'] ?? ''),
+                'product_image' => $productImagePath
             ];
             
             // Valida i dati
@@ -155,7 +192,12 @@ try {
             }
             
             // Aggiorna la recensione
-            if ($reviewManager->updateReview($reviewId, $userId, $data)) {
+            $updated = $reviewManager->updateReview(
+                $reviewId,
+                $data,
+                $isAdmin ? null : $userId
+            );
+            if ($updated) {
                 echo json_encode(['success' => true, 'message' => 'Recensione aggiornata con successo']);
             } else {
                 http_response_code(500);
@@ -183,7 +225,11 @@ try {
             }
             
             // Elimina la recensione
-            if ($reviewManager->deleteReview($reviewId, $userId)) {
+            $deleted = $reviewManager->deleteReview(
+                $reviewId,
+                $isAdmin ? null : $userId
+            );
+            if ($deleted) {
                 echo json_encode(['success' => true, 'message' => 'Recensione eliminata con successo']);
             } else {
                 http_response_code(500);

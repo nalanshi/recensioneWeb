@@ -34,12 +34,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function loadReviews() {
     try {
-      const res = await fetch('../php/reviews_api.php?limit=20');
+      const res = await fetch('../php/reviews_api.php?limit=20&all=1');
       const data = await res.json();
       if (data.success) {
         list.innerHTML = data.data.reviews.map(r => `
-          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-rating="${r.rating}">
+          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-image="${escapeHtml(r.product_image || '')}" data-rating="${r.rating}">
             <h3>${escapeHtml(r.title)}</h3>
+            <p class="review-author">${escapeHtml(r.username || '')}</p>
             <p>${escapeHtml(r.content)}</p>
             <div class="review-actions">
               <button class="edit-btn" data-id="${r.id}">Modifica</button>
@@ -55,20 +56,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  async function createReview(data) {
+  async function createReview(formData) {
+    formData.append('csrf_token', csrfToken);
     const res = await fetch('../php/reviews_api.php', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ ...data, csrf_token: csrfToken })
+      body: formData
     });
     return res.json();
   }
 
-  async function updateReview(id, data) {
+  async function updateReview(id, formData) {
+    formData.append('csrf_token', csrfToken);
+    formData.append('_method', 'PUT');
     const res = await fetch(`../php/reviews_api.php?id=${id}`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ ...data, csrf_token: csrfToken })
+      method: 'POST',
+      body: formData
     });
     return res.json();
   }
@@ -84,21 +86,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const data = {
-      title: form.title.value,
-      product_name: form.product.value,
-      rating: form.rating.value,
-      content: form.content.value,
-      product_image: ''
-    };
+    const formData = new FormData();
+    formData.append('title', form.title.value);
+    formData.append('product_name', form.product.value);
+    formData.append('rating', form.rating.value);
+    formData.append('content', form.content.value);
+    if (form.image.files[0]) {
+      formData.append('product_image', form.image.files[0]);
+    }
+    formData.append('old_image', form.old_image.value);
     let result;
     if (form.dataset.editId) {
-      result = await updateReview(form.dataset.editId, data);
+      result = await updateReview(form.dataset.editId, formData);
     } else {
-      result = await createReview(data);
+      result = await createReview(formData);
     }
     if (result.success) {
       form.reset();
+      form.old_image.value = '';
       delete form.dataset.editId;
       submitBtn.textContent = 'Pubblica';
       loadReviews();
@@ -119,6 +124,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       form.title.value = item.querySelector('h3').textContent;
       form.product.value = item.dataset.product || '';
       form.rating.value = item.dataset.rating || 5;
+      form.image.value = '';
+      form.old_image.value = item.dataset.image || '';
       form.content.value = item.querySelector('p').textContent;
       form.dataset.editId = e.target.dataset.id;
       submitBtn.textContent = 'Aggiorna';
