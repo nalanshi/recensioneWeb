@@ -704,7 +704,7 @@ class DashboardManager {
      */
     async loadUserSettings() {
         try {
-            const response = await fetch('/php/settings_api.php', {
+            const response = await fetch('../php/settings_api.php', {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'

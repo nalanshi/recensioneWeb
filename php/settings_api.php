@@ -7,7 +7,8 @@ class SettingsManager {
     private $pdo;
 
     public function __construct() {
-        $this->pdo = Database::getConnection();
+        // Connessione al database tramite la configurazione condivisa
+        $this->pdo = DatabaseConfig::getConnection();
     }
 
     /**
