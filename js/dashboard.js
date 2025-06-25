@@ -1087,15 +1087,15 @@ class DashboardManager {
         // Stili per la notifica
         notification.style.cssText = `
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 1.25rem;
+            right: 1.25rem;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-lg);
             z-index: 1003;
-            min-width: 300px;
-            max-width: 500px;
+            min-width: 18.75rem;
+            max-width: 31.25rem;
             animation: slideInRight 0.3s ease-out;
         `;
 
@@ -1251,9 +1251,9 @@ style.textContent = `
         border-radius: var(--radius-sm);
         cursor: pointer;
         transition: var(--transition);
-        min-width: 40px;
-        height: 40px;
-        margin: 0 2px;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        margin: 0 0.125rem;
     }
 
     .pagination-btn:hover {
