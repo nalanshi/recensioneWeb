@@ -1,8 +1,6 @@
 <?php
 /**
- * Pagina di gestione delle recensioni (solo admin)
- *
- * Consente di pubblicare, modificare ed eliminare recensioni
+ * Pagina dashboard utente
  */
 
 require_once 'database.php';
@@ -10,15 +8,9 @@ require_once 'database.php';
 SessionManager::start();
 SessionManager::requireLogin();
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    http_response_code(403);
-    echo 'Accesso negato';
-    exit();
-}
-
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
-$DOM = file_get_contents("../static/gestione_recensioni.html");
+$DOM = file_get_contents("../static/dashboard.html");
 
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
@@ -34,13 +26,15 @@ $headerLoginHtml = "<div class='login-link user-menu' aria-label='Menu utente'>
                         </div>
                         <div class='login-text'>{$username}</div>
                         <div class='user-dropdown'>
-                          <a href='dashboard.php'>Dashboard</a>
-                          <a href='gestione_recensioni.php'>Gestione recensioni</a>
-                          <a href='logout.php'>Logout</a>
+                          <a href='dashboard.php'>Dashboard</a>";
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+    $headerLoginHtml .= "\n                          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+}
+$headerLoginHtml .= "\n                          <a href='logout.php'>Logout</a>
                         </div>
                       </div>";
 
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
 echo $DOM;
-?>
+
