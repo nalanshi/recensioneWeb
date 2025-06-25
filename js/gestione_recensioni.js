@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = await res.json();
       if (data.success) {
         list.innerHTML = data.data.reviews.map(r => `
-          <div class="review-item" data-id="${r.id}">
+          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-rating="${r.rating}">
             <h3>${escapeHtml(r.title)}</h3>
             <p>${escapeHtml(r.content)}</p>
             <div class="review-actions">
@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if (e.target.classList.contains('edit-btn')) {
       const item = e.target.closest('.review-item');
       form.title.value = item.querySelector('h3').textContent;
-      form.product.value = '';
-      form.rating.value = 5;
+      form.product.value = item.dataset.product || '';
+      form.rating.value = item.dataset.rating || 5;
       form.content.value = item.querySelector('p').textContent;
       form.dataset.editId = e.target.dataset.id;
       submitBtn.textContent = 'Aggiorna';

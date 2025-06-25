@@ -60,7 +60,7 @@ if (!SessionManager::isLoggedIn()) {
                         </div>
                         <div class='login-text'>{$username}</div>
                         <div class='user-dropdown'>
-                          <a href='../static/dashboard.html'>Dashboard</a>";
+                          <a href='dashboard.php'>Dashboard</a>";
   if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
       $headerLoginHtml .= "\n                          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
   }
