@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
   <header>
     <nav>
       <div class="nav-container">
-        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
         <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
@@ -34,7 +35,7 @@
     </nav>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="main-content">
     <!-- Hero Section -->
     <section class="reviews-hero">
       <div class="reviews-container">
@@ -91,12 +92,13 @@
           <div class="review-content">
             <div class="review-header">
               <h3 class="review-title">Smartphone XYZ Pro: Un Concentrato di Innovazione</h3>
-              <div class="review-rating">
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
+              <div class="review-rating" aria-label="Valutazione 5 su 5">
+                <span class="sr-only">Valutazione 5 su 5</span>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
               </div>
             </div>
             <div class="review-meta">
@@ -120,12 +122,13 @@
           <div class="review-content">
             <div class="review-header">
               <h3 class="review-title">Fotocamera DSLR 4K: Qualità Professionale</h3>
-              <div class="review-rating">
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star empty"></i>
+              <div class="review-rating" aria-label="Valutazione 4 su 5">
+                <span class="sr-only">Valutazione 4 su 5</span>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star empty"></i>
               </div>
             </div>
             <div class="review-meta">
@@ -149,12 +152,13 @@
           <div class="review-content">
             <div class="review-header">
               <h3 class="review-title">Cuffie Wireless Premium: Audio Immersivo</h3>
-              <div class="review-rating">
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
-                <i class="fas fa-star star"></i>
+              <div class="review-rating" aria-label="Valutazione 5 su 5">
+                <span class="sr-only">Valutazione 5 su 5</span>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
+                <i aria-hidden="true" class="fas fa-star star"></i>
               </div>
             </div>
             <div class="review-meta">
@@ -177,13 +181,13 @@
       <!-- Carica Altri -->
       <div class="load-more">
         <button class="load-more-btn" id="load-more-btn" tabindex="0" aria-label="Carica altre recensioni">
-          <i class="fas fa-plus"></i> Carica altre recensioni
+          <i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni
         </button>
       </div>
 
       <!-- Messaggio nessuna recensione (nascosto di default) -->
       <div class="no-reviews" id="no-reviews" style="display: none;">
-        <i class="fas fa-search"></i>
+        <i aria-hidden="true" class="fas fa-search"></i>
         <h3>Nessuna recensione trovata</h3>
         <p>Prova a modificare i filtri di ricerca per trovare altre recensioni.</p>
       </div>
@@ -284,10 +288,10 @@
         console.log('Caricamento altre recensioni...');
         
         // Simulazione caricamento
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Caricamento...';
+        this.innerHTML = '<i aria-hidden="true" class="fas fa-spinner fa-spin"></i> Caricamento...';
         
         setTimeout(() => {
-          this.innerHTML = '<i class="fas fa-plus"></i> Carica altre recensioni';
+          this.innerHTML = '<i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni';
           // Qui si aggiungerebbero le nuove recensioni al DOM
         }, 1000);
       });

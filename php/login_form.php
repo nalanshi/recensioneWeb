@@ -34,11 +34,12 @@ if (isset($_SESSION['login_error'])) {
   <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
   <header>
     <nav>
       <div class="nav-container">
-        <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
+        <a href="../index.php" class="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
 
@@ -63,7 +64,7 @@ if (isset($_SESSION['login_error'])) {
   </header>
 
   <div class="auth-page">
-    <div class="auth-container" id="main-content">
+    <div id="main-content" class="auth-container main-content">
       <div class="auth-header">
         <div class="auth-logo">
           DR

@@ -570,7 +570,7 @@ class DashboardManager {
         if (data.reviews.length === 0) {
             reviewsList.innerHTML = `
                 <div class="no-reviews">
-                    <i class="fas fa-star" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem;"></i>
+                    <i aria-hidden="true" class="fas fa-star" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem;"></i>
                     <h3>Nessuna recensione trovata</h3>
                     <p>Non hai ancora scritto recensioni o nessuna recensione corrisponde ai filtri selezionati.</p>
                 </div>
@@ -591,15 +591,15 @@ class DashboardManager {
                     </div>
                     <p class="review-text">${this.escapeHtml(review.content_preview)}</p>
                     <div class="review-meta">
-                        <span class="product-name"><i class="fas fa-tag"></i> ${this.escapeHtml(review.product_name)}</span>
-                        <span class="likes-count"><i class="fas fa-heart"></i> ${review.likes_count} like</span>
+                        <span class="product-name"><i aria-hidden="true" class="fas fa-tag"></i> ${this.escapeHtml(review.product_name)}</span>
+                        <span class="likes-count"><i aria-hidden="true" class="fas fa-heart"></i> ${review.likes_count} like</span>
                     </div>
                     <div class="review-actions">
                         <button onclick="dashboard.editReview(${review.id})" class="btn-action">
-                            <i class="fas fa-edit"></i> Modifica
+                            <i aria-hidden="true" class="fas fa-edit"></i> Modifica
                         </button>
                         <button onclick="dashboard.deleteReview(${review.id})" class="btn-action btn-danger">
-                            <i class="fas fa-trash"></i> Elimina
+                            <i aria-hidden="true" class="fas fa-trash"></i> Elimina
                         </button>
                     </div>
                 </div>
@@ -629,7 +629,7 @@ class DashboardManager {
         // Pulsante precedente
         if (currentPage > 1) {
             paginationHTML += `<button onclick="dashboard.loadReviews(${currentPage - 1})" class="pagination-btn">
-                <i class="fas fa-chevron-left"></i>
+                <i aria-hidden="true" class="fas fa-chevron-left"></i>
             </button>`;
         }
 
@@ -659,7 +659,7 @@ class DashboardManager {
         // Pulsante successivo
         if (currentPage < totalPages) {
             paginationHTML += `<button onclick="dashboard.loadReviews(${currentPage + 1})" class="pagination-btn">
-                <i class="fas fa-chevron-right"></i>
+                <i aria-hidden="true" class="fas fa-chevron-right"></i>
             </button>`;
         }
 
@@ -1077,10 +1077,10 @@ class DashboardManager {
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
             <div class="notification-content">
-                <i class="fas ${this.getNotificationIcon(type)}"></i>
+                <i aria-hidden="true" class="fas ${this.getNotificationIcon(type)}"></i>
                 <span>${message}</span>
                 <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
-                    <i class="fas fa-times"></i>
+                    <i aria-hidden="true" class="fas fa-times"></i>
                 </button>
             </div>
         `;

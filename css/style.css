@@ -62,6 +62,35 @@ body {
   font-size: 1rem;
 }
 
+/* Skip link per accessibilità */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-agid);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Contenuto solo per screen reader */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Layout principale */
 main {
   padding-top: 5rem; /* Spazio per header fisso */
@@ -724,14 +753,14 @@ nav {
   flex: 1;
 }
 
-#logo-link {
+.logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
   transition: var(--transition);
 }
 
-#logo-link:hover {
+.logo-link:hover {
   transform: scale(1.05);
 }
 

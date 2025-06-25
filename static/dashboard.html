@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
 
   <!-- Header -->
   <header class="header">
@@ -37,12 +38,12 @@
           </div>
 
           <button class="logout-btn" id="logoutBtn" aria-label="Esci dal tuo account">
-            <i class="fas fa-sign-out-alt"></i>
+            <i aria-hidden="true" class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
           </button>
 
           <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Apri menu laterale">
-            <i class="fas fa-bars"></i>
+            <i aria-hidden="true" class="fas fa-bars"></i>
           </button>
         </div>
     </nav>
@@ -53,7 +54,7 @@
     <div class="sidebar-header">
       <h2>Menu</h2>
       <button class="sidebar-close" id="sidebarClose" aria-label="Chiudi menu laterale">
-        <i class="fas fa-times"></i>
+        <i aria-hidden="true" class="fas fa-times"></i>
       </button>
     </div>
 
@@ -61,19 +62,19 @@
       <ul class="nav-menu">
         <li class="nav-item active">
           <a href="#profilo" class="nav-link" data-section="profilo">
-            <i class="fas fa-user"></i>
+            <i aria-hidden="true" class="fas fa-user"></i>
             <span>Il mio profilo</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="#recensioni" class="nav-link" data-section="recensioni">
-            <i class="fas fa-star"></i>
+            <i aria-hidden="true" class="fas fa-star"></i>
             <span>Le mie recensioni</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="#impostazioni" class="nav-link" data-section="impostazioni">
-            <i class="fas fa-cog"></i>
+            <i aria-hidden="true" class="fas fa-cog"></i>
             <span>Impostazioni</span>
           </a>
         </li>
@@ -82,7 +83,7 @@
   </aside>
 
   <!-- Main Content -->
-  <main class="main-content" id="main-content">
+  <main id="main-content" class="main-content">
     <div class="content-wrapper">
 
       <!-- Sezione Il mio profilo -->
@@ -94,6 +95,7 @@
         <div class="profile-container">
           <!-- Informazioni profilo -->
           <div class="profile-info-section">
+            <form class="profile-form" id="profileForm">
               <div class="profile-basic-info">
                 <div class="profile-header">
                   <div class="profile-name-section">
@@ -113,7 +115,7 @@
                     <img src="../images/profileimage/image1.jpg" alt="Foto profilo" class="profile-photo" id="profilePhoto">
                     <div class="photo-overlay">
                       <button class="change-photo-btn" id="changePhotoBtn" aria-label="Cambia foto profilo">
-                        <i class="fas fa-camera"></i>
+                        <i aria-hidden="true" class="fas fa-camera"></i>
                         <span>Cambia foto</span>
                       </button>
                     </div>
@@ -121,7 +123,6 @@
                   </div>
                 </div>
               </div>
-            <form class="profile-form" id="profileForm">
 
               <div class="form-group">
                 <label for="email">Indirizzo email*</label>
@@ -152,11 +153,11 @@
 
               <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i>
+                  <i aria-hidden="true" class="fas fa-save"></i>
                   Salva modifiche
                 </button>
                 <button type="button" class="btn btn-secondary" id="changePasswordBtn">
-                  <i class="fas fa-key"></i>
+                  <i aria-hidden="true" class="fas fa-key"></i>
                   Cambia password
                 </button>
               </div>
@@ -170,7 +171,7 @@
           <h3>Zona pericolosa</h3>
           <p>Le azioni seguenti sono irreversibili. Procedi con cautela.</p>
           <button class="btn btn-danger" id="deleteAccountBtn">
-            <i class="fas fa-trash"></i>
+            <i aria-hidden="true" class="fas fa-trash"></i>
             Elimina account
           </button>
         </div>
@@ -187,7 +188,7 @@
           <!-- Barra di ricerca -->
           <div class="search-container">
             <div class="search-box">
-              <i class="fas fa-search"></i>
+              <i aria-hidden="true" class="fas fa-search"></i>
               <input type="text" id="reviewSearch" placeholder="Cerca nelle tue recensioni...">
             </div>
             <div class="filter-options">
@@ -313,7 +314,7 @@
 
           <div class="settings-actions">
             <button type="button" class="btn btn-primary" id="saveSettingsBtn">
-              <i class="fas fa-save"></i>
+              <i aria-hidden="true" class="fas fa-save"></i>
               Salva impostazioni
             </button>
           </div>
@@ -329,7 +330,7 @@
       <div class="modal-header">
         <h3>Cambia password</h3>
         <button class="modal-close" id="passwordModalClose">
-          <i class="fas fa-times"></i>
+          <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
       <form class="modal-body" id="passwordForm">
@@ -360,12 +361,12 @@
       <div class="modal-header">
         <h3>Elimina account</h3>
         <button class="modal-close" id="deleteModalClose">
-          <i class="fas fa-times"></i>
+          <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
       <div class="modal-body">
         <div class="warning-message">
-          <i class="fas fa-exclamation-triangle"></i>
+          <i aria-hidden="true" class="fas fa-exclamation-triangle"></i>
           <p>Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e comporterà:</p>
           <ul>
             <li>Perdita di tutte le tue recensioni</li>
