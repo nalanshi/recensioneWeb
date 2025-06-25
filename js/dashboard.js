@@ -43,7 +43,7 @@ class DashboardManager {
      * Setup degli event listeners
      */
     setupEventListeners() {
-        // Navigation
+        // Navigazione
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -52,7 +52,7 @@ class DashboardManager {
             });
         });
 
-        // Mobile menu
+        // Menu mobile
         const mobileToggle = document.getElementById('mobileMenuToggle');
         const sidebarClose = document.getElementById('sidebarClose');
         const overlay = document.getElementById('overlay');
@@ -67,19 +67,19 @@ class DashboardManager {
             overlay.addEventListener('click', () => this.closeMobileSidebar());
         }
 
-        // Logout
+        // Uscita
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => this.logout());
         }
 
-        // Profile form
+        // Form profilo
         const profileForm = document.getElementById('profileForm');
         if (profileForm) {
             profileForm.addEventListener('submit', (e) => this.handleProfileSubmit(e));
         }
 
-        // Photo upload
+        // Caricamento foto
         const changePhotoBtn = document.getElementById('changePhotoBtn');
         const photoInput = document.getElementById('photoInput');
         if (changePhotoBtn && photoInput) {
@@ -87,7 +87,7 @@ class DashboardManager {
             photoInput.addEventListener('change', (e) => this.handlePhotoUpload(e));
         }
 
-        // Password modal
+        // Modale password
         const changePasswordBtn = document.getElementById('changePasswordBtn');
         const passwordModal = document.getElementById('passwordModal');
         const passwordForm = document.getElementById('passwordForm');
@@ -107,7 +107,7 @@ class DashboardManager {
             cancelPasswordBtn.addEventListener('click', () => this.closeModal('passwordModal'));
         }
 
-        // Delete account modal
+        // Modale eliminazione account
         const deleteAccountBtn = document.getElementById('deleteAccountBtn');
         const deleteModal = document.getElementById('deleteModal');
         const deleteModalClose = document.getElementById('deleteModalClose');
@@ -136,7 +136,7 @@ class DashboardManager {
             });
         }
 
-        // Reviews search and filters
+        // Ricerca e filtri recensioni
         const reviewSearch = document.getElementById('reviewSearch');
         const ratingFilter = document.getElementById('ratingFilter');
         const dateFilter = document.getElementById('dateFilter');
@@ -151,19 +151,19 @@ class DashboardManager {
             dateFilter.addEventListener('change', () => this.loadReviews());
         }
 
-        // Settings
+        // Impostazioni
         const saveSettingsBtn = document.getElementById('saveSettingsBtn');
         if (saveSettingsBtn) {
             saveSettingsBtn.addEventListener('click', () => this.saveSettings());
         }
 
-        // Theme selector
+        // Selettore tema
         const themeSelect = document.getElementById('themeSelect');
         if (themeSelect) {
             themeSelect.addEventListener('change', (e) => this.changeTheme(e.target.value));
         }
 
-        // Keyboard navigation
+        // Navigazione da tastiera
         document.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
     }
 
@@ -273,9 +273,14 @@ class DashboardManager {
         const userName = document.getElementById('userName');
         const userAvatar = document.getElementById('userAvatar');
         const profilePhoto = document.getElementById('profilePhoto');
+        const profileDisplayName = document.getElementById('profileDisplayName');
+        const profileUsername = document.getElementById('profileUsername');
 
         if (userName) {
             userName.textContent = `${userData.first_name} ${userData.last_name}`;
+        }
+        if (profileDisplayName) {
+            profileDisplayName.textContent = `${userData.first_name} ${userData.last_name}`;
         }
 
         if (userAvatar && userData.profile_photo) {
@@ -284,6 +289,10 @@ class DashboardManager {
 
         if (profilePhoto && userData.profile_photo) {
             profilePhoto.src = userData.profile_photo;
+        }
+
+        if (profileUsername) {
+            profileUsername.textContent = `@${userData.username}`;
         }
 
         // Popola form profilo
