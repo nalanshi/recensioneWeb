@@ -227,6 +227,29 @@ class ReviewManager {
     }
 
     /**
+     * Crea una nuova recensione
+     */
+    public function createReview($userId, $data) {
+        try {
+            $stmt = $this->db->prepare(
+                "INSERT INTO reviews (user_id, title, content, rating, product_name, product_image, created_at) " .
+                "VALUES (?, ?, ?, ?, ?, ?, NOW())"
+            );
+            return $stmt->execute([
+                $userId,
+                $data['title'],
+                $data['content'],
+                $data['rating'],
+                $data['product_name'],
+                $data['product_image']
+            ]);
+        } catch (PDOException $e) {
+            error_log("Errore createReview: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Ottiene le recensioni dell'utente con paginazione e filtri
      */
     public function getUserReviews($userId, $page = 1, $limit = 10, $filters = []) {
