@@ -36,7 +36,7 @@ if (isset($_SESSION['login_error'])) {
   <title>Accedi - DishDiveReview</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/auth-styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
