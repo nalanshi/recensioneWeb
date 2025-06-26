@@ -566,11 +566,16 @@ body {
   margin-bottom: var(--spacing-md);
   transition: var(--transition);
   background: var(--surface);
+  flex-direction: column;
 }
 
 .review-item:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-0.125rem);
+}
+
+.review-summary {
+  cursor: pointer;
 }
 
 .review-image {
@@ -579,6 +584,15 @@ body {
   border-radius: var(--radius-sm);
   object-fit: cover;
   flex-shrink: 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.review-details {
+  margin-top: var(--spacing-sm);
+}
+
+.review-details.hidden {
+  display: none;
 }
 
 .review-content {
