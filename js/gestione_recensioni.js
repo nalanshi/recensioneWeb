@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const form = document.getElementById('create-review-form');
   const list = document.getElementById('reviews-list');
   const submitBtn = form.querySelector('button[type="submit"]');
+
+  const deleteModal = document.getElementById('deleteReviewModal');
+  const deleteModalClose = document.getElementById('deleteReviewModalClose');
+  const cancelDeleteBtn = document.getElementById('cancelReviewDeleteBtn');
+  const confirmDeleteBtn = document.getElementById('confirmReviewDeleteBtn');
+  const deleteConfirmation = document.getElementById('deleteReviewConfirmation');
+  let reviewIdToDelete = null;
   let csrfToken = '';
 
   async function loadCSRF() {
@@ -49,7 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
               <p><strong>Valutazione:</strong> ${r.rating}</p>
               <p>${escapeHtml(r.content)}</p>
               <div class="review-actions">
-                <button class="edit-btn" data-id="${r.id}">Modifica</button>
                 <button class="delete-btn" data-id="${r.id}">Elimina</button>
               </div>
             </div>
@@ -82,15 +88,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return res.json();
   }
 
-  async function updateReview(id, formData) {
-    formData.append('csrf_token', csrfToken);
-    formData.append('_method', 'PUT');
-    const res = await fetch(`/php/api.php?endpoint=reviews?id=${id}`, {
-      method: 'POST',
-      body: formData
-    });
-    return res.json();
-  }
 
   async function deleteReview(id) {
     const res = await fetch(`/php/api.php?endpoint=reviews?id=${id}`, {
@@ -99,6 +96,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       body: JSON.stringify({ csrf_token: csrfToken })
     });
     return res.json();
+  }
+
+  function openModal() {
+    if (deleteModal) {
+      deleteModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      deleteConfirmation.value = '';
+      confirmDeleteBtn.disabled = true;
+      setTimeout(() => deleteConfirmation.focus(), 100);
+    }
+  }
+
+  function closeModal() {
+    if (deleteModal) {
+      deleteModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   }
 
   form.addEventListener('submit', async e => {
@@ -111,17 +125,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (form.image.files[0]) {
       formData.append('product_image', form.image.files[0]);
     }
-    formData.append('old_image', form.old_image.value);
-    let result;
-    if (form.dataset.editId) {
-      result = await updateReview(form.dataset.editId, formData);
-    } else {
-      result = await createReview(formData);
-    }
+    let result = await createReview(formData);
     if (result.success) {
       form.reset();
-      form.old_image.value = '';
-      delete form.dataset.editId;
       submitBtn.textContent = 'Pubblica';
       loadReviews();
     } else {
@@ -131,12 +137,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   list.addEventListener('click', async e => {
     const delBtn = e.target.closest('.delete-btn');
-    const editBtn = e.target.closest('.edit-btn');
     if (delBtn) {
-      const id = delBtn.dataset.id;
-      if (confirm('Eliminare la recensione?')) {
+      reviewIdToDelete = delBtn.dataset.id;
+      openModal();
+    }
+  });
+
+  if (deleteModalClose) {
+    deleteModalClose.addEventListener('click', closeModal);
+  }
+  if (cancelDeleteBtn) {
+    cancelDeleteBtn.addEventListener('click', closeModal);
+  }
+  if (deleteConfirmation) {
+    deleteConfirmation.addEventListener('input', e => {
+      confirmDeleteBtn.disabled = e.target.value !== 'ELIMINA';
+    });
+  }
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener('click', async () => {
+      if (reviewIdToDelete && deleteConfirmation.value === 'ELIMINA') {
         try {
-          const r = await deleteReview(id);
+          const r = await deleteReview(reviewIdToDelete);
           if (r.success) {
             loadReviews();
           } else {
@@ -144,21 +166,12 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         } catch {
           alert('Errore di rete');
+        } finally {
+          closeModal();
         }
       }
-    } else if (editBtn) {
-      const item = editBtn.closest('.review-item');
-      form.title.value = item.dataset.title || '';
-      form.product.value = item.dataset.product || '';
-      form.rating.value = item.dataset.rating || 5;
-      form.image.value = '';
-      form.old_image.value = item.dataset.image || '';
-      form.content.value = item.dataset.content || '';
-      form.dataset.editId = editBtn.dataset.id;
-      submitBtn.textContent = 'Aggiorna';
-      window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
-    }
-  });
+    });
+  }
 
   await loadCSRF();
   loadReviews();

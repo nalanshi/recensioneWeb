@@ -2,7 +2,7 @@
 /**
  * Pagina di gestione delle recensioni (solo admin)
  *
- * Consente di pubblicare, modificare ed eliminare recensioni
+ * Consente di pubblicare ed eliminare recensioni
  */
 
 require_once 'database.php';
