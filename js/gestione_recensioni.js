@@ -21,17 +21,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const confirmDeleteBtn = document.getElementById('confirmReviewDeleteBtn');
   const deleteConfirmation = document.getElementById('deleteReviewConfirmation');
   let reviewIdToDelete = null;
-  let csrfToken = '';
-
-  async function loadCSRF() {
-    try {
-      const res = await fetch('/php/api.php?endpoint=csrf_token');
-      const data = await res.json();
-      csrfToken = data.csrf_token || '';
-    } catch (e) {
-      csrfToken = '';
-    }
-  }
 
   function escapeHtml(text) {
     const p = document.createElement('p');
@@ -80,7 +69,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function createReview(formData) {
-    formData.append('csrf_token', csrfToken);
     const res = await fetch('/php/api.php?endpoint=reviews', {
       method: 'POST',
       body: formData
@@ -93,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const res = await fetch(`/php/api.php?endpoint=reviews&id=${id}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ csrf_token: csrfToken })
+      body: JSON.stringify({})
     });
     return res.json();
   }
@@ -174,6 +162,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  await loadCSRF();
   loadReviews();
 });
