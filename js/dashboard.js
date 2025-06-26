@@ -648,7 +648,7 @@ class DashboardManager {
         }
 
         try {
-            const response = await fetch(`api.php?endpoint=reviews&id=${reviewId}`, {
+            const response = await fetch(`api.php?endpoint=delete&id=${reviewId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

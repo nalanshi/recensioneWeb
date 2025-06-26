@@ -40,6 +40,9 @@ switch ($endpoint) {
     case 'reviews':
         handle_reviews($userId, $reviewManager);
         break;
+    case 'delete':
+        handle_delete($userId, $reviewManager);
+        break;
     case 'settings':
         handle_settings($userId, $settingsManager);
         break;
@@ -321,8 +324,8 @@ function handle_reviews($userId, $reviewManager) {
                 if ($deleted) {
                     echo json_encode(['success' => true, 'message' => 'Recensione eliminata con successo']);
                 } else {
-                    http_response_code(500);
-                    echo json_encode(['success' => false, 'message' => "Errore durante l'eliminazione"]);
+                    http_response_code(404);
+                    echo json_encode(['success' => false, 'message' => 'Recensione non trovata']);
                 }
                 break;
             default:
@@ -333,6 +336,28 @@ function handle_reviews($userId, $reviewManager) {
         error_log('Errore API recensioni: ' . $e->getMessage());
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
+    }
+}
+
+function handle_delete($userId, $reviewManager) {
+    $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+    if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Metodo non supportato']);
+        return;
+    }
+    $reviewId = (int)($_GET['id'] ?? 0);
+    if (!$reviewId) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'ID recensione mancante']);
+        return;
+    }
+    $deleted = $reviewManager->deleteReview($reviewId, $isAdmin ? null : $userId);
+    if ($deleted) {
+        echo json_encode(['success' => true, 'message' => 'Recensione eliminata con successo']);
+    } else {
+        http_response_code(404);
+        echo json_encode(['success' => false, 'message' => 'Recensione non trovata']);
     }
 }
 
