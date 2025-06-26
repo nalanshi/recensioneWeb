@@ -52,16 +52,6 @@
   --header-height: 5rem;
 }
 
-[data-theme="dark"] {
-  --text-primary: #FFF;
-  --text-secondary: #B0BEC5;
-  --text-light: #FFF;
-  --background: #121212;
-  --surface: #1E1E1E;
-  --border: #333;
-  --nav-gradient-agid: linear-gradient(135deg, #004080 0%, #00264d 100%);
-}
-
 html {
   font-size: 100%;
 }

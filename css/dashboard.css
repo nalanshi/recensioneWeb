@@ -3,16 +3,6 @@
  * Mantiene la palette colori e lo stile del progetto originale
  */
 
-/* Dark theme variables */
-[data-theme="dark"] {
-  --text-primary: #FFF;
-  --text-secondary: #B0BEC5;
-  --text-light: #FFF;
-  --background: #121212;
-  --surface: #1E1E1E;
-  --border: #333;
-  --border-light: #2A2A2A;
-}
 
 /* Reset e base */
 * {
