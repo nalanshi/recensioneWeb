@@ -47,7 +47,6 @@ class DashboardManager {
         this.setupSidebar();
         await this.loadUserData();
         this.loadUserSettings();
-        this.setupTheme();
         this.setupFormValidation();
         this.setupDateSelectors();
     }
@@ -204,11 +203,6 @@ class DashboardManager {
             saveSettingsBtn.addEventListener('click', () => this.saveSettings());
         }
 
-        // Selettore tema
-        const themeSelect = document.getElementById('themeSelect');
-        if (themeSelect) {
-            themeSelect.addEventListener('change', (e) => this.changeTheme(e.target.value));
-        }
 
         // Navigazione da tastiera
         document.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
@@ -771,7 +765,6 @@ class DashboardManager {
      */
     async saveSettings() {
         const settings = {
-            theme: document.getElementById('themeSelect')?.value,
             language: document.getElementById('languageSelect')?.value,
             email_notifications: document.getElementById('emailNotifications')?.checked ? '1' : '0',
             review_notifications: document.getElementById('reviewNotifications')?.checked ? '1' : '0',
@@ -805,59 +798,6 @@ class DashboardManager {
     /**
      * Setup del tema
      */
-    setupTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-
-        // Imposta il valore del selettore tema
-        const themeSelect = document.getElementById('themeSelect');
-        if (themeSelect) {
-            themeSelect.value = savedTheme;
-        }
-
-        // Applica il tema salvato
-        this.applyTheme(savedTheme);
-
-        // Listener per i cambiamenti delle preferenze di sistema
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addEventListener('change', (e) => {
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'auto') {
-                this.applyTheme('auto');
-            }
-        });
-    }
-
-    /**
-     * Cambia tema
-     */
-    changeTheme(theme) {
-        localStorage.setItem('theme', theme);
-        this.applyTheme(theme);
-    }
-
-    /**
-     * Applica tema
-     */
-    applyTheme(theme) {
-        // Salva il tema originale per riferimento
-        this.currentTheme = theme;
-
-        let actualTheme = theme;
-        if (theme === 'auto') {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            actualTheme = prefersDark ? 'dark' : 'light';
-        }
-
-        // Applica il tema al documento
-        document.documentElement.setAttribute('data-theme', actualTheme);
-
-        // Aggiorna anche il selettore se necessario
-        const themeSelect = document.getElementById('themeSelect');
-        if (themeSelect && themeSelect.value !== theme) {
-            themeSelect.value = theme;
-        }
-
-    }
 
     /**
      * Setup selettori data

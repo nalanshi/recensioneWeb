@@ -130,21 +130,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   list.addEventListener('click', async e => {
-    if (e.target.classList.contains('delete-btn')) {
-      const id = e.target.dataset.id;
+    const delBtn = e.target.closest('.delete-btn');
+    const editBtn = e.target.closest('.edit-btn');
+    if (delBtn) {
+      const id = delBtn.dataset.id;
       if (confirm('Eliminare la recensione?')) {
-        const r = await deleteReview(id);
-        if (r.success) loadReviews(); else alert(r.message || 'Errore');
+        try {
+          const r = await deleteReview(id);
+          if (r.success) {
+            loadReviews();
+          } else {
+            alert(r.message || 'Errore');
+          }
+        } catch {
+          alert('Errore di rete');
+        }
       }
-    } else if (e.target.classList.contains('edit-btn')) {
-      const item = e.target.closest('.review-item');
+    } else if (editBtn) {
+      const item = editBtn.closest('.review-item');
       form.title.value = item.dataset.title || '';
       form.product.value = item.dataset.product || '';
       form.rating.value = item.dataset.rating || 5;
       form.image.value = '';
       form.old_image.value = item.dataset.image || '';
       form.content.value = item.dataset.content || '';
-      form.dataset.editId = e.target.dataset.id;
+      form.dataset.editId = editBtn.dataset.id;
       submitBtn.textContent = 'Aggiorna';
       window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
     }
