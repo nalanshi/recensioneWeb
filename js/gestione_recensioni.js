@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   async function deleteReview(id) {
-    const res = await fetch(`/php/api.php?endpoint=reviews?id=${id}`, {
+    const res = await fetch(`/php/api.php?endpoint=reviews&id=${id}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ csrf_token: csrfToken })
@@ -151,12 +151,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   if (deleteConfirmation) {
     deleteConfirmation.addEventListener('input', e => {
-      confirmDeleteBtn.disabled = e.target.value !== 'ELIMINA';
+      const text = e.target.value.trim().toUpperCase();
+      confirmDeleteBtn.disabled = text !== 'ELIMINA';
     });
   }
   if (confirmDeleteBtn) {
     confirmDeleteBtn.addEventListener('click', async () => {
-      if (reviewIdToDelete && deleteConfirmation.value === 'ELIMINA') {
+      if (reviewIdToDelete && deleteConfirmation.value.trim().toUpperCase() === 'ELIMINA') {
         try {
           const r = await deleteReview(reviewIdToDelete);
           if (r.success) {
