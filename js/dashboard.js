@@ -31,6 +31,11 @@ class DashboardManager {
             loader.classList.remove('active');
         }
     }
+    showPage() {
+        document.getElementById("sidebar")?.classList.remove("hidden");
+        document.getElementById("main-content")?.classList.remove("hidden");
+    }
+
 
     /**
      * Inizializzazione del dashboard
@@ -39,7 +44,7 @@ class DashboardManager {
         await this.generateCSRFToken();
         this.setupEventListeners();
         this.setupSidebar();
-        this.loadUserData();
+        await this.loadUserData();
         this.loadUserSettings();
         this.setupTheme();
         this.setupFormValidation();
@@ -298,6 +303,7 @@ class DashboardManager {
 
             if (data.success) {
                 this.populateUserData(data.data);
+                this.showPage();
             } else {
                 this.showNotification('Errore nel caricamento dei dati utente', 'error');
             }
