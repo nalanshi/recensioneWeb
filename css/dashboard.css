@@ -5,12 +5,12 @@
 
 /* Dark theme variables */
 [data-theme="dark"] {
-  --text-primary: #FFFFFF;
+  --text-primary: #FFF;
   --text-secondary: #B0BEC5;
-  --text-light: #FFFFFF;
+  --text-light: #FFF;
   --background: #121212;
   --surface: #1E1E1E;
-  --border: #333333;
+  --border: #333;
   --border-light: #2A2A2A;
 }
 
@@ -22,7 +22,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
   line-height: 1.6;
@@ -110,7 +110,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 102, 204, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgb(0 102 204 / 10%), transparent);
   transition: var(--transition);
 }
 
@@ -120,7 +120,7 @@ body {
 
 .nav-link:hover {
   color: var(--primary-agid);
-  background: rgba(0, 102, 204, 0.05);
+  background: rgb(0 102 204 / 5%);
   transform: translateX(0.25rem);
 }
 
@@ -131,7 +131,7 @@ body {
 
 .nav-item.active .nav-link {
   color: var(--primary-agid);
-  background: rgba(0, 102, 204, 0.1);
+  background: rgb(0 102 204 / 10%);
   font-weight: 600;
 }
 
@@ -174,14 +174,14 @@ body {
 
 .content-section {
   display: none;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fade-in 0.3s ease-in-out;
 }
 
 .content-section.active {
   display: block;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from { opacity: 0; transform: translateY(1.25rem); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -242,11 +242,8 @@ body {
 
 .photo-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  inset: 0;
+  background: rgb(0 0 0 / 70%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -365,7 +362,7 @@ body {
 .form-group select:focus {
   outline: none;
   border-color: var(--primary-agid);
-  box-shadow: 0 0 0 0.1875rem rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
 }
 
 .form-group input:read-only {
@@ -413,7 +410,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
   transition: var(--transition);
 }
 
@@ -464,8 +461,8 @@ body {
 
 /* Danger Zone */
 .danger-zone {
-  background: rgba(209, 52, 76, 0.05);
-  border: 0.125rem solid rgba(209, 52, 76, 0.2);
+  background: rgb(209 52 76 / 5%);
+  border: 0.125rem solid rgb(209 52 76 / 20%);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   text-align: center;
@@ -523,7 +520,7 @@ body {
 .search-box input:focus {
   outline: none;
   border-color: var(--primary-agid);
-  box-shadow: 0 0 0 0.1875rem rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
 }
 
 .filter-options {
@@ -724,16 +721,13 @@ body {
 .toggle-slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: var(--border);
   transition: var(--transition);
   border-radius: 2.125rem;
 }
 
-.toggle-slider:before {
+.toggle-slider::before {
   position: absolute;
   content: "";
   height: 1.625rem;
@@ -750,7 +744,7 @@ input:checked + .toggle-slider {
   background-color: var(--primary-agid);
 }
 
-input:checked + .toggle-slider:before {
+input:checked + .toggle-slider::before {
   transform: translateX(1.625rem);
 }
 
@@ -773,9 +767,9 @@ input:checked + .toggle-slider:before {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   backdrop-filter: blur(0.3125rem);
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fade-in 0.3s ease-in-out;
 }
 
 .modal.active {
@@ -792,10 +786,10 @@ input:checked + .toggle-slider:before {
   max-width: 31.25rem;
   max-height: 90vh;
   overflow-y: auto;
-  animation: slideIn 0.3s ease-in-out;
+  animation: slide-in 0.3s ease-in-out;
 }
 
-@keyframes slideIn {
+@keyframes slide-in {
   from { transform: translateY(-3.125rem); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
@@ -842,8 +836,8 @@ input:checked + .toggle-slider:before {
 }
 
 .warning-message {
-  background: rgba(255, 167, 38, 0.1);
-  border: 0.0625rem solid rgba(255, 167, 38, 0.3);
+  background: rgb(255 167 38 / 10%);
+  border: 0.0625rem solid rgb(255 167 38 / 30%);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
@@ -912,7 +906,7 @@ input:checked + .toggle-slider:before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   z-index: 998;
 }
 
@@ -928,7 +922,7 @@ input:checked + .toggle-slider:before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   color: var(--text-light);
   font-size: 1.25rem;
   font-weight: 600;
@@ -942,7 +936,7 @@ input:checked + .toggle-slider:before {
 }
 
 /* Responsive Design */
-@media (max-width: 64rem) {
+@media (width <= 64rem) {
   .profile-container {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
@@ -974,7 +968,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-@media (max-width: 48rem) {
+@media (width <= 48rem) {
   .sidebar {
     transform: translateX(-100%);
     width: 100%;
@@ -1050,7 +1044,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30rem) {
   .content-wrapper {
     padding: var(--spacing-md);
   }
@@ -1092,7 +1086,7 @@ input:checked + .toggle-slider:before {
   .btn,
   .form-group input,
   .form-group select {
-    border: 0.125rem solid currentColor;
+    border: 0.125rem solid currentcolor;
   }
 }
 
@@ -1156,7 +1150,7 @@ input:checked + .toggle-slider:before {
 }
 
 /* Responsive per il nuovo layout */
-@media (max-width: 47.9375rem) {
+@media (width <= 47.9375rem) {
   .profile-header {
     flex-direction: column;
     align-items: center;
@@ -1177,7 +1171,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30rem) {
   .profile-header {
     gap: var(--spacing-md);
   }
