@@ -40,10 +40,7 @@ if (isset($_SESSION['login_error'])) {
   <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
-
   <?php echo $header; ?>
-
   <div class="auth-page">
     <div id="main-content" class="auth-container main-content">
       <div class="auth-header">
