@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function loadReviews() {
     try {
-      const res = await fetch('/php/api.php?endpoint=reviews&limit=20&all=1');
+      const res = await fetch('api.php?endpoint=reviews&limit=20&all=1');
       const data = await res.json();
       if (data.success) {
         list.innerHTML = data.data.reviews.map(r => `
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function createReview(formData) {
-    const res = await fetch('/php/api.php?endpoint=reviews', {
+    const res = await fetch('api.php?endpoint=reviews', {
       method: 'POST',
       body: formData
     });
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   async function deleteReview(id) {
-    const res = await fetch(`/php/api.php?endpoint=reviews&id=${id}`, {
+    const res = await fetch(`api.php?endpoint=reviews&id=${id}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({})

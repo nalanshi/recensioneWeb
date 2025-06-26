@@ -269,7 +269,7 @@ class DashboardManager {
     async loadUserData() {
         this.showLoading();
         try {
-            const response = await fetch('/php/api.php?endpoint=profile');
+            const response = await fetch('api.php?endpoint=profile');
             const data = await response.json();
 
             if (data.success) {
@@ -357,7 +357,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('/php/api.php?endpoint=profile', {
+            const response = await fetch('api.php?endpoint=profile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -402,7 +402,7 @@ class DashboardManager {
         formData.append('photo', file);
 
         try {
-            const response = await fetch('/php/api.php?endpoint=actions&action=upload_photo', {
+            const response = await fetch('api.php?endpoint=actions&action=upload_photo', {
                 method: 'POST',
                 body: formData
             });
@@ -440,7 +440,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('/php/api.php?endpoint=actions&action=change_password', {
+            const response = await fetch('api.php?endpoint=actions&action=change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -475,7 +475,7 @@ class DashboardManager {
         }
 
         try {
-            const response = await fetch('/php/api.php?endpoint=profile', {
+            const response = await fetch('api.php?endpoint=profile', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -518,7 +518,7 @@ class DashboardManager {
         });
 
         try {
-            const response = await fetch(`/php/api.php?endpoint=reviews&${params}`);
+            const response = await fetch(`api.php?endpoint=reviews&${params}`);
             const data = await response.json();
 
             if (data.success) {
@@ -648,7 +648,7 @@ class DashboardManager {
         }
 
         try {
-            const response = await fetch(`/php/api.php?endpoint=reviews&id=${reviewId}`, {
+            const response = await fetch(`api.php?endpoint=reviews&id=${reviewId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -675,7 +675,7 @@ class DashboardManager {
      */
     async loadUserSettings() {
         try {
-            const response = await fetch('/php/api.php?endpoint=settings', {
+            const response = await fetch('api.php?endpoint=settings', {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
@@ -743,7 +743,7 @@ class DashboardManager {
         };
 
         try {
-            const response = await fetch('/php/api.php?endpoint=settings', {
+            const response = await fetch('api.php?endpoint=settings', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
