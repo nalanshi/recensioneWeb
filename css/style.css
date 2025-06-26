@@ -71,22 +71,6 @@ body {
   font-size: 1rem;
 }
 
-/* Skip link per accessibilità */
-.skip-link {
-  position: absolute;
-  top: -2.5rem;
-  left: 0;
-  background: var(--primary-agid);
-  color: var(--text-light);
-  padding: 0.5rem 1rem;
-  z-index: 100;
-  transition: top 0.3s;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
 /* Contenuto solo per screen reader */
 .sr-only {
   position: absolute;
