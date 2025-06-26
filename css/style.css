@@ -45,6 +45,11 @@
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
+
+  /* Extra */
+  --nav-gradient-hover: linear-gradient(135deg, #0052A3 0%, #004080 50%, #002952 100%);
+  --sidebar-width: 17.5rem;
+  --header-height: 5rem;
 }
 
 [data-theme="dark"] {
@@ -657,70 +662,6 @@ a:focus {
   }
 }
 
-/* 
- * Header CSS - Versione Colori AgID
- * Palette: Blu istituzionale AgID con gradiente moderno
- */
-
-:root {
-  /* Palette colori AgID */
-  --primary-agid: #06C;
-  --secondary-agid: #0059B3;
-  --accent-agid: #036;
-  --success-agid: #4CAF50;
-  --info-agid: #1B558E;
-  --warning-agid: #FFA726;
-  --danger-agid: #D1344C;
-
-  /* Gradiente navbar */
-  --nav-gradient-agid: linear-gradient(135deg, #06C 0%, #0059B3 50%, #036 100%);
-  --nav-gradient-hover: linear-gradient(135deg, #0052A3 0%, #004080 50%, #002952 100%);
-
-  /* Neutri */
-  --text-primary: #1A1A1A;
-  --text-secondary: #5C6F82;
-  --text-light: #FFF;
-  --background: #F0F6FC;
-  --surface: #FFF;
-  --border: #EFEFEF;
-
-  /* Shadows */
-  --shadow-sm: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
-  --shadow-md: 0 0.25rem 0.75rem rgb(0 102 204 / 15%);
-  --shadow-lg: 0 0.5rem 1.5rem rgb(0 102 204 / 20%);
-
-  /* Transitions */
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-
-  /* Border radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-
-  /* Layout */
-  --sidebar-width: 17.5rem;
-  --header-height: 5rem;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-  background-color: var(--background);
-  color: var(--text-primary);
-}
 
 header {
   position: fixed;
@@ -1129,7 +1070,7 @@ nav {
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   header {
     background: var(--primary-agid);
     border-bottom: 0.125rem solid var(--text-light);
