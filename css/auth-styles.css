@@ -78,6 +78,7 @@ body {
   max-width: 37.5rem;
   position: relative;
   overflow: hidden;
+  animation: fade-in-up 0.6s ease-out;
 }
 
 .auth-container::before {
@@ -460,9 +461,6 @@ body {
   }
 }
 
-.auth-container {
-  animation: fade-in-up 0.6s ease-out;
-}
 
 /* Focus accessibilità */
 .btn:focus-visible,
@@ -507,7 +505,7 @@ body {
   }
 }
 
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   .auth-container {
     border: 0.125rem solid var(--color-text);
   }
