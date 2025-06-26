@@ -10,6 +10,7 @@ SessionManager::requireLogin();
 
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
+$footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', $footer);
 $DOM = file_get_contents("../static/dashboard.html");
 
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
