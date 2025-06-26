@@ -38,16 +38,33 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = await res.json();
       if (data.success) {
         list.innerHTML = data.data.reviews.map(r => `
-          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-image="${escapeHtml(r.product_image || '')}" data-rating="${r.rating}">
-            <h3>${escapeHtml(r.title)}</h3>
-            <p class="review-author">${escapeHtml(r.username || '')}</p>
-            <p>${escapeHtml(r.content)}</p>
-            <div class="review-actions">
-              <button class="edit-btn" data-id="${r.id}">Modifica</button>
-              <button class="delete-btn" data-id="${r.id}">Elimina</button>
+          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-image="${escapeHtml(r.product_image || '')}" data-rating="${r.rating}" data-content="${escapeHtml(r.content)}" data-title="${escapeHtml(r.title)}">
+            <div class="review-summary">
+              <h3>${escapeHtml(r.title)}</h3>
+              <p class="review-author">${escapeHtml(r.username || '')}</p>
+            </div>
+            <div class="review-details">
+              ${r.product_image ? `<img src="${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name)}" class="review-image">` : ''}
+              <p><strong>Prodotto:</strong> ${escapeHtml(r.product_name)}</p>
+              <p><strong>Valutazione:</strong> ${r.rating}</p>
+              <p>${escapeHtml(r.content)}</p>
+              <div class="review-actions">
+                <button class="edit-btn" data-id="${r.id}">Modifica</button>
+                <button class="delete-btn" data-id="${r.id}">Elimina</button>
+              </div>
             </div>
           </div>
         `).join('');
+
+        document.querySelectorAll('.review-details').forEach(d => d.classList.add('hidden'));
+        document.querySelectorAll('.review-summary').forEach(sum => {
+          sum.addEventListener('click', () => {
+            const item = sum.closest('.review-item');
+            const details = item.querySelector('.review-details');
+            item.classList.toggle('expanded');
+            details.classList.toggle('hidden');
+          });
+        });
       } else {
         list.textContent = 'Errore nel caricamento delle recensioni';
       }
@@ -121,12 +138,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } else if (e.target.classList.contains('edit-btn')) {
       const item = e.target.closest('.review-item');
-      form.title.value = item.querySelector('h3').textContent;
+      form.title.value = item.dataset.title || '';
       form.product.value = item.dataset.product || '';
       form.rating.value = item.dataset.rating || 5;
       form.image.value = '';
       form.old_image.value = item.dataset.image || '';
-      form.content.value = item.querySelector('p').textContent;
+      form.content.value = item.dataset.content || '';
       form.dataset.editId = e.target.dataset.id;
       submitBtn.textContent = 'Aggiorna';
       window.scrollTo({ top: form.offsetTop, behavior: 'smooth' });
