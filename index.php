@@ -20,6 +20,8 @@ $footer = file_get_contents("static/footer.html");
 
 // Caricamento del template HTML
 $DOM = file_get_contents("static/index.html");
+// Correzione del percorso del foglio di stile per la versione PHP della pagina
+$DOM = str_replace("../css/style.css", "css/style.css", $DOM);
 // Inserimento header e footer
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
