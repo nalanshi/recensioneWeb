@@ -34,6 +34,7 @@ class DashboardManager {
     showPage() {
         document.getElementById("sidebar")?.classList.remove("hidden");
         document.getElementById("main-content")?.classList.remove("hidden");
+        document.getElementById("dashboardFooter")?.classList.remove("hidden");
     }
 
 
