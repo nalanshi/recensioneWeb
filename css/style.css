@@ -15,7 +15,7 @@
   --danger-agid: #D1344C;
 
   /* Gradiente navbar */
-  --nav-gradient-agid: linear-gradient(135deg, #06C 0%, #0059B3 50%, #036 100%);
+  --nav-gradient-agid: linear-gradient(135deg, #003366 0%, #00264d 50%, #001933 100%);
 
   /* Neutri */
   --text-primary: #1A1A1A;
@@ -668,8 +668,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: var(--nav-gradient-agid);
-  backdrop-filter: blur(0.625rem);
+  background: #001933;
   padding: 1rem 0;
   box-shadow: var(--shadow-md);
   z-index: 1000;
@@ -680,8 +679,7 @@ header::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgb(255 255 255 / 10%);
-  backdrop-filter: blur(0.625rem);
+  background: rgb(0 0 0 / 20%);
   z-index: -1;
 }
 
@@ -734,7 +732,7 @@ nav {
 .nav-links li a,
 .nav-links li span,
 .nav-link-item {
-  color: var(--text-light);
+  color: #FFFFFF !important;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -745,6 +743,7 @@ nav {
   display: block;
   position: relative;
   overflow: hidden;
+  background-color: #000000;
 }
 
 .nav-links li a::before,
@@ -756,7 +755,7 @@ nav {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: rgb(255 255 255 / 20%);
+  background: rgb(0 0 0 / 20%);
   transition: var(--transition);
   z-index: -1;
 }
@@ -796,15 +795,14 @@ nav {
   color: var(--text-light);
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  background: rgb(255 255 255 / 15%);
-  backdrop-filter: blur(0.625rem);
-  border: 0.0625rem solid rgb(255 255 255 / 20%);
+  background: rgb(0 0 0 / 25%);
+  border: 0.0625rem solid rgb(0 0 0 / 40%);
   transition: var(--transition);
   font-weight: 600;
 }
 
 .login-link:hover {
-  background: rgb(255 255 255 / 25%);
+  background: rgb(0 0 0 / 35%);
   transform: translateY(-0.125rem);
   box-shadow: var(--shadow-md);
 }
@@ -841,6 +839,7 @@ nav {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.0312rem;
+  color: #FFFFFF !important;
 }
 
 /* Dashboard Header Styles */
@@ -980,7 +979,7 @@ nav {
     left: 1rem;
     right: 1rem;
     flex-direction: column;
-    background: var(--nav-gradient-agid);
+    background: #001933;
     padding: 2rem;
     gap: 1rem;
     border-radius: 1rem;
@@ -989,8 +988,7 @@ nav {
     visibility: hidden;
     transform: translateY(-1.25rem);
     transition: var(--transition);
-    backdrop-filter: blur(1.25rem);
-    border: 0.0625rem solid rgb(255 255 255 / 20%);
+    border: 0.0625rem solid rgb(0 0 0 / 40%);
   }
 
   .nav-links.active {
@@ -1004,7 +1002,7 @@ nav {
   .nav-link-item {
     padding: 1rem;
     border-radius: 0.75rem;
-    background: rgb(255 255 255 / 10%);
+    background: rgb(0 0 0 / 25%);
     text-align: center;
     font-size: 1.1rem;
   }
@@ -1108,7 +1106,7 @@ nav {
  */
 
 footer {
-  background: linear-gradient(135deg, var(--primary-agid, #06C) 0%, var(--secondary-agid, #0059B3) 100%);
+  background: #001933;
   color: var(--text-light, #FFF);
   max-height: var(--header-height);
   padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
@@ -1143,6 +1141,7 @@ footer::before {
   font-size: 1.1rem;
   font-weight: 700;
   position: relative;
+  background-color: #001933;
 }
 
 .footer-section h3::after {
@@ -1157,10 +1156,11 @@ footer::before {
 }
 
 .footer-section p {
-  color: rgb(255 255 255 / 90%);
+  color: #FFFFFF !important;
   line-height: 1.6;
   margin-bottom: var(--spacing-sm, 1rem);
   font-size: 0.9rem;
+  background-color: #001933;
 }
 
 .footer-section ul {
@@ -1171,15 +1171,17 @@ footer::before {
 
 .footer-section ul li {
   margin-bottom: var(--spacing-xs, 0.5rem);
+  color: #FFFFFF !important;
 }
 
 .footer-section ul li a {
-  color: rgb(255 255 255 / 80%);
+  color: #FFFFFF !important;
   text-decoration: none;
   transition: var(--transition, all 0.3s ease);
   padding: 0.25rem 0;
   display: inline-block;
   font-size: 0.9rem;
+  background-color: #001933;
 }
 
 .footer-section ul li a:hover {
@@ -1202,9 +1204,10 @@ footer::before {
 }
 
 .copyright p {
-  color: rgb(255 255 255 / 70%);
+  color: #FFFFFF !important;
   font-size: 0.9rem;
   margin: 0;
+  background-color: #001933;
 }
 
 /* Responsive */
