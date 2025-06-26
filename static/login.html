@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accedi - DishDiveReview</title>
+  <title>Accedi - <span lang="en">DishDiveReview</span></title>
   <meta http-equiv="refresh" content="0;url=../php/login_form.php">
   <link rel="stylesheet" href="../css/auth-styles.css">
   <link rel="stylesheet" href="../css/header.css">
@@ -13,9 +13,9 @@
 </head>
 <body>
 
-  <div style="text-align: center; margin-top: 50px; font-family: 'Montserrat', sans-serif;">
+  <div role = "alert" style="text-align: center; margin-top: 50px; font-family: 'Montserrat', sans-serif;">
     <h1>Reindirizzamento in corso...</h1>
-    <p>Stai per essere reindirizzato alla nuova pagina di login.</p>
+    <p>Stai per essere reindirizzato alla nuova pagina di <span lang="en">login</span>.</p>
     <p>Se non vieni reindirizzato automaticamente, <a href="../php/login_form.php">clicca qui</a>.</p>
   </div>
   
@@ -40,7 +40,7 @@
               <polyline points="9,22 9,12 15,12 15,22"></polyline>
             </svg>
           </div>
-          <div class="login-text">Home</div>
+          <div class="login-text"><span lang="en">Home</span></div>
         </a>
       </div>
     </nav>
@@ -52,7 +52,7 @@
         <div class="auth-logo">
           DR
         </div>
-        <h1 class="auth-title">Accedi al tuo account</h1>
+        <h1 class="auth-title">Accedi al tuo <span lang="en">account</span></h1>
         <p class="auth-subtitle">Benvenuto di nuovo! Inserisci le tue credenziali per continuare.</p>
       </div>
 
@@ -60,7 +60,7 @@
       <div id="error-container" aria-live="polite"></div>
       <form id="login-form" class="auth-form" action="../php/login.php" method="post" onsubmit="return validateLoginForm()">
         <div class="form-group">
-          <label for="username" class="form-label">Username o Email</label>
+          <label for="username" class="form-label"><span lang="en">Username</span> o <span lang="en">Email</span></label>
           <div class="form-input-wrapper">
             <input 
               type="text" 
@@ -81,7 +81,7 @@
         </div>
 
         <div class="form-group">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label"><span lang="en">Password</span></label>
           <div class="form-input-wrapper">
             <input 
               type="password" 
@@ -113,13 +113,13 @@
       </form>
 
       <div class="auth-links">
-        <a href="#" class="auth-link">Password dimenticata?</a>
+        <a href="#" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
         <a href="#" class="auth-link">Accedi via SMS</a>
       </div>
 
       <div class="auth-footer">
         <p class="auth-footer-text">
-          Non hai un account? 
+          Non hai un <span lang="en">account</span>? 
           <a href="registrazione.html" class="auth-footer-link">Registrati gratuitamente</a>
         </p>
       </div>
@@ -128,29 +128,29 @@
     <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>DishDiveReview</h3>
+        <h3><span lang="en">DishDiveReview</span></h3>
         <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
       </div>
       <div class="footer-section">
-        <h3>Link Utili</h3>
+        <h3><span lang="en">Link</span> Utili</h3>
         <ul>
           <li><a href="#chi-siamo">Chi siamo</a></li>
           <li><a href="#termini">Termini e condizioni</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
-          <li><a href="#cookie">Cookie Policy</a></li>
+          <li><a href="#privacy"><span lang="en">Privacy Policy</span></a></li>
+          <li><a href="#cookie"><span lang="en">Cookie Policy</span></a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Contatti</h3>
         <ul>
-          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Email: <a href="mailto:info@dishdivereview.it"><span lang="en">info@dishdivereview.it</span></a></li>
           <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
           <li>Indirizzo: Via Roma 123, Milano</li>
         </ul>
       </div>
     </div>
     <div class="copyright">
-      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+      <p>&copy; 2025 <span lang="en">DishDiveReview</span>. Tutti i diritti riservati.</p>
     </div>
   </footer>
 </body>

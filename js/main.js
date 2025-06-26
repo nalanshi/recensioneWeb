@@ -277,7 +277,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Hamburger menu functionality
   const hamburgerMenu = document.querySelector('.hamburger-menu');
   const navLinks = document.querySelector('.nav-links');
-  
+  //AGGIUNTO
+  const isExpanded = this.classList.contains('active');
+  this.setAttribute('aria-expanded', isExpanded);
+  navLinks.setAttribute('aria-hidden', !isExpanded);
   if (hamburgerMenu) {
     hamburgerMenu.addEventListener('click', function() {
       this.classList.toggle('active');

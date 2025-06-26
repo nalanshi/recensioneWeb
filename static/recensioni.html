@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recensioni - DishDiveReview</title>
+  <title>Recensioni - <span lang="en">DishDiveReview</span></title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
@@ -25,7 +25,7 @@
           <div class="bar"></div>
         </div>
         <ul class="nav-links" role="menubar">
-          <li><a href="../index.php">Home</a></li>
+          <li><a href="../index.php"><span lang="en">Home</span></a></li>
           <li><a href="../php/classifiche.php">Classifiche</a></li>
           <li><a href="../php/contatti.php">Contatti</a></li>
         </ul>
@@ -55,7 +55,7 @@
             <option value="tecnologia">Tecnologia</option>
             <option value="gastronomia">Gastronomia</option>
             <option value="casa">Casa e Giardino</option>
-            <option value="sport">Sport e Fitness</option>
+            <option value="sport"><span lang="en">Sport</span> e <span lang="en">Fitness</span></option>
           </select>
         </div>
 
@@ -195,115 +195,33 @@
   <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>DishDiveReview</h3>
+        <h3><span lang="en">DishDiveReview</span></h3>
         <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
       </div>
       <div class="footer-section">
-        <h3>Link Utili</h3>
+        <h3><span lang="en">Link</span> Utili</h3>
         <ul>
           <li><a href="#chi-siamo">Chi siamo</a></li>
           <li><a href="#termini">Termini e condizioni</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
-          <li><a href="#cookie">Cookie Policy</a></li>
+          <li><a href="#privacy"><span lang="en">Privacy Policy</span></a></li>
+          <li><a href="#cookie"><span lang="en">Cookie Policy</span></a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Contatti</h3>
         <ul>
-          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Email: <a href="mailto:info@dishdivereview.it"><span lang="en">info@dishdivereview.it</span></a></li>
           <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
           <li>Indirizzo: Via Roma 123, Milano</li>
         </ul>
       </div>
     </div>
     <div class="copyright">
-      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+      <p>&copy; 2025 <span lang="en">DishDiveReview</span>. Tutti i diritti riservati.</p>
     </div>
   </footer>
-
   <script src="../js/main.js"></script>
-  <script>
-    // Script per la gestione dei filtri e caricamento dinamico
-    document.addEventListener('DOMContentLoaded', function() {
-      const categoryFilter = document.getElementById('category-filter');
-      const ratingFilter = document.getElementById('rating-filter');
-      const searchFilter = document.getElementById('search-filter');
-      const sortFilter = document.getElementById('sort-filter');
-      const reviewsGrid = document.getElementById('reviews-grid');
-      const loadMoreBtn = document.getElementById('load-more-btn');
-      const noReviews = document.getElementById('no-reviews');
-
-      // Gestione filtri
-      function applyFilters() {
-        const category = categoryFilter.value;
-        const rating = ratingFilter.value;
-        const search = searchFilter.value.toLowerCase();
-        const sort = sortFilter.value;
-
-        const reviews = reviewsGrid.querySelectorAll('.review-card');
-        let visibleCount = 0;
-
-        reviews.forEach(review => {
-          let show = true;
-
-          // Filtro categoria
-          if (category && review.dataset.category !== category) {
-            show = false;
-          }
-
-          // Filtro rating
-          if (rating && parseInt(review.dataset.rating) < parseInt(rating)) {
-            show = false;
-          }
-
-          // Filtro ricerca
-          if (search) {
-            const title = review.querySelector('.review-title').textContent.toLowerCase();
-            const excerpt = review.querySelector('.review-excerpt').textContent.toLowerCase();
-            if (!title.includes(search) && !excerpt.includes(search)) {
-              show = false;
-            }
-          }
-
-          review.style.display = show ? 'block' : 'none';
-          if (show) visibleCount++;
-        });
-
-        // Mostra messaggio se nessuna recensione
-        noReviews.style.display = visibleCount === 0 ? 'block' : 'none';
-        reviewsGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
-      }
-
-      // Event listeners per i filtri
-      categoryFilter.addEventListener('change', applyFilters);
-      ratingFilter.addEventListener('change', applyFilters);
-      searchFilter.addEventListener('input', applyFilters);
-      sortFilter.addEventListener('change', applyFilters);
-
-      // Gestione caricamento altre recensioni
-      loadMoreBtn.addEventListener('click', function() {
-        // Qui si implementerebbe la chiamata AJAX per caricare altre recensioni
-        console.log('Caricamento altre recensioni...');
-        
-        // Simulazione caricamento
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Caricamento...';
-        
-        setTimeout(() => {
-          this.innerHTML = '<i class="fas fa-plus"></i> Carica altre recensioni';
-          // Qui si aggiungerebbero le nuove recensioni al DOM
-        }, 1000);
-      });
-
-      // Gestione click su recensione per aprire dettaglio
-      reviewsGrid.addEventListener('click', function(e) {
-        const reviewCard = e.target.closest('.review-card');
-        if (reviewCard) {
-          // Qui si implementerebbe l'apertura del dettaglio recensione
-          console.log('Apertura dettaglio recensione');
-        }
-      });
-    });
-  </script>
+  <script src="../js/filtri.js"></script>
 </body>
 </html>
 

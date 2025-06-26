@@ -232,6 +232,12 @@ body {
   accent-color: var(--color-primary);
 }
 
+.checkbox-input:focus-visible + .checkbox-label {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 .checkbox-label {
   font-size: 14px;
   color: var(--color-text);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DishDiveReview</title>
+  <title><span lang="en">DishDiveReview</span></title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
@@ -18,18 +18,17 @@
         <a href="../index.php" id="logo-link" aria-label="Torna alla homepage di DishDiveReview">
           <img src="../images/logo.png" alt="Logo DishDiveReview" class="logo" />
         </a> 
-        <div class="hamburger-menu" aria-label="Menu di navigazione" role="button" tabindex="0">
+
+        <button class="hamburger-menu" aria-label="Menu di navigazione" aria-expanded="false">
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
-        </div>
-        <ul class="nav-links" role="menubar">
-          <li><a href="../index.php" lang="en">Home</a></li>
-          <li><a href="../php/recensioni.php">Recensioni</a></li>
-          <li><a href="../php/classifiche.php">Classifiche</a></li>
-          <li><a href="../php/contatti.php">Contatti</a></li>
-        </ul>
-      </div>
+        </button>
+        <button class="hamburger-menu" aria-label="Menu di navigazione" aria-expanded="false">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </button>
       <div class="login-container">
         <!-- HEADER_LOGIN_PLACEHOLDER -->
       </div>
@@ -63,7 +62,7 @@
         <article class="product-card" role="gridcell" tabindex="0">
           <img src="../images/products/product1.jpg" alt="Smartphone XYZ Pro" class="product-image" loading="lazy">
           <div class="product-info">
-            <h3 class="product-title">Smartphone XYZ Pro</h3>
+            <h3 class="product-title"><span lang="en">Smartphone XYZ Pro</span></h3>
             <p class="product-description">L'ultimo modello con fotocamera avanzata e prestazioni eccezionali per foto e video professionali.</p>
             <div class="product-price" aria-label="Prezzo: 899 euro e 99 centesimi">€899,99</div>
           </div>
@@ -122,35 +121,34 @@
     </section>
   </main>
 
-  <footer role="contentinfo">
+<footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>DishDiveReview</h3>
+        <h3><span lang="en">DishDiveReview</span></h3>
         <p>La tua guida alle migliori recensioni gastronomiche e tecnologiche. Scopri prodotti di qualità con le nostre recensioni dettagliate.</p>
       </div>
       <div class="footer-section">
-        <h3>Link Utili</h3>
+        <h3><span lang="en">Link</span> Utili</h3>
         <ul>
           <li><a href="#chi-siamo">Chi siamo</a></li>
           <li><a href="#termini">Termini e condizioni</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
-          <li><a href="#cookie">Cookie Policy</a></li>
+          <li><a href="#privacy"><span lang="en">Privacy Policy</span></a></li>
+          <li><a href="#cookie"><span lang="en">Cookie Policy</span></a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h3>Contatti</h3>
         <ul>
-          <li>Email: <a href="mailto:info@dishdivereview.it">info@dishdivereview.it</a></li>
+          <li>Email: <a href="mailto:info@dishdivereview.it"><span lang="en">info@dishdivereview.it</span></a></li>
           <li>Telefono: <a href="tel:+391234567890">+39 123 456 7890</a></li>
           <li>Indirizzo: Via Roma 123, Milano</li>
         </ul>
       </div>
     </div>
     <div class="copyright">
-      <p>&copy; 2025 DishDiveReview. Tutti i diritti riservati.</p>
+      <p>&copy; 2025 <span lang="en">DishDiveReview</span>. Tutti i diritti riservati.</p>
     </div>
   </footer>
-
   <script src="../js/main.js"></script>
 </body>
 </html>
