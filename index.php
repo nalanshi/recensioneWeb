@@ -22,6 +22,7 @@ $footer = file_get_contents("static/footer.html");
 $DOM = file_get_contents("static/index.html");
 // Correzione del percorso del foglio di stile per la versione PHP della pagina
 $DOM = str_replace("../css/style.css", "css/style.css", $DOM);
+$DOM = str_replace("../css/pages.css", "css/pages.css", $DOM);
 // Inserimento header e footer
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
@@ -74,6 +75,30 @@ if (!SessionManager::isLoggedIn()) {
 // Sostituzione dei placeholder nel template
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
+
+// Recupero ultime 10 recensioni
+$reviewManager = new ReviewManager();
+$result = $reviewManager->getAllReviews(1, 10);
+$reviewsHtml = '';
+if ($result !== false) {
+    foreach ($result['reviews'] as $review) {
+        $stars = Utils::generateStars($review['rating']);
+        $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
+        $date = Utils::formatDate($review['created_at']);
+        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='" . htmlspecialchars($review['product_name']) . "' class='review-image'>" : '';
+        $title = htmlspecialchars($review['title']);
+        $user = htmlspecialchars($review['username']);
+        $reviewsHtml .= "<article class='review-card'>" .
+                         $img .
+                         "<div class='review-content'>" .
+                         "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
+                         "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$stars}</div></div>" .
+                         "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
+                         "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
+                         "</div></article>";
+    }
+}
+$DOM = str_replace('<!--REVIEWS_PLACEHOLDER-->', $reviewsHtml, $DOM);
 
 // Output della pagina
 echo $DOM;

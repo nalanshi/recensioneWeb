@@ -217,73 +217,6 @@ a:focus {
   box-shadow: var(--shadow-md);
 }
 
-/* Carousel Styles */
-.carousel-container {
-  width: 100%;
-  height: 25rem;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: var(--spacing-xl);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-}
-
-.carousel-slide {
-  display: none;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-.carousel-slide::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, rgb(0 102 204 / 30%), rgb(0 89 179 / 20%));
-}
-
-.carousel-slide.active {
-  display: block;
-  animation: fade-in 1s ease-in-out;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.carousel-dots {
-  position: absolute;
-  bottom: var(--spacing-lg);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: var(--spacing-sm);
-}
-
-.dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  background: rgb(255 255 255 / 50%);
-  cursor: pointer;
-  transition: var(--transition);
-  border: 0.125rem solid transparent;
-}
-
-.dot:hover,
-.dot.active {
-  background: var(--primary-agid);
-  transform: scale(1.2);
-  box-shadow: 0 0 0 0.25rem rgb(0 102 204 / 30%);
-}
-
-.dot:focus {
-  outline: 0.125rem solid var(--text-light);
-  outline-offset: 0.125rem;
-}
 
 /* Sezione Prodotti Consigliati - Scorrevole */
 .recommended-products {
@@ -313,20 +246,17 @@ a:focus {
 }
 
 /* Container scorrevole per prodotti */
-.products-scroll-container {
   position: relative;
   overflow: hidden;
   margin-bottom: var(--spacing-lg);
 }
 
-.products-container {
   display: flex;
   gap: var(--spacing-lg);
   transition: transform 0.5s ease;
   padding: var(--spacing-sm) 0;
 }
 
-.product-card {
   background: var(--surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -339,7 +269,6 @@ a:focus {
   flex-shrink: 0;
 }
 
-.product-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -351,209 +280,15 @@ a:focus {
   transition: var(--transition);
 }
 
-.product-card:hover {
   transform: translateY(-0.5rem);
   box-shadow: var(--shadow-lg);
 }
 
-.product-card:hover::before {
   opacity: 1;
 }
 
-.product-card:focus-within {
   outline: 0.0625rem solid var(--primary-agid);
 }
-
-.product-image {
-  width: 100%;
-  height: 9.375rem;
-  object-fit: cover;
-  transition: var(--transition);
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.05);
-}
-
-.product-info {
-  padding: var(--spacing-sm);
-}
-
-.product-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
-}
-
-.product-description {
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-sm);
-  line-height: 1.5;
-  font-size: 0.875rem;
-}
-
-.product-price {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--primary-agid);
-}
-
-/* Pulsanti di scorrimento */
-.scroll-buttons {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
-}
-
-.scroll-btn {
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-agid), var(--secondary-agid));
-  color: var(--text-light);
-  font-size: 1.25rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--shadow-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.scroll-btn:hover {
-  transform: translateY(-0.125rem) scale(1.1);
-  box-shadow: var(--shadow-lg);
-}
-
-.scroll-btn:focus {
-  outline: 0.125rem solid var(--primary-agid);
-  outline-offset: 0.125rem;
-}
-
-.scroll-btn:active {
-  transform: translateY(0) scale(0.95);
-}
-
-.scroll-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Indicatori di scorrimento */
-.scroll-indicators {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-xs);
-  margin-top: var(--spacing-md);
-}
-
-.scroll-indicator {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--border);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.scroll-indicator.active {
-  background: var(--primary-agid);
-  transform: scale(1.2);
-}
-
-/* Form Styles */
-.form-group {
-  margin-bottom: var(--spacing-md);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: var(--spacing-sm);
-  border: 0.125rem solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  transition: var(--transition);
-  background: var(--surface);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary-agid);
-  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
-}
-
-/* Responsive Design */
-@media (width <= 48rem) {
-  .welcome-title {
-    font-size: 2rem;
-    margin: var(--spacing-lg) 0;
-  }
-
-  .recommended-products {
-    padding: var(--spacing-lg) 5%;
-  }
-
-  .product-card {
-    min-width: 11.25rem;
-    max-width: 12.5rem;
-  }
-
-  .carousel-container {
-    height: 18.75rem;
-    margin-bottom: var(--spacing-lg);
-  }
-}
-
-@media (width <= 30rem) {
-  main {
-    padding-top: 4rem;
-  }
-
-  .welcome-title {
-    font-size: 1.75rem;
-  }
-
-  .recommended-products h2 {
-    font-size: 1.5rem;
-  }
-
-  .product-card {
-    min-width: 10rem;
-    max-width: 11.25rem;
-  }
-
-  .carousel-container {
-    height: 15.625rem;
-    border-radius: var(--radius-md);
-  }
-
-  .product-info {
-    padding: var(--spacing-sm);
-  }
-
-  .scroll-buttons {
-    gap: var(--spacing-xs);
-  }
-
-  .scroll-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1rem;
-  }
 }
 
 /* Accessibilità */
@@ -565,23 +300,7 @@ a:focus {
   }
 }
 
-@media (prefers-contrast: more) {
-  .product-card {
-    border: 0.125rem solid var(--text-primary);
-  }
 
-  .btn {
-    border: 0.125rem solid currentcolor;
-  }
-}
-
-/* Focus visible per migliore accessibilità */
-.product-card:focus-visible,
-.btn:focus-visible,
-.scroll-btn:focus-visible {
-  outline: 0.1875rem solid var(--primary-agid);
-  outline-offset: 0.125rem;
-}
 
 
 /* User Menu Dropdown Styles */
@@ -645,8 +364,6 @@ a:focus {
     padding-top: 0;
   }
 
-  .carousel-container,
-  .scroll-buttons,
   .user-dropdown {
     display: none;
   }
