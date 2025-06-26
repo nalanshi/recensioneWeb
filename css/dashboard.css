@@ -30,6 +30,8 @@ body {
   transition: var(--transition);
 }
 
+.hidden { display: none !important; }
+
 
 /* Sidebar */
 .sidebar {
