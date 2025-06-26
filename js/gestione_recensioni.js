@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   async function deleteReview(id) {
-    const res = await fetch(`api.php?endpoint=reviews&id=${id}`, {
+    const res = await fetch(`api.php?endpoint=delete&id=${id}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({})

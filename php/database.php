@@ -337,10 +337,12 @@ class ReviewManager {
         try {
             if ($userId === null) {
                 $stmt = $this->db->prepare("UPDATE reviews SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL");
-                return $stmt->execute([$reviewId]);
+                $stmt->execute([$reviewId]);
+            } else {
+                $stmt = $this->db->prepare("UPDATE reviews SET deleted_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
+                $stmt->execute([$reviewId, $userId]);
             }
-            $stmt = $this->db->prepare("UPDATE reviews SET deleted_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
-            return $stmt->execute([$reviewId, $userId]);
+            return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             error_log("Errore deleteReview: " . $e->getMessage());
             return false;
