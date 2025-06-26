@@ -6,9 +6,9 @@
 /* CSS Custom Properties - Colori AgID */
 :root {
   /* Palette colori AgID per auth */
-  --color-primary: #0066CC;
+  --color-primary: #06C;
   --color-secondary: #0059B3;
-  --color-accent: #003366;
+  --color-accent: #036;
   --color-success: #4CAF50;
   --color-info: #1B558E;
   --color-warning: #FFA726;
@@ -17,17 +17,17 @@
   /* Colori testo */
   --color-text: #1A1A1A;
   --color-text-secondary: #5C6F82;
-  --color-text-light: #ffffff;
+  --color-text-light: #fff;
   
   /* Sfondi */
   --color-background: #F0F6FC;
   --color-background-secondary: #E8F2FF;
-  --color-surface: #ffffff;
+  --color-surface: #fff;
   --color-border: #EFEFEF;
   --color-border-focus: var(--color-primary);
   
   /* Gradiente navbar (stesso dell'header) */
-  --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
+  --nav-gradient-agid: linear-gradient(135deg, #06C 0%, #0059B3 50%, #036 100%);
   
   /* Design tokens */
   --border-radius: 0.5rem;
@@ -38,9 +38,9 @@
   --spacing-lg: 2rem;
   --spacing-xl: 3rem;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
-  --shadow-md: 0 0.25rem 0.75rem rgba(0, 102, 204, 0.15);
-  --shadow-lg: 0 0.5rem 1.5rem rgba(0, 102, 204, 0.2);
+  --shadow-sm: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
+  --shadow-md: 0 0.25rem 0.75rem rgb(0 102 204 / 15%);
+  --shadow-lg: 0 0.5rem 1.5rem rgb(0 102 204 / 20%);
 }
 
 /* Reset e base */
@@ -49,7 +49,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-secondary) 100%);
@@ -173,7 +173,7 @@ body {
 
 .form-input:focus {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 0.1875rem rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
 }
 
 .form-input.success {
@@ -182,7 +182,7 @@ body {
 
 .form-input.success:focus {
   border-color: var(--color-success);
-  box-shadow: 0 0 0 0.1875rem rgba(76, 175, 80, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(76 175 80 / 10%);
 }
 
 .form-input.error {
@@ -191,7 +191,7 @@ body {
 
 .form-input.error:focus {
   border-color: var(--color-danger);
-  box-shadow: 0 0 0 0.1875rem rgba(209, 52, 76, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(209 52 76 / 10%);
 }
 
 /* Icone nei campi - Colori AgID */
@@ -400,15 +400,15 @@ body {
 }
 
 .message.error {
-  background: rgba(209, 52, 76, 0.1);
+  background: rgb(209 52 76 / 10%);
   color: var(--color-danger);
-  border: 0.0625rem solid rgba(209, 52, 76, 0.2);
+  border: 0.0625rem solid rgb(209 52 76 / 20%);
 }
 
 .message.success {
-  background: rgba(76, 175, 80, 0.1);
+  background: rgb(76 175 80 / 10%);
   color: var(--color-success);
-  border: 0.0625rem solid rgba(76, 175, 80, 0.2);
+  border: 0.0625rem solid rgb(76 175 80 / 20%);
 }
 
 .error-message {
@@ -421,7 +421,7 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 48rem) {
+@media (width <= 48rem) {
   .auth-page {
     padding: var(--spacing-sm);
     padding-top: calc(4rem + var(--spacing-sm));
@@ -448,11 +448,12 @@ body {
 }
 
 /* Animazioni */
-@keyframes fadeInUp {
+@keyframes fade-in-up {
   from {
     opacity: 0;
     transform: translateY(1.25rem);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -460,7 +461,7 @@ body {
 }
 
 .auth-container {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fade-in-up 0.6s ease-out;
 }
 
 /* Focus accessibilità */
@@ -487,7 +488,7 @@ body {
   margin-left: -0.625rem;
   margin-top: -0.625rem;
   border: 0.125rem solid transparent;
-  border-top: 0.125rem solid currentColor;
+  border-top: 0.125rem solid currentcolor;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -516,7 +517,7 @@ body {
   }
   
   .btn {
-    border: 0.125rem solid currentColor;
+    border: 0.125rem solid currentcolor;
   }
 }
 

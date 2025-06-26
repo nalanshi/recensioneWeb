@@ -6,29 +6,29 @@
 /* Import delle variabili dal header.css */
 :root {
   /* Palette colori AgID */
-  --primary-agid: #0066CC;
+  --primary-agid: #06C;
   --secondary-agid: #0059B3;
-  --accent-agid: #003366;
+  --accent-agid: #036;
   --success-agid: #4CAF50;
   --info-agid: #1B558E;
   --warning-agid: #FFA726;
   --danger-agid: #D1344C;
 
   /* Gradiente navbar */
-  --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
+  --nav-gradient-agid: linear-gradient(135deg, #06C 0%, #0059B3 50%, #036 100%);
 
   /* Neutri */
   --text-primary: #1A1A1A;
   --text-secondary: #5C6F82;
-  --text-light: #FFFFFF;
+  --text-light: #FFF;
   --background: #F0F6FC;
-  --surface: #FFFFFF;
+  --surface: #FFF;
   --border: #EFEFEF;
 
   /* Shadows */
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
-  --shadow-md: 0 0.25rem 0.75rem rgba(0, 102, 204, 0.15);
-  --shadow-lg: 0 0.5rem 1.5rem rgba(0, 102, 204, 0.2);
+  --shadow-sm: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
+  --shadow-md: 0 0.25rem 0.75rem rgb(0 102 204 / 15%);
+  --shadow-lg: 0 0.5rem 1.5rem rgb(0 102 204 / 20%);
 
   /* Transitions */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,14 +48,15 @@
 }
 
 [data-theme="dark"] {
-  --text-primary: #FFFFFF;
+  --text-primary: #FFF;
   --text-secondary: #B0BEC5;
-  --text-light: #FFFFFF;
+  --text-light: #FFF;
   --background: #121212;
   --surface: #1E1E1E;
-  --border: #333333;
+  --border: #333;
   --nav-gradient-agid: linear-gradient(135deg, #004080 0%, #00264d 100%);
 }
+
 html {
   font-size: 100%;
 }
@@ -68,7 +69,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
   line-height: 1.6;
@@ -136,7 +137,7 @@ h3 {
   color: var(--primary-agid);
   font-size: 2.5rem;
   font-weight: 300;
-  text-shadow: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
+  text-shadow: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
 }
 
 .welcome-title span {
@@ -188,7 +189,7 @@ a:focus {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
   transition: var(--transition);
 }
 
@@ -244,19 +245,16 @@ a:focus {
 .carousel-slide::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, rgba(0, 102, 204, 0.3), rgba(0, 89, 179, 0.2));
+  inset: 0;
+  background: linear-gradient(45deg, rgb(0 102 204 / 30%), rgb(0 89 179 / 20%));
 }
 
 .carousel-slide.active {
   display: block;
-  animation: fadeIn 1s ease-in-out;
+  animation: fade-in 1s ease-in-out;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
@@ -274,7 +272,7 @@ a:focus {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgb(255 255 255 / 50%);
   cursor: pointer;
   transition: var(--transition);
   border: 0.125rem solid transparent;
@@ -284,7 +282,7 @@ a:focus {
 .dot.active {
   background: var(--primary-agid);
   transform: scale(1.2);
-  box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.3);
+  box-shadow: 0 0 0 0.25rem rgb(0 102 204 / 30%);
 }
 
 .dot:focus {
@@ -500,11 +498,11 @@ a:focus {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-agid);
-  box-shadow: 0 0 0 0.1875rem rgba(0, 102, 204, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
 }
 
 /* Responsive Design */
-@media (max-width: 48rem) {
+@media (width <= 48rem) {
   .welcome-title {
     font-size: 2rem;
     margin: var(--spacing-lg) 0;
@@ -525,7 +523,7 @@ a:focus {
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30rem) {
   main {
     padding-top: 4rem;
   }
@@ -578,7 +576,7 @@ a:focus {
   }
 
   .btn {
-    border: 0.125rem solid currentColor;
+    border: 0.125rem solid currentcolor;
   }
 }
 
@@ -658,6 +656,7 @@ a:focus {
     display: none;
   }
 }
+
 /* 
  * Header CSS - Versione Colori AgID
  * Palette: Blu istituzionale AgID con gradiente moderno
@@ -665,30 +664,30 @@ a:focus {
 
 :root {
   /* Palette colori AgID */
-  --primary-agid: #0066CC;
+  --primary-agid: #06C;
   --secondary-agid: #0059B3;
-  --accent-agid: #003366;
+  --accent-agid: #036;
   --success-agid: #4CAF50;
   --info-agid: #1B558E;
   --warning-agid: #FFA726;
   --danger-agid: #D1344C;
 
   /* Gradiente navbar */
-  --nav-gradient-agid: linear-gradient(135deg, #0066CC 0%, #0059B3 50%, #003366 100%);
+  --nav-gradient-agid: linear-gradient(135deg, #06C 0%, #0059B3 50%, #036 100%);
   --nav-gradient-hover: linear-gradient(135deg, #0052A3 0%, #004080 50%, #002952 100%);
 
   /* Neutri */
   --text-primary: #1A1A1A;
   --text-secondary: #5C6F82;
-  --text-light: #FFFFFF;
+  --text-light: #FFF;
   --background: #F0F6FC;
-  --surface: #FFFFFF;
+  --surface: #FFF;
   --border: #EFEFEF;
 
   /* Shadows */
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 102, 204, 0.1);
-  --shadow-md: 0 0.25rem 0.75rem rgba(0, 102, 204, 0.15);
-  --shadow-lg: 0 0.5rem 1.5rem rgba(0, 102, 204, 0.2);
+  --shadow-sm: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
+  --shadow-md: 0 0.25rem 0.75rem rgb(0 102 204 / 15%);
+  --shadow-lg: 0 0.5rem 1.5rem rgb(0 102 204 / 20%);
 
   /* Transitions */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -718,7 +717,7 @@ a:focus {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
 }
@@ -730,7 +729,6 @@ header {
   right: 0;
   background: var(--nav-gradient-agid);
   backdrop-filter: blur(0.625rem);
-  -webkit-backdrop-filter: blur(0.625rem);
   padding: 1rem 0;
   box-shadow: var(--shadow-md);
   z-index: 1000;
@@ -740,11 +738,8 @@ header {
 header::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
+  inset: 0;
+  background: rgb(255 255 255 / 10%);
   backdrop-filter: blur(0.625rem);
   z-index: -1;
 }
@@ -820,7 +815,7 @@ nav {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(255 255 255 / 20%);
   transition: var(--transition);
   z-index: -1;
 }
@@ -836,7 +831,7 @@ nav {
 .nav-link-item:hover {
   color: var(--text-light);
   transform: translateY(-0.125rem);
-  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 20%);
 }
 
 .nav-links li a:focus,
@@ -860,15 +855,15 @@ nav {
   color: var(--text-light);
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgb(255 255 255 / 15%);
   backdrop-filter: blur(0.625rem);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+  border: 0.0625rem solid rgb(255 255 255 / 20%);
   transition: var(--transition);
   font-weight: 600;
 }
 
 .login-link:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgb(255 255 255 / 25%);
   transform: translateY(-0.125rem);
   box-shadow: var(--shadow-md);
 }
@@ -895,7 +890,7 @@ nav {
   transform: scale(1.1);
 }
 
-#userIcon {
+#user-icon {
   width: 1.5rem;
   height: 1.5rem;
   filter: brightness(0) saturate(100%) invert(13%) sepia(100%) saturate(2000%) hue-rotate(210deg) brightness(95%) contrast(95%);
@@ -926,7 +921,7 @@ nav {
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 0.125rem solid rgba(255, 255, 255, 0.3);
+  border: 0.125rem solid rgb(255 255 255 / 30%);
   transition: var(--transition);
 }
 
@@ -944,9 +939,9 @@ nav {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  background: rgba(255, 255, 255, 0.15);
+  background: rgb(255 255 255 / 15%);
   color: var(--text-light);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+  border: 0.0625rem solid rgb(255 255 255 / 20%);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-md);
   cursor: pointer;
@@ -956,7 +951,7 @@ nav {
 }
 
 .logout-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgb(255 255 255 / 25%);
   transform: translateY(-0.125rem);
   box-shadow: var(--shadow-md);
 }
@@ -979,7 +974,7 @@ nav {
 }
 
 .mobile-menu-toggle:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgb(255 255 255 / 15%);
 }
 
 /* Hamburger Menu */
@@ -1004,7 +999,7 @@ nav {
   background-color: var(--text-light);
   border-radius: 0.125rem;
   transition: var(--transition);
-  box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.0625rem 0.125rem rgb(0 0 0 / 10%);
 }
 
 .hamburger-menu.active .bar:nth-child(1) {
@@ -1022,7 +1017,7 @@ nav {
 
 
 /* Mobile Styles */
-@media (max-width: 48rem) {
+@media (width <= 48rem) {
   nav {
     width: 95%;
     padding: 0 1rem;
@@ -1054,7 +1049,7 @@ nav {
     transform: translateY(-1.25rem);
     transition: var(--transition);
     backdrop-filter: blur(1.25rem);
-    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+    border: 0.0625rem solid rgb(255 255 255 / 20%);
   }
 
   .nav-links.active {
@@ -1068,7 +1063,7 @@ nav {
   .nav-link-item {
     padding: 1rem;
     border-radius: 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     text-align: center;
     font-size: 1.1rem;
   }
@@ -1091,13 +1086,13 @@ nav {
     height: 2rem;
   }
 
-  #userIcon {
+  #user-icon {
     width: 1.25rem;
     height: 1.25rem;
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30rem) {
   header {
     padding: 0.75rem 0;
   }
@@ -1165,14 +1160,15 @@ nav {
     transition-duration: 0.01ms !important;
   }
 }
+
 /* 
  * Footer CSS - Versione Colori AgID
  * Coordinato con la palette blu istituzionale AgID
  */
 
 footer {
-  background: linear-gradient(135deg, var(--primary-agid, #0066CC) 0%, var(--secondary-agid, #0059B3) 100%);
-  color: var(--text-light, #FFFFFF);
+  background: linear-gradient(135deg, var(--primary-agid, #06C) 0%, var(--secondary-agid, #0059B3) 100%);
+  color: var(--text-light, #FFF);
   max-height: var(--header-height);
   padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
   margin-top: var(--spacing-lg, 2rem);
@@ -1188,7 +1184,7 @@ footer::before {
   left: 0;
   right: 0;
   height: 0.25rem;
-  background: linear-gradient(90deg, var(--accent-agid, #003366), var(--info-agid, #1B558E), var(--secondary-agid, #0059B3));
+  background: linear-gradient(90deg, var(--accent-agid, #036), var(--info-agid, #1B558E), var(--secondary-agid, #0059B3));
 }
 
 .footer-content {
@@ -1201,7 +1197,7 @@ footer::before {
 }
 
 .footer-section h3 {
-  color: var(--text-light, #FFFFFF);
+  color: var(--text-light, #FFF);
   margin-bottom: var(--spacing-md, 1.5rem);
   font-size: 1.1rem;
   font-weight: 700;
@@ -1220,7 +1216,7 @@ footer::before {
 }
 
 .footer-section p {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgb(255 255 255 / 90%);
   line-height: 1.6;
   margin-bottom: var(--spacing-sm, 1rem);
   font-size: 0.9rem;
@@ -1237,7 +1233,7 @@ footer::before {
 }
 
 .footer-section ul li a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(255 255 255 / 80%);
   text-decoration: none;
   transition: var(--transition, all 0.3s ease);
   padding: 0.25rem 0;
@@ -1261,17 +1257,17 @@ footer::before {
   text-align: center;
   margin-top: var(--spacing-lg, 2rem);
   padding-top: var(--spacing-lg, 2rem);
-  border-top: 0.0625rem solid rgba(255, 255, 255, 0.2);
+  border-top: 0.0625rem solid rgb(255 255 255 / 20%);
 }
 
 .copyright p {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(255 255 255 / 70%);
   font-size: 0.9rem;
   margin: 0;
 }
 
 /* Responsive */
-@media (max-width: 48rem) {
+@media (width <= 48rem) {
   footer {
     padding: var(--spacing-lg, 2rem) 0 var(--spacing-md, 1.5rem);
   }
@@ -1288,7 +1284,7 @@ footer::before {
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30rem) {
   footer {
     padding: var(--spacing-md, 1.5rem) 0 var(--spacing-sm, 1rem);
   }
