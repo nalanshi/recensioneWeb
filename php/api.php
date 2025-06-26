@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $endpoint = $_GET['endpoint'] ?? '';
 
-if ($endpoint !== 'csrf_token' && !SessionManager::isLoggedIn()) {
+if (!SessionManager::isLoggedIn()) {
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
     exit;
@@ -31,9 +31,6 @@ $reviewManager = new ReviewManager();
 $settingsManager = new SettingsManager();
 
 switch ($endpoint) {
-    case 'csrf_token':
-        echo json_encode(['csrf_token' => Utils::generateCSRFToken()]);
-        break;
     case 'actions':
         handle_actions($userId, $userManager);
         break;
@@ -62,11 +59,6 @@ function handle_actions($userId, $userManager) {
                     break;
                 }
 
-                if (!Utils::verifyCSRFToken($_POST['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
 
                 $upload = Utils::handlePhotoUpload($_FILES['photo'], $userId);
                 if ($upload['success']) {
@@ -89,12 +81,6 @@ function handle_actions($userId, $userManager) {
                 }
 
                 $input = json_decode(file_get_contents('php://input'), true);
-
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
 
                 $current = $input['current_password'] ?? '';
                 $new = $input['new_password'] ?? '';
@@ -149,11 +135,6 @@ function handle_profile($userId, $userManager) {
                 $input = json_decode(file_get_contents('php://input'), true);
                 $input['first_name'] = $input['first_name'] ?? ($input['firstName'] ?? '');
                 $input['last_name']  = $input['last_name']  ?? ($input['lastName'] ?? '');
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
                 $data = [
                     'first_name' => Utils::sanitizeInput($input['first_name'] ?? ''),
                     'last_name' => Utils::sanitizeInput($input['last_name'] ?? ''),
@@ -177,11 +158,6 @@ function handle_profile($userId, $userManager) {
                 break;
             case 'DELETE':
                 $input = json_decode(file_get_contents('php://input'), true);
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
                 if (($input['confirmation'] ?? '') !== 'ELIMINA') {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'message' => 'Conferma non valida']);
@@ -244,11 +220,6 @@ function handle_reviews($userId, $reviewManager) {
                 break;
             case 'POST':
                 $input = $_POST;
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
                 $productImagePath = $input['old_image'] ?? '';
                 if (!empty($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
                     $upload = Utils::handleProductImageUpload($_FILES['product_image']);
@@ -295,11 +266,6 @@ function handle_reviews($userId, $reviewManager) {
                 if (!$reviewId) {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'message' => 'ID recensione mancante']);
-                    break;
-                }
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
                     break;
                 }
                 $productImagePath = $input['old_image'] ?? '';
@@ -351,11 +317,6 @@ function handle_reviews($userId, $reviewManager) {
                     break;
                 }
                 $input = json_decode(file_get_contents('php://input'), true);
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
                 $deleted = $reviewManager->deleteReview($reviewId, $isAdmin ? null : $userId);
                 if ($deleted) {
                     echo json_encode(['success' => true, 'message' => 'Recensione eliminata con successo']);
@@ -389,11 +350,6 @@ function handle_settings($userId, $settingsManager) {
                 break;
             case 'POST':
                 $input = json_decode(file_get_contents('php://input'), true);
-                if (!Utils::verifyCSRFToken($input['csrf_token'] ?? '')) {
-                    http_response_code(403);
-                    echo json_encode(['success' => false, 'message' => 'Token CSRF non valido']);
-                    break;
-                }
                 $validSettings = [
                     'theme' => ['light', 'dark', 'auto'],
                     'language' => ['it', 'en', 'es', 'fr'],

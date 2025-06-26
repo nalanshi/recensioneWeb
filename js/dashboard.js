@@ -6,7 +6,6 @@
 class DashboardManager {
     constructor() {
         this.currentSection = 'profilo';
-        this.csrfToken = '';
         this.currentPage = 1;
         this.reviewsPerPage = 10;
         this.init();
@@ -42,7 +41,6 @@ class DashboardManager {
      * Inizializzazione del dashboard
      */
     async init() {
-        await this.generateCSRFToken();
         this.setupEventListeners();
         this.setupSidebar();
         await this.loadUserData();
@@ -51,28 +49,6 @@ class DashboardManager {
         this.setupDateSelectors();
     }
 
-    /**
-     * Genera token CSRF
-     */
-    async generateCSRFToken() {
-        try {
-            const response = await fetch('/php/api.php?endpoint=csrf_token');
-            const data = await response.json();
-            if (data.csrf_token) {
-                this.csrfToken = data.csrf_token;
-                return;
-            }
-        } catch (error) {
-            console.error('Errore nel recupero del token CSRF:', error);
-        }
-        this.csrfToken = this.generateRandomToken();
-    }
-
-    generateRandomToken() {
-        return Array.from(crypto.getRandomValues(new Uint8Array(32)))
-            .map(b => b.toString(16).padStart(2, '0'))
-            .join('');
-    }
 
     /**
      * Restituisce il percorso corretto per le immagini
@@ -377,8 +353,7 @@ class DashboardManager {
             email: formData.get('email'),
             birth_day: formData.get('birthDay'),
             birth_month: formData.get('birthMonth'),
-            birth_year: formData.get('birthYear'),
-            csrf_token: this.csrfToken
+            birth_year: formData.get('birthYear')
         };
 
         try {
@@ -425,7 +400,6 @@ class DashboardManager {
 
         const formData = new FormData();
         formData.append('photo', file);
-        formData.append('csrf_token', this.csrfToken);
 
         try {
             const response = await fetch('/php/api.php?endpoint=actions&action=upload_photo', {
@@ -462,8 +436,7 @@ class DashboardManager {
         const data = {
             current_password: formData.get('currentPassword'),
             new_password: formData.get('newPassword'),
-            confirm_password: formData.get('confirmPassword'),
-            csrf_token: this.csrfToken
+            confirm_password: formData.get('confirmPassword')
         };
 
         try {
@@ -508,8 +481,7 @@ class DashboardManager {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    confirmation: confirmation,
-                    csrf_token: this.csrfToken
+                    confirmation: confirmation
                 })
             });
 
@@ -681,9 +653,7 @@ class DashboardManager {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    csrf_token: this.csrfToken
-                })
+                body: JSON.stringify({})
             });
 
             const result = await response.json();
@@ -769,8 +739,7 @@ class DashboardManager {
             email_notifications: document.getElementById('emailNotifications')?.checked ? '1' : '0',
             review_notifications: document.getElementById('reviewNotifications')?.checked ? '1' : '0',
             profile_visibility: document.getElementById('profileVisibility')?.checked ? '1' : '0',
-            show_email: document.getElementById('showEmail')?.checked ? '1' : '0',
-            csrf_token: this.csrfToken
+            show_email: document.getElementById('showEmail')?.checked ? '1' : '0'
         };
 
         try {
