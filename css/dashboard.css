@@ -936,7 +936,8 @@ input:checked + .toggle-slider::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(0 0 0 / 70%);
+  /* Overlay completamente opaco per nascondere i contenuti sottostanti */
+  background: rgb(0 0 0);
   color: var(--text-light);
   font-size: 1.25rem;
   font-weight: 600;
