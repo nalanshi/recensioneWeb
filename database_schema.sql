@@ -4,7 +4,7 @@
 
 -- Database: recensioni_db (from database.php)
 
--- Table: utenti (users)
+DROP TABLE IF EXISTS utenti;
 CREATE TABLE utenti (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -23,7 +23,7 @@ CREATE TABLE utenti (
     deleted_at TIMESTAMP NULL DEFAULT NULL             -- Soft delete timestamp (NULL if active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Table: reviews (user reviews)
+DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE reviews (
     CHECK (rating BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Table: review_likes (tracks likes on reviews)
+DROP TABLE IF EXISTS review_likes;
 CREATE TABLE review_likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE review_likes (
     UNIQUE KEY unique_like (review_id, user_id)  -- Prevent duplicate likes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Table: comments (comments on reviews)
+DROP TABLE IF EXISTS comments;
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
@@ -64,23 +64,6 @@ CREATE TABLE comments (
     FOREIGN KEY (review_id) REFERENCES reviews(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Table: user_settings (user preferences)
-CREATE TABLE user_settings (
-    user_id INT NOT NULL,
-    setting_key VARCHAR(50) NOT NULL,
-    setting_value VARCHAR(255) NOT NULL,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, setting_key),
-    FOREIGN KEY (user_id) REFERENCES utenti(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Default settings values (from SettingsManager class)
--- theme: 'light', 'dark', 'auto'
--- language: 'it', 'en', 'es', 'fr'
--- email_notifications: '0', '1'
--- review_notifications: '0', '1'
--- profile_visibility: '0', '1'
--- show_email: '0', '1'
 
 -- Indexes for better performance
 CREATE INDEX idx_reviews_user_id ON reviews(user_id);
