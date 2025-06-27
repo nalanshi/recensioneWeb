@@ -68,4 +68,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Disable navigation link for the current page
+  const currentPage = window.location.pathname.split('/').pop();
+  const navAnchors = document.querySelectorAll('.nav-links a, .logo-link');
+  navAnchors.forEach((link) => {
+    const linkPage = new URL(link.href).pathname.split('/').pop();
+    if (linkPage === currentPage) {
+      link.setAttribute('aria-current', 'page');
+      link.removeAttribute('href');
+      link.style.pointerEvents = 'none';
+      link.style.cursor = 'default';
+    }
+  });
 });
