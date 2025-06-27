@@ -408,6 +408,30 @@ class ReviewManager {
         }
     }
 
+    /**
+     * Restituisce i prodotti ordinati per valutazione media delle recensioni
+     */
+    public function getTopProducts($limit = 10) {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT r.product_name, r.product_image, " .
+                "AVG(r.rating) AS avg_rating, COUNT(*) AS review_count, " .
+                "(SELECT r2.id FROM reviews r2 WHERE r2.product_name = r.product_name AND r2.deleted_at IS NULL " .
+                "ORDER BY r2.rating DESC, r2.created_at DESC LIMIT 1) AS review_id " .
+                "FROM reviews r " .
+                "WHERE r.deleted_at IS NULL " .
+                "GROUP BY r.product_name, r.product_image " .
+                "ORDER BY avg_rating DESC, review_count DESC " .
+                "LIMIT ?"
+            );
+            $stmt->execute([$limit]);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log('Errore getTopProducts: ' . $e->getMessage());
+            return [];
+        }
+    }
+
 }
 
 /**
@@ -423,10 +447,18 @@ class CommentManager {
     /**
      * Crea un nuovo commento
      */
-    public function createComment($reviewId, $name, $email, $content) {
+    public function createComment($reviewId, $name, $email, $star, $content) {
         try {
-            $stmt = $this->db->prepare("INSERT INTO comments (review_id, name, email, content, created_at) VALUES (?, ?, ?, ?, NOW())");
-            return $stmt->execute([$reviewId, $name, $email, $content]);
+            // Verifica se esiste già un commento dello stesso utente per la stessa recensione
+            $check = $this->db->prepare("SELECT id FROM comments WHERE review_id = ? AND email = ?");
+            $check->execute([$reviewId, $email]);
+            if ($existing = $check->fetch()) {
+                $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ?, created_at = NOW() WHERE id = ?");
+                return $stmt->execute([$star, $content, $existing['id']]);
+            }
+
+            $stmt = $this->db->prepare("INSERT INTO comments (review_id, name, email, star, content, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+            return $stmt->execute([$reviewId, $name, $email, $star, $content]);
         } catch (PDOException $e) {
             error_log('Errore createComment: ' . $e->getMessage());
             return false;
@@ -438,7 +470,7 @@ class CommentManager {
      */
     public function getComments($reviewId, $limit = null) {
         try {
-            $sql = "SELECT name, email, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
+            $sql = "SELECT name, email, star, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
             if ($limit) {
                 $sql .= " LIMIT " . intval($limit);
             }
