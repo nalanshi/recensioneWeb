@@ -53,6 +53,8 @@ $template = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $
 $template = str_replace("<!--TITLE_PLACEHOLDER-->", htmlspecialchars($review['title']), $template);
 $template = str_replace("<!--AUTHOR_PLACEHOLDER-->", htmlspecialchars($review['username']), $template);
 $template = str_replace("<!--EMAIL_PLACEHOLDER-->", htmlspecialchars($review['email']), $template);
+$authorPhoto = $review['profile_photo'] ? '../' . $review['profile_photo'] : '../images/icon/user.png';
+$template = str_replace("<!--AUTHOR_PHOTO-->", $authorPhoto, $template);
 $template = str_replace("<!--PRODUCT_NAME-->", htmlspecialchars($review['product_name']), $template);
 $ratingHtml = "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>" . Utils::generateStars($review['rating']) . "</div>";
 $template = str_replace("<!--RATING_HTML-->", $ratingHtml, $template);
