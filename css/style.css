@@ -86,13 +86,12 @@ body {
 
 /* Layout principale */
 main {
-  padding-top: 5rem; /* Spazio per header fisso */
   min-height: 100vh;
 }
 
 /* Titoli */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-primary);
+  color: var(--text-light);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--spacing-sm);
