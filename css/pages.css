@@ -976,6 +976,11 @@
   color: var(--text-secondary);
   margin-bottom: var(--spacing-xs);
 }
+.comment-rating {
+  display: flex;
+  gap: 0.125rem;
+  margin-bottom: var(--spacing-xs);
+}
 .comment-date {
   font-size: 0.8rem;
   color: var(--text-secondary);

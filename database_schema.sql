@@ -57,8 +57,10 @@ CREATE TABLE comments (
     review_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
+    star TINYINT NOT NULL DEFAULT 1,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_comment (review_id, email),
     FOREIGN KEY (review_id) REFERENCES reviews(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

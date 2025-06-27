@@ -76,6 +76,45 @@ if (!SessionManager::isLoggedIn()) {
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
+// Recupera i prodotti migliori calcolando la media delle recensioni
+$reviewManager = new ReviewManager();
+$topReviews = $reviewManager->getTopProducts(10);
+
+$podiumHtml = '';
+$rowsHtml = '';
+$position = 1;
+foreach ($topReviews as $review) {
+    $stars = Utils::generateStars(round($review['avg_rating']));
+    $ratingNum = number_format($review['avg_rating'], 1);
+    $title = htmlspecialchars($review['product_name']);
+    $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$title}' class='podium-image'>" : '';
+    $rowImg = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$title}' class='product-image'>" : '';
+    $rankClass = '';
+    if ($position == 1) { $rankClass = 'gold'; }
+    elseif ($position == 2) { $rankClass = 'silver'; }
+    elseif ($position == 3) { $rankClass = 'bronze'; }
+
+    if ($position <= 3) {
+        $podiumHtml .= "<div class='podium-item " . ($position == 1 ? 'first' : ($position == 2 ? 'second' : 'third')) . "' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
+                        "<div class='podium-rank {$rankClass}'>{$position}°</div>".
+                        $img.
+                        "<div class='podium-title'>{$title}</div>".
+                        "<div class='podium-rating' aria-label='Valutazione {$ratingNum} su 5'>{$stars}</div>".
+                        "</div>";
+    }
+
+    $rowsHtml .= "<tr class='ranking-row' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
+                 "<td class='rank-position {$rankClass}'>{$position}</td>".
+                 "<td class='product-info'>{$rowImg}<div class='product-details'><h4>{$title}</h4></div></td>".
+                 "<td class='rating-display'><div class='rating-stars'>{$stars}</div><span class='rating-number'>{$ratingNum}</span></td>".
+                 "</tr>";
+
+    $position++;
+}
+
+$DOM = str_replace('<!--PODIUM_PLACEHOLDER-->', $podiumHtml, $DOM);
+$DOM = str_replace('<!--RANKING_ROWS_PLACEHOLDER-->', $rowsHtml, $DOM);
+
 // Output della pagina
 echo $DOM;
 ?>
