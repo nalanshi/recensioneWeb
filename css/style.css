@@ -331,11 +331,10 @@ header::before {
 
 nav {
   width: 90%;
-  max-width: 85rem;
+  /*max-width: 85rem;*/
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   position: relative;
 }
 
