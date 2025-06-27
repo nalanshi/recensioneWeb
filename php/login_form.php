@@ -18,7 +18,7 @@ SessionManager::start();
 // Caricamento di header e footer comuni
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
-$homeLink = "<a href='../index.php' class='login-link' aria-label='Torna alla homepage' aria-current='page'>\n  <div class='user-icon-bg'>\n    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>\n      <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path>\n      <polyline points='9,22 9,12 15,12 15,22'></polyline>\n    </svg>\n  </div>\n  <div class='login-text'>Home</div>\n</a>";
+$homeLink = "<a href='../index.php' class='login-link' aria-label='Torna alla homepage' aria-current='page'>\n  <div class='user-icon-bg'>\n    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>\n      <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path>\n      <polyline points='9,22 9,12 15,12 15,22'></polyline>\n    </svg>\n  </div>\n  <span class='login-text'>Home</span>\n</a>";
 $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $homeLink, $header);
 
 // Recupera eventuali messaggi di errore dalla sessione
@@ -121,13 +121,13 @@ if (isset($_SESSION['login_error'])) {
 
       <div class="auth-links">
         <a href="#" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
-        <a href="#" class="auth-link">Accedi via <abbr title="Short Message Service">SMS</abbr></a>
+        <a href="#" class="auth-link"><span>Accedi via <abbr title="Short Message Service">SMS</abbr></span></a>
       </div>
 
       <div class="auth-footer">
         <p class="auth-footer-text">
           Non hai un <span lang="en">account</span>? 
-          <a href="../static/registrazione.html" class="auth-footer-link">Registrati gratuitamente</a>
+          <a href="../static/registrazione.html" class="auth-footer-link"><span>Registrati gratuitamente</span></a>
         </p>
       </div>
     </div>

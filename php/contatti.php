@@ -50,7 +50,7 @@ if (!SessionManager::isLoggedIn()) {
                             <circle cx='12' cy='7' r='4'></circle>
                           </svg>
                         </div>
-                        <div class='login-text'>Login</div>
+                        <span class='login-text'>Login</span>
                       </a>";
 } else {
   // Utente loggato
@@ -70,12 +70,12 @@ if (!SessionManager::isLoggedIn()) {
     <div class='user-icon-bg'>
       {$icon}
     </div>
-    <div class='login-text'>{$username}</div>
+    <span class='login-text'>{$username}</span>
     <div class='user-dropdown'>
       <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         $headerLoginHtml .= "
-          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+          <a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>";
     }
     $headerLoginHtml .= "
           <a href='logout.php'><span lang='en'>Logout</span></a>
@@ -86,11 +86,11 @@ if (!SessionManager::isLoggedIn()) {
                         <div class='user-icon-bg'>
                           {$icon}
                         </div>
-                        <div class='login-text'>{$username}</div>
+                        <span class='login-text'>{$username}</span>
                         <div class='user-dropdown'>
                           <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
   if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-      $headerLoginHtml .= "\n                          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+      $headerLoginHtml .= "\n                          <a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>";
   }
   $headerLoginHtml .= "\n                          <a href='logout.php'><span lang='en'>Logout</span></a>
                         </div>
