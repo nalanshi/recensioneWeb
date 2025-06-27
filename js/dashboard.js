@@ -258,13 +258,25 @@ class DashboardManager {
     }
 
     /**
+     * Esegue una fetch e restituisce JSON se possibile
+     */
+    async safeFetchJson(url, options = {}) {
+        const response = await fetch(url, options);
+        const contentType = response.headers.get('Content-Type') || '';
+        if (contentType.includes('application/json')) {
+            return response.json();
+        }
+        const text = await response.text();
+        throw new Error(text);
+    }
+
+    /**
      * Carica dati utente
      */
     async loadUserData() {
         this.showLoading();
         try {
-            const response = await fetch('api.php?endpoint=profile');
-            const data = await response.json();
+            const data = await this.safeFetchJson('api.php?endpoint=profile');
 
             if (data.success) {
                 this.populateUserData(data.data);
