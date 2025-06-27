@@ -54,6 +54,15 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Box di contenuto riutilizzabile */
+.content-box {
+  background: var(--surface);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
 /* Titoli sezioni */
 .section-title {
   font-size: 1.5rem;
@@ -998,11 +1007,6 @@
 }
 
 .author-info {
-  background: var(--surface);
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: var(--spacing-lg);
   text-align: center;
   display: flex;
   flex-direction: column;
