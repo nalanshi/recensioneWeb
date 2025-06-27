@@ -10,6 +10,16 @@ require_once 'database.php';
 SessionManager::start();
 SessionManager::requireLogin();
 
+// Sincronizza i dati dell'utente con il database per ottenere l'ultima foto profilo
+if (SessionManager::isLoggedIn()) {
+    $userManager = new UserManager();
+    $user = $userManager->getUserById(SessionManager::getUserId());
+    if ($user) {
+        $_SESSION['user_data']['profile_photo'] = $user['profile_photo'];
+        $_SESSION['profile_photo'] = $user['profile_photo'];
+    }
+}
+
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     http_response_code(403);
     echo 'Accesso negato';

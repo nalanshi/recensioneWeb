@@ -6,6 +6,16 @@ require_once 'database.php';
 
 SessionManager::start();
 
+// Sincronizza i dati dell'utente con il database per ottenere l'ultima foto profilo
+if (SessionManager::isLoggedIn()) {
+    $userManager = new UserManager();
+    $user = $userManager->getUserById(SessionManager::getUserId());
+    if ($user) {
+        $_SESSION['user_data']['profile_photo'] = $user['profile_photo'];
+        $_SESSION['profile_photo'] = $user['profile_photo'];
+    }
+}
+
 $reviewId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if (!$reviewId) {
     http_response_code(404);

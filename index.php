@@ -14,6 +14,16 @@ require_once 'php/database.php';
 // Avvio della sessione
 SessionManager::start();
 
+// Sincronizza i dati dell'utente con il database per ottenere l'ultima foto profilo
+if (SessionManager::isLoggedIn()) {
+    $userManager = new UserManager();
+    $user = $userManager->getUserById(SessionManager::getUserId());
+    if ($user) {
+        $_SESSION['user_data']['profile_photo'] = $user['profile_photo'];
+        $_SESSION['profile_photo'] = $user['profile_photo'];
+    }
+}
+
 // Caricamento di header e footer comuni
 $header = file_get_contents("static/header.html");
 $footer = file_get_contents("static/footer.html");
