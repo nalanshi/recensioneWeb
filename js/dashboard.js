@@ -104,7 +104,11 @@ class DashboardManager {
         const changePhotoBtn = document.getElementById('changePhotoBtn');
         const photoInput = document.getElementById('photoInput');
         if (changePhotoBtn && photoInput) {
-            changePhotoBtn.addEventListener('click', () => photoInput.click());
+            changePhotoBtn.addEventListener('click', () => {
+                // Reset del valore per evitare invii indesiderati se l'utente annulla la selezione
+                photoInput.value = '';
+                photoInput.click();
+            });
             photoInput.addEventListener('change', (e) => this.handlePhotoUpload(e));
         }
 
