@@ -1,7 +1,7 @@
 <?php
 /**
  * API unificata per DishDiveReview.
- * Gestisce profilo, recensioni, impostazioni e azioni varie.
+ * Gestisce profilo, recensioni, e azioni varie.
  */
 require_once 'database.php';
 
@@ -35,7 +35,6 @@ if (!SessionManager::isLoggedIn()) {
 $userId = SessionManager::getUserId();
 $userManager = new UserManager();
 $reviewManager = new ReviewManager();
-$settingsManager = new SettingsManager();
 
 switch ($endpoint) {
     case 'actions':
@@ -49,9 +48,6 @@ switch ($endpoint) {
         break;
     case 'delete':
         handle_delete($userId, $reviewManager);
-        break;
-    case 'settings':
-        handle_settings($userId, $settingsManager);
         break;
     default:
         http_response_code(404);
@@ -409,60 +405,3 @@ function handle_comments($commentManager) {
     }
 }
 
-function handle_settings($userId, $settingsManager) {
-    try {
-        switch ($_SERVER['REQUEST_METHOD']) {
-            case 'GET':
-                $settings = $settingsManager->getUserSettings($userId);
-                if ($settings !== false) {
-                    echo json_encode(['success' => true, 'data' => $settings]);
-                } else {
-                    http_response_code(500);
-                    echo json_encode(['success' => false, 'message' => 'Errore nel recupero delle impostazioni']);
-                }
-                break;
-            case 'POST':
-                $input = json_decode(file_get_contents('php://input'), true);
-                $validSettings = [
-                    'theme' => ['light', 'dark', 'auto'],
-                    'language' => ['it', 'en', 'es', 'fr'],
-                    'email_notifications' => ['0', '1'],
-                    'review_notifications' => ['0', '1'],
-                    'profile_visibility' => ['0', '1'],
-                    'show_email' => ['0', '1']
-                ];
-                $settings = [];
-                foreach ($validSettings as $key => $allowedValues) {
-                    if (isset($input[$key])) {
-                        $value = Utils::sanitizeInput($input[$key]);
-                        if (in_array($value, $allowedValues)) {
-                            $settings[$key] = $value;
-                        }
-                    }
-                }
-                if (empty($settings)) {
-                    http_response_code(400);
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Nessuna impostazione valida fornita',
-                        'received' => $input
-                    ]);
-                    break;
-                }
-                if ($settingsManager->updateSettings($userId, $settings)) {
-                    echo json_encode(['success' => true, 'message' => 'Impostazioni aggiornate con successo']);
-                } else {
-                    http_response_code(500);
-                    echo json_encode(['success' => false, 'message' => "Errore durante l'aggiornamento"]);
-                }
-                break;
-            default:
-                http_response_code(405);
-                echo json_encode(['success' => false, 'message' => 'Metodo non supportato']);
-        }
-    } catch (Exception $e) {
-        error_log('Errore API impostazioni: ' . $e->getMessage());
-        http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
-    }
-}
