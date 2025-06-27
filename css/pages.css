@@ -979,3 +979,10 @@
 .comment-form {
   margin-top: var(--spacing-lg);
 }
+
+/* Dettaglio recensione */
+.review-product {
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
