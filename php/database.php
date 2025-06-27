@@ -386,7 +386,7 @@ class ReviewManager {
      */
     public function getReviewById($reviewId) {
         try {
-            $stmt = $this->db->prepare("SELECT r.*, u.username, u.email FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.id = ? AND r.deleted_at IS NULL");
+            $stmt = $this->db->prepare("SELECT r.*, u.username, u.email, u.profile_photo FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.id = ? AND r.deleted_at IS NULL");
             $stmt->execute([$reviewId]);
             return $stmt->fetch();
         } catch (PDOException $e) {

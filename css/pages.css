@@ -986,3 +986,51 @@
   margin-bottom: var(--spacing-md);
   color: var(--text-secondary);
 }
+
+/* Layout dettaglio recensione con info autore */
+.single-review {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.author-info {
+  background: var(--surface);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.author-info .profile-photo {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0.25rem solid var(--primary-agid);
+  box-shadow: var(--shadow-lg);
+}
+
+.author-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.author-email {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (width <= 48rem) {
+  .single-review {
+    grid-template-columns: 1fr;
+  }
+}
