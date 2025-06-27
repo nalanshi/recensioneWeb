@@ -22,7 +22,7 @@ if (!$review) {
     exit();
 }
 
-$comments = $commentManager->getComments($reviewId);
+$comments = $commentManager->getComments($reviewId, 5);
 
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
