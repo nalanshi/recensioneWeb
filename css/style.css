@@ -6,29 +6,29 @@
 /* Import delle variabili dal header.css */
 :root {
   /* Palette colori AgID */
-  --primary-agid: #06C;
-  --secondary-agid: #0059B3;
-  --accent-agid: #036;
-  --success-agid: #4CAF50;
+  --primary-agid: #0050A0;
+  --secondary-agid: #004C99;
+  --accent-agid: #0c355d;
+  --success-agid: #388E3C;
   --info-agid: #1B558E;
-  --warning-agid: #FFA726;
-  --danger-agid: #D1344C;
+  --warning-agid: #E65100;
+  --danger-agid: #B71C1C;
 
   /* Gradiente navbar */
-  --nav-gradient-agid: linear-gradient(135deg, #003366 0%, #00264d 50%, #001933 100%);
+  --nav-gradient-agid: linear-gradient(135deg, #004080, #002F5D);
 
   /* Neutri */
   --text-primary: #1A1A1A;
-  --text-secondary: #5C6F82;
-  --text-light: #FFF;
-  --background: #F0F6FC;
-  --surface: #FFF;
-  --border: #EFEFEF;
+  --text-secondary: #4A5568;
+  --text-light: #FFFFFF;
+  --background: #F8F9FA;
+  --surface: #FFFFFF;
+  --border: #E0E0E0;
 
   /* Shadows */
-  --shadow-sm: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
-  --shadow-md: 0 0.25rem 0.75rem rgb(0 102 204 / 15%);
-  --shadow-lg: 0 0.5rem 1.5rem rgb(0 102 204 / 20%);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
 
   /* Transitions */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -111,16 +111,16 @@ h3 {
 }
 
 .welcome-title {
-  text-align: center;
+  text-align: center; 
   margin: var(--spacing-xl) 0;
-  color: var(--primary-agid);
+  color: var(--accent-agid);
   font-size: 2.5rem;
   font-weight: 300;
   text-shadow: 0 0.125rem 0.25rem rgb(0 102 204 / 10%);
 }
 
 .welcome-title span {
-  color: var(--accent-agid);
+  color: var(--secondary-agid);
   font-weight: 700;
 }
 
@@ -162,7 +162,7 @@ a:focus {
 }
 
 .btn::before {
-  content: '';
+  content: \'\';
   position: absolute;
   top: 0;
   left: -100%;
@@ -218,7 +218,7 @@ a:focus {
 }
 
 .recommended-products h2::after {
-  content: '';
+  content: \'\';
   position: absolute;
   bottom: -0.625rem;
   left: 50%;
@@ -254,7 +254,7 @@ a:focus {
   flex-shrink: 0;
 }
 
-  content: '';
+  content: \'\';
   position: absolute;
   top: 0;
   left: 0;
@@ -360,20 +360,21 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: #001933;
+  background: linear-gradient(135deg, #004080, #00264D);
   padding: 1rem 0;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 header::before {
-  content: '';
+  content: \'\';
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 20%);
+  background: rgba(0, 0, 0, 0.2);
   z-index: -1;
 }
+
 
 nav {
   width: 90%;
@@ -404,8 +405,9 @@ nav {
 }
 
 .logo {
-  height: 2.5rem;
+  height: 3.5rem;
   width: auto;
+  border-radius: 50%;
   filter: brightness(1.1);
 }
 
@@ -424,7 +426,8 @@ nav {
 .nav-links li a,
 .nav-links li span,
 .nav-link-item {
-  color: #FFFFFF !important;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--text-light) !important;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -435,13 +438,12 @@ nav {
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #000000;
 }
 
 .nav-links li a::before,
 .nav-links li span::before,
 .nav-link-item::before {
-  content: '';
+  content: \'\';
   position: absolute;
   top: 0;
   left: -100%;
@@ -461,6 +463,7 @@ nav {
 .nav-links li a:hover,
 .nav-links li span:hover,
 .nav-link-item:hover {
+  background-color: rgba(0, 0, 0, 0.5);
   color: var(--text-light);
   transform: translateY(-0.125rem);
   text-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 20%);
@@ -798,8 +801,8 @@ nav {
  */
 
 footer {
-  background: #001933;
-  color: var(--text-light, #FFF);
+  background: linear-gradient(135deg, #004080, #001933);
+  color: var(--text-light, #FFFFFF);
   padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
   margin-top: var(--spacing-lg, 2rem);
   position: relative;
@@ -827,12 +830,12 @@ footer::before {
 }
 
 .footer-section h3 {
-  color: var(--text-light, #FFF);
+  color: var(--text-light, #FFFFFF);
   margin-bottom: var(--spacing-md, 1.5rem);
   font-size: 1.1rem;
   font-weight: 700;
   position: relative;
-  background-color: #001933;
+  background-color: transparent;
 }
 
 .footer-section h3::after {
@@ -850,8 +853,7 @@ footer::before {
   color: #FFFFFF !important;
   line-height: 1.6;
   margin-bottom: var(--spacing-sm, 1rem);
-  font-size: 0.9rem;
-  background-color: #001933;
+  background-color: transparent;
 }
 
 .footer-section ul {
@@ -872,7 +874,6 @@ footer::before {
   padding: 0.25rem 0;
   display: inline-block;
   font-size: 0.9rem;
-  background-color: #001933;
 }
 
 .footer-section ul li a:hover {
@@ -898,7 +899,7 @@ footer::before {
   color: #FFFFFF !important;
   font-size: 0.9rem;
   margin: 0;
-  background-color: #001933;
+  background-color: transparent;
 }
 
 /* Responsive */
@@ -928,3 +929,5 @@ footer::before {
     padding: 0 var(--spacing-sm, 1rem);
   }
 }
+
+
