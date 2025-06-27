@@ -248,8 +248,14 @@
       // Gestione click su recensione per aprire dettaglio
       reviewsGrid.addEventListener('click', function(e) {
         const reviewCard = e.target.closest('.review-card');
-        if (reviewCard) {
-          // Qui si implementerebbe l'apertura del dettaglio recensione
+        if (reviewCard && reviewCard.getAttribute('href')) {
+          window.location.href = reviewCard.getAttribute('href');
+        }
+      });
+      reviewsGrid.addEventListener('keydown', function(e) {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('review-card')) {
+          e.preventDefault();
+          e.target.click();
         }
       });
     });
