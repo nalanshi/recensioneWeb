@@ -162,7 +162,6 @@ a:focus {
 }
 
 .btn::before {
-  content: \'\';
   position: absolute;
   top: 0;
   left: -100%;
@@ -218,7 +217,6 @@ a:focus {
 }
 
 .recommended-products h2::after {
-  content: \'\';
   position: absolute;
   bottom: -0.625rem;
   left: 50%;
@@ -229,53 +227,7 @@ a:focus {
   border-radius: 0.125rem;
 }
 
-/* Container scorrevole per prodotti */
-/* 
-  position: relative;
-  overflow: hidden;
-  margin-bottom: var(--spacing-lg);
-}
 
-  display: flex;
-  gap: var(--spacing-lg);
-  transition: transform 0.5s ease;
-  padding: var(--spacing-sm) 0;
-}
-
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
-  border: 0.0625rem solid var(--border);
-  position: relative;
-  min-width: 12.5rem;
-  max-width: 13.75rem;
-  flex-shrink: 0;
-}
-
-  content: \'\';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 0.25rem;
-  background: linear-gradient(90deg, var(--primary-agid), var(--secondary-agid), var(--accent-agid));
-  opacity: 0;
-  transition: var(--transition);
-}
-
-  transform: translateY(-0.5rem);
-  box-shadow: var(--shadow-lg);
-}
-
-  opacity: 1;
-}
-
-  outline: 0.0625rem solid var(--primary-agid);
-}
-}
-*/
 /* Accessibilità */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -424,9 +376,7 @@ nav {
 }
 
 .nav-links li a,
-.nav-links li span,
 .nav-link-item {
-  background-color: rgba(0, 0, 0, 0.3);
   color: var(--text-light) !important;
   text-decoration: none;
   font-weight: 600;
@@ -497,8 +447,6 @@ nav {
   color: var(--text-light);
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  background: rgb(0 0 0 / 25%);
-  border: 0.0625rem solid rgb(0 0 0 / 40%);
   transition: var(--transition);
   font-weight: 600;
 }
