@@ -82,9 +82,8 @@
               </div>
 
               <div class="form-group">
-                <label for="email">Indirizzo email*</label>
+                <label for="email">Indirizzo <span lang="en">email</span>*</label>
                 <input type="email" id="email" name="email" required>
-                <small class="form-note">Ti manderemo la conferma del tuo ordine qui</small>
               </div>
 
               <div class="form-group">
@@ -115,7 +114,7 @@
                 </button>
                 <button type="button" class="btn btn-secondary" id="changePasswordBtn">
                   <i aria-hidden="true" class="fas fa-key"></i>
-                  Cambia password
+                  Cambia <span lang="en">password</span>
                 </button>
               </div>
             </form>
@@ -129,7 +128,7 @@
           <p>Le azioni seguenti sono irreversibili. Procedi con cautela.</p>
           <button class="btn btn-danger" id="deleteAccountBtn">
             <i aria-hidden="true" class="fas fa-trash"></i>
-            Elimina account
+            Elimina <span lang="en">account</span>
           </button>
         </div>
       </section>
@@ -182,7 +181,7 @@
       <section id="impostazioni-section" class="content-section">
         <div class="section-header">
           <h1>Impostazioni</h1>
-          <p>Personalizza la tua esperienza su ReviewDiver</p>
+          <p>Personalizza la tua esperienza su <span lang="en">ReviewDiver</span></p>
         </div>
 
         <div class="settings-container">
@@ -192,8 +191,8 @@
             <h3>Notifiche</h3>
             <div class="setting-item">
               <div class="setting-info">
-                <label for="emailNotifications">Notifiche email</label>
-                <p>Ricevi aggiornamenti via email</p>
+                <label for="emailNotifications">Notifiche <span lang="en">email</span></label>
+                <p>Ricevi aggiornamenti via <span lang="en">email</span></p>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="emailNotifications" checked>
@@ -227,8 +226,8 @@
             </div>
             <div class="setting-item">
               <div class="setting-info">
-                <label for="showEmail">Mostra email</label>
-                <p>Permetti ad altri utenti di vedere la tua email</p>
+                <label for="showEmail">Mostra <span lang="en">email</span></label>
+                <p>Permetti ad altri utenti di vedere la tua <span lang="en">email</span></p>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="showEmail">
@@ -270,28 +269,28 @@
   <div class="modal" id="passwordModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Cambia password</h3>
+        <h3>Cambia <span lang="en">password</span></h3>
         <button class="modal-close" id="passwordModalClose">
           <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
       <form class="modal-body" id="passwordForm">
         <div class="form-group">
-          <label for="currentPassword">Password attuale*</label>
+          <label for="currentPassword"><span lang="en">Password</span> attuale*</label>
           <input type="password" id="currentPassword" name="currentPassword" required>
         </div>
         <div class="form-group">
-          <label for="newPassword">Nuova password*</label>
+          <label for="newPassword">Nuova <span lang="en">Password</span>*</label>
           <input type="password" id="newPassword" name="newPassword" required>
           <small class="form-note">Minimo 8 caratteri, almeno una maiuscola e un numero</small>
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Conferma nuova password*</label>
+          <label for="confirmPassword">Conferma nuova <span lang="en">password</span>*</label>
           <input type="password" id="confirmPassword" name="confirmPassword" required>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn btn-secondary" id="cancelPasswordBtn">Annulla</button>
-          <button type="submit" class="btn btn-primary">Cambia password</button>
+          <button type="submit" class="btn btn-primary">Cambia <span lang="en">password</span></button>
         </div>
       </form>
     </div>
@@ -301,7 +300,7 @@
   <div class="modal" id="deleteModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Elimina account</h3>
+        <h3>Elimina <span lang="en">Account</span></h3>
         <button class="modal-close" id="deleteModalClose">
           <i aria-hidden="true" class="fas fa-times"></i>
         </button>
@@ -309,11 +308,11 @@
       <div class="modal-body">
         <div class="warning-message">
           <i aria-hidden="true" class="fas fa-exclamation-triangle"></i>
-          <p>Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile e comporterà:</p>
+          <p>Sei sicuro di voler eliminare il tuo <span lang="en">Account</span>? Questa azione è irreversibile e comporterà:</p>
           <ul>
             <li>Perdita di tutte le tue recensioni</li>
             <li>Cancellazione dei dati del profilo</li>
-            <li>Impossibilità di recuperare l'account</li>
+            <li>Impossibilità di recuperare l'<span lang="en">account</span></li>
           </ul>
         </div>
         <div class="form-group">
@@ -322,7 +321,7 @@
         </div>
         <div class="modal-actions">
           <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Annulla</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>Elimina account</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>Elimina <span lang="en">account</span></button>
         </div>
       </div>
     </div>
