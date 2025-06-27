@@ -33,7 +33,7 @@ if (isset($_SESSION['login_error'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accedi - DishDiveReview</title>
+  <title>Accedi - ReviewDiver</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/auth-styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@ if (isset($_SESSION['login_error'])) {
         <div class="auth-logo">
           DR
         </div>
-        <h1 class="auth-title">Accedi al tuo account</h1>
+        <h1 class="auth-title">Accedi al tuo <span lang="en">account</span></h1>
         <p class="auth-subtitle">Benvenuto di nuovo! Inserisci le tue credenziali per continuare.</p>
       </div>
 
@@ -67,7 +67,7 @@ if (isset($_SESSION['login_error'])) {
 
       <form id="login-form" class="auth-form" action="login.php" method="post" onsubmit="return validateLoginForm()">
         <div class="form-group">
-          <label for="username" class="form-label">Username o Email</label>
+          <label for="username" class="form-label"><span lang="en">Username</span> o <span lang="en">Email</span></label>
           <div class="form-input-wrapper">
             <input 
               type="text" 
@@ -88,7 +88,7 @@ if (isset($_SESSION['login_error'])) {
         </div>
 
         <div class="form-group">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label"><span lang="en">Password</span></label>
           <div class="form-input-wrapper">
             <input 
               type="password" 
@@ -120,13 +120,13 @@ if (isset($_SESSION['login_error'])) {
       </form>
 
       <div class="auth-links">
-        <a href="#" class="auth-link">Password dimenticata?</a>
-        <a href="#" class="auth-link">Accedi via SMS</a>
+        <a href="#" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
+        <a href="#" class="auth-link">Accedi via <abbr title="Short Message Service">SMS</abbr></a>
       </div>
 
       <div class="auth-footer">
         <p class="auth-footer-text">
-          Non hai un account? 
+          Non hai un <span lang="en">account</span>? 
           <a href="../static/registrazione.html" class="auth-footer-link">Registrati gratuitamente</a>
         </p>
       </div>

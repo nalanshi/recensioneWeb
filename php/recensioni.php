@@ -55,20 +55,23 @@ if (!SessionManager::isLoggedIn()) {
   $profilePhoto = $_SESSION['user_data']['profile_photo'] ?? $_SESSION['profile_photo'] ?? '';
   $icon = $profilePhoto ? "<img src='../{$profilePhoto}' alt='Foto profilo di {$username}' class='user-avatar'>" : "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>";
 
-  $headerLoginHtml = "<div class='login-link user-menu' aria-label='Menu utente'>
-                        <div class='user-icon-bg'>
-                          {$icon}
-                        </div>
-                        <div class='login-text'>{$username}</div>
-                        <div class='user-dropdown'>
-                          <a href='dashboard.php'>Dashboard</a>";
-  if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-      $headerLoginHtml .= "\n                          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+    $headerLoginHtml = "
+    <div class='login-link user-menu' role='button' tabindex='0' aria-haspopup='true' aria-expanded='false' aria-label='Menu utente'>
+    <div class='user-icon-bg'>
+      {$icon}
+    </div>
+    <div class='login-text'>{$username}</div>
+    <div class='user-dropdown'>
+      <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+        $headerLoginHtml .= "
+          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+    }
+    $headerLoginHtml .= "
+          <a href='logout.php'><span lang='en'>Logout</span></a>
+        </div>
+    </div>";
   }
-  $headerLoginHtml .= "\n                          <a href='logout.php'>Logout</a>
-                        </div>
-                      </div>";
-}
 
 // Sostituzione dei placeholder nel template
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
