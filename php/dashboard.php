@@ -8,6 +8,16 @@ require_once 'database.php';
 SessionManager::start();
 SessionManager::requireLogin();
 
+// Sincronizza i dati dell'utente con il database per ottenere l'ultima foto profilo
+if (SessionManager::isLoggedIn()) {
+    $userManager = new UserManager();
+    $user = $userManager->getUserById(SessionManager::getUserId());
+    if ($user) {
+        $_SESSION['user_data']['profile_photo'] = $user['profile_photo'];
+        $_SESSION['profile_photo'] = $user['profile_photo'];
+    }
+}
+
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
 $footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', $footer);
