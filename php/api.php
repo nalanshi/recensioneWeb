@@ -69,6 +69,13 @@ function handle_actions($userId, $userManager) {
                 $upload = Utils::handlePhotoUpload($_FILES['photo'], $userId);
                 if ($upload['success']) {
                     if ($userManager->updateProfilePhoto($userId, $upload['path'])) {
+                        // Aggiorna la sessione con la nuova foto profilo
+                        $_SESSION['profile_photo'] = $upload['path'];
+                        if (!isset($_SESSION['user_data'])) {
+                            $_SESSION['user_data'] = [];
+                        }
+                        $_SESSION['user_data']['profile_photo'] = $upload['path'];
+
                         echo json_encode(['success' => true, 'photo_url' => $upload['path']]);
                     } else {
                         http_response_code(500);
