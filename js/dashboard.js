@@ -44,7 +44,6 @@ class DashboardManager {
         this.setupEventListeners();
         this.setupSidebar();
         await this.loadUserData();
-        this.loadUserSettings();
         this.setupFormValidation();
         this.setupDateSelectors();
     }
@@ -173,11 +172,6 @@ class DashboardManager {
             dateFilter.addEventListener('change', () => this.loadReviews());
         }
 
-        // Impostazioni
-        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-        if (saveSettingsBtn) {
-            saveSettingsBtn.addEventListener('click', () => this.saveSettings());
-        }
 
 
         // Navigazione da tastiera
@@ -670,99 +664,6 @@ class DashboardManager {
         }
     }
 
-    /**
-     * Carica impostazioni utente
-     */
-    async loadUserSettings() {
-        try {
-            const response = await fetch('api.php?endpoint=settings', {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            // Verifica se la risposta è OK (status 200-299)
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            // Prova a parsare il JSON
-            let data;
-            try {
-                data = await response.json();
-            } catch (jsonError) {
-                console.error('Errore nel parsing del JSON:', jsonError);
-                // Se fallisce il parsing del JSON, prova a leggere il testo della risposta
-                const textResponse = await response.text();
-                console.error('Risposta non JSON:', textResponse);
-                showMessage('Errore di comunicazione con il server', 'error');
-                return false;
-            }
-
-            if (data.success) {
-                this.populateSettings(data.data);
-            } else {
-                console.error('Errore nel caricamento delle impostazioni:', data.message);
-                showMessage('Errore nel caricamento delle impostazioni', 'error');
-                return false;
-            }
-        } catch (error) {
-            console.error('Errore caricamento impostazioni:', error);
-            showMessage('Errore di connessione al server', 'error');
-            return false;
-        }
-    }
-
-    /**
-     * Popola le impostazioni nel form
-     */
-    populateSettings(settings) {
-        Object.keys(settings).forEach(key => {
-            const element = document.getElementById(key);
-            if (element) {
-                if (element.type === 'checkbox') {
-                    element.checked = settings[key] === '1';
-                } else {
-                    element.value = settings[key];
-                }
-            }
-        });
-    }
-
-    /**
-     * Salva impostazioni
-     */
-    async saveSettings() {
-        const settings = {
-            language: document.getElementById('languageSelect')?.value,
-            email_notifications: document.getElementById('emailNotifications')?.checked ? '1' : '0',
-            review_notifications: document.getElementById('reviewNotifications')?.checked ? '1' : '0',
-            profile_visibility: document.getElementById('profileVisibility')?.checked ? '1' : '0',
-            show_email: document.getElementById('showEmail')?.checked ? '1' : '0'
-        };
-
-        try {
-            const response = await fetch('api.php?endpoint=settings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(settings)
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                this.showNotification('Impostazioni salvate con successo', 'success');
-            } else {
-                this.showNotification(result.message || 'Errore durante il salvataggio', 'error');
-            }
-        } catch (error) {
-            console.error('Errore salvataggio impostazioni:', error);
-            this.showNotification('Errore di connessione', 'error');
-        }
-    }
 
     /**
      * Setup del tema
@@ -918,10 +819,6 @@ class DashboardManager {
                 case '2':
                     e.preventDefault();
                     this.switchSection('recensioni');
-                    break;
-                case '3':
-                    e.preventDefault();
-                    this.switchSection('impostazioni');
                     break;
             }
         }
