@@ -521,21 +521,6 @@
   margin-bottom: var(--spacing-md);
 }
 
-.review-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-xs);
-}
-
-.review-tag {
-  background: rgb(0 102 204 / 10%);
-  color: var(--primary-agid);
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
 /* Carica Altri */
 .load-more {
   text-align: center;
