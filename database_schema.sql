@@ -51,6 +51,17 @@ CREATE TABLE review_likes (
     UNIQUE KEY unique_like (review_id, user_id)  -- Prevent duplicate likes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Table: comments (comments on reviews)
+CREATE TABLE comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    review_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (review_id) REFERENCES reviews(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Table: user_settings (user preferences)
 CREATE TABLE user_settings (
     user_id INT NOT NULL,
@@ -75,3 +86,4 @@ CREATE INDEX idx_reviews_rating ON reviews(rating);
 CREATE INDEX idx_reviews_created_at ON reviews(created_at);
 CREATE INDEX idx_review_likes_review_id ON review_likes(review_id);
 CREATE INDEX idx_review_likes_user_id ON review_likes(user_id);
+CREATE INDEX idx_comments_review_id ON comments(review_id);

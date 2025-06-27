@@ -380,6 +380,20 @@ class ReviewManager {
             return false;
         }
     }
+
+    /**
+     * Ottiene una singola recensione per ID
+     */
+    public function getReviewById($reviewId) {
+        try {
+            $stmt = $this->db->prepare("SELECT r.*, u.username, u.email FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.id = ? AND r.deleted_at IS NULL");
+            $stmt->execute([$reviewId]);
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log('Errore getReviewById: ' . $e->getMessage());
+            return false;
+        }
+    }
     public function getAllReviews($page = 1, $limit = 10) {
         try {
             $offset = ($page - 1) * $limit;
@@ -394,6 +408,44 @@ class ReviewManager {
         }
     }
 
+}
+
+/**
+ * Classe per la gestione dei commenti alle recensioni
+ */
+class CommentManager {
+    private $db;
+
+    public function __construct() {
+        $this->db = DatabaseConfig::getConnection();
+    }
+
+    /**
+     * Crea un nuovo commento
+     */
+    public function createComment($reviewId, $name, $email, $content) {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO comments (review_id, name, email, content, created_at) VALUES (?, ?, ?, ?, NOW())");
+            return $stmt->execute([$reviewId, $name, $email, $content]);
+        } catch (PDOException $e) {
+            error_log('Errore createComment: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Ottiene i commenti per una recensione
+     */
+    public function getComments($reviewId) {
+        try {
+            $stmt = $this->db->prepare("SELECT name, email, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC");
+            $stmt->execute([$reviewId]);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log('Errore getComments: ' . $e->getMessage());
+            return [];
+        }
+    }
 }
 
 /**
