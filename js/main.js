@@ -51,4 +51,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  const reviewsGrid = document.querySelector('.reviews-grid');
+  if (reviewsGrid) {
+    reviewsGrid.addEventListener('click', (e) => {
+      const reviewCard = e.target.closest('.review-card');
+      if (reviewCard && reviewCard.getAttribute('href')) {
+        window.location.href = reviewCard.getAttribute('href');
+      }
+    });
+
+    reviewsGrid.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('review-card')) {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
+  }
 });
