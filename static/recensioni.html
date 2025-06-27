@@ -21,19 +21,9 @@
       </div>
     </section>
 
-    <div class="reviews-container">
-      <!-- Filtri -->
-      <section class="reviews-filters" aria-label="Filtri recensioni">
-        <div class="filter-group">
-          <label for="category-filter">Categoria</label>
-          <select id="category-filter" class="filter-select">
-            <option value="">Tutte le categorie</option>
-            <option value="tecnologia">Tecnologia</option>
-            <option value="gastronomia">Gastronomia</option>
-            <option value="casa">Casa e Giardino</option>
-            <option value="sport">Sport e Fitness</option>
-          </select>
-        </div>
+      <div class="reviews-container">
+        <!-- Filtri -->
+        <section class="reviews-filters" aria-label="Filtri recensioni">
 
         <div class="filter-group">
           <label for="rating-filter">Valutazione</label>
@@ -64,7 +54,7 @@
         <!-- Le recensioni verranno caricate dinamicamente tramite PHP -->
         
         <!-- Esempio di recensioni statiche per il design -->
-        <a href="../php/recensione.php?id=1" class="review-card" data-category="tecnologia" data-rating="5" aria-label="Leggi la recensione completa di Smartphone XYZ Pro">
+        <a href="../php/recensione.php?id=1" class="review-card" data-rating="5" aria-label="Leggi la recensione completa di Smartphone XYZ Pro">
           <img src="../images/products/product1.jpg" alt="Smartphone XYZ Pro" class="review-image">
           <div class="review-content">
             <div class="review-header">
@@ -94,7 +84,7 @@
           </div>
         </a>
 
-        <a href="../php/recensione.php?id=2" class="review-card" data-category="tecnologia" data-rating="4" aria-label="Leggi la recensione completa di Fotocamera DSLR 4K">
+        <a href="../php/recensione.php?id=2" class="review-card" data-rating="4" aria-label="Leggi la recensione completa di Fotocamera DSLR 4K">
           <img src="../images/products/product2.jpg" alt="Fotocamera DSLR 4K" class="review-image">
           <div class="review-content">
             <div class="review-header">
@@ -124,7 +114,7 @@
           </div>
         </a>
 
-        <a href="../php/recensione.php?id=3" class="review-card" data-category="tecnologia" data-rating="5" aria-label="Leggi la recensione completa di Cuffie Wireless Premium">
+        <a href="../php/recensione.php?id=3" class="review-card" data-rating="5" aria-label="Leggi la recensione completa di Cuffie Wireless Premium">
           <img src="../images/products/product3.jpg" alt="Cuffie Wireless Premium" class="review-image">
           <div class="review-content">
             <div class="review-header">
@@ -177,9 +167,8 @@
   <script>
     // Script per la gestione dei filtri e caricamento dinamico
     document.addEventListener('DOMContentLoaded', function() {
-      const categoryFilter = document.getElementById('category-filter');
-      const ratingFilter = document.getElementById('rating-filter');
-      const searchFilter = document.getElementById('search-filter');
+        const ratingFilter = document.getElementById('rating-filter');
+        const searchFilter = document.getElementById('search-filter');
       const sortFilter = document.getElementById('sort-filter');
       const reviewsGrid = document.getElementById('reviews-grid');
       const loadMoreBtn = document.getElementById('load-more-btn');
@@ -187,21 +176,15 @@
 
       // Gestione filtri
       function applyFilters() {
-        const category = categoryFilter.value;
-        const rating = ratingFilter.value;
-        const search = searchFilter.value.toLowerCase();
+          const rating = ratingFilter.value;
+          const search = searchFilter.value.toLowerCase();
         const sort = sortFilter.value;
 
         const reviews = reviewsGrid.querySelectorAll('.review-card');
         let visibleCount = 0;
 
-        reviews.forEach(review => {
-          let show = true;
-
-          // Filtro categoria
-          if (category && review.dataset.category !== category) {
-            show = false;
-          }
+          reviews.forEach(review => {
+            let show = true;
 
           // Filtro rating
           if (rating && parseInt(review.dataset.rating) < parseInt(rating)) {
@@ -227,9 +210,8 @@
       }
 
       // Event listeners per i filtri
-      categoryFilter.addEventListener('change', applyFilters);
-      ratingFilter.addEventListener('change', applyFilters);
-      searchFilter.addEventListener('input', applyFilters);
+        ratingFilter.addEventListener('change', applyFilters);
+        searchFilter.addEventListener('input', applyFilters);
       sortFilter.addEventListener('change', applyFilters);
 
       // Gestione caricamento altre recensioni
