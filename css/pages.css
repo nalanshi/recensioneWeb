@@ -1050,6 +1050,9 @@
 }
 
 @media (width <= 48rem) {
+  .review-layout {
+    grid-template-columns: 1fr;
+  }
   .single-review {
     grid-template-columns: 1fr;
   }
