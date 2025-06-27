@@ -371,9 +371,10 @@ function handle_comments($commentManager) {
                 $reviewId = (int)($_POST['review_id'] ?? 0);
                 $name = Utils::sanitizeInput($_POST['name'] ?? '');
                 $email = Utils::sanitizeInput($_POST['email'] ?? '');
+                $star = min(5, max(1, intval($_POST['star'] ?? 1)));
                 $content = Utils::sanitizeInput($_POST['content'] ?? '');
                 if ($reviewId && $name && $email && $content) {
-                    if ($commentManager->createComment($reviewId, $name, $email, $content)) {
+                    if ($commentManager->createComment($reviewId, $name, $email, $star, $content)) {
                         echo json_encode(['success' => true]);
                     } else {
                         http_response_code(500);
