@@ -4,6 +4,14 @@
 
 -- Database: recensioni_db (from database.php)
 
+-- Disable foreign key checks to allow dropping tables in any order
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Drop old tables if they exist
+DROP TABLE IF EXISTS user_settings;
+DROP TABLE IF EXISTS review_likes;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS utenti;
 CREATE TABLE utenti (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,7 +31,6 @@ CREATE TABLE utenti (
     deleted_at TIMESTAMP NULL DEFAULT NULL             -- Soft delete timestamp (NULL if active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -39,7 +46,6 @@ CREATE TABLE reviews (
     CHECK (rating BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS review_likes;
 CREATE TABLE review_likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
@@ -51,7 +57,6 @@ CREATE TABLE review_likes (
     UNIQUE KEY unique_like (review_id, user_id)  -- Prevent duplicate likes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS comments;
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
@@ -72,3 +77,6 @@ CREATE INDEX idx_reviews_created_at ON reviews(created_at);
 CREATE INDEX idx_review_likes_review_id ON review_likes(review_id);
 CREATE INDEX idx_review_likes_user_id ON review_likes(user_id);
 CREATE INDEX idx_comments_review_id ON comments(review_id);
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;
