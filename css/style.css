@@ -355,7 +355,7 @@ a:focus {
 
 
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -799,12 +799,11 @@ nav {
 footer {
   background: #001933;
   color: var(--text-light, #FFF);
-  max-height: var(--header-height);
   padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
   margin-top: var(--spacing-lg, 2rem);
   position: relative;
   z-index: 1000;
-  overflow: hidden;
+  overflow: visible;
 }
 
 footer::before {
