@@ -35,13 +35,13 @@ $icon = $profilePhoto ? "<img src='../{$profilePhoto}' alt='Foto profilo di {$us
     <div class='user-icon-bg'>
       {$icon}
     </div>
-    <div class='login-text'>{$username}</div>
+    <span class='login-text'>{$username}</span>
     <div class='user-dropdown'>
       <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
 
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         $headerLoginHtml .= "
-          <a href='gestione_recensioni.php'>Gestione recensioni</a>";
+          <a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>";
     }
 
     $headerLoginHtml .= "

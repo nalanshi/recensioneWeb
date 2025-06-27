@@ -41,10 +41,10 @@ $headerLoginHtml = " <div class='login-link user-menu' role='button' tabindex='0
                         <div class='user-icon-bg'>
                           {$icon}
                         </div>
-                        <div class='login-text'>{$username}</div>
+                        <span class='login-text'>{$username}</span>
                         <div class='user-dropdown'>
                           <a href='dashboard.php'><span lang='en'>Dashboard</span></a>
-                          <a href='gestione_recensioni.php'>Gestione recensioni</a>
+                          <a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>
                           <a href='logout.php'><span lang='en'>Logout</span></a>
                         </div>
                       </div>";
