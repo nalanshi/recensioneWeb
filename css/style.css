@@ -230,6 +230,7 @@ a:focus {
 }
 
 /* Container scorrevole per prodotti */
+/* 
   position: relative;
   overflow: hidden;
   margin-bottom: var(--spacing-lg);
@@ -274,7 +275,7 @@ a:focus {
   outline: 0.0625rem solid var(--primary-agid);
 }
 }
-
+*/
 /* Accessibilità */
 @media (prefers-reduced-motion: reduce) {
   * {
