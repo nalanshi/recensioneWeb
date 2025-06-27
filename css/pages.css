@@ -439,7 +439,7 @@
 /* Griglia Recensioni */
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(21.875rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(18.75rem, 100%), 1fr));
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-xl);
 }
