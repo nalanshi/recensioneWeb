@@ -130,7 +130,7 @@
 
 .form-textarea {
   resize: vertical;
-  min-height: 7.5rem;
+  min-height: 5rem;
 }
 
 .form-submit {
@@ -1000,7 +1000,7 @@
 .single-review {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: var(--spacing-xl);
+  gap: calc(var(--spacing-xl) * 1.5);
   max-width: 75rem;
   margin: 0 auto;
   padding: 0 5%;
