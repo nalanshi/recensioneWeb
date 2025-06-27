@@ -958,7 +958,7 @@
 /* Comment Section */
 .comments-section {
   margin-top: var(--spacing-xl);
-  max-width: 60rem;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
