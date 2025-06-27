@@ -436,9 +436,13 @@ class CommentManager {
     /**
      * Ottiene i commenti per una recensione
      */
-    public function getComments($reviewId) {
+    public function getComments($reviewId, $limit = null) {
         try {
-            $stmt = $this->db->prepare("SELECT name, email, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC");
+            $sql = "SELECT name, email, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
+            if ($limit) {
+                $sql .= " LIMIT " . intval($limit);
+            }
+            $stmt = $this->db->prepare($sql);
             $stmt->execute([$reviewId]);
             return $stmt->fetchAll();
         } catch (PDOException $e) {
