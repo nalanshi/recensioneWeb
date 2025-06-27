@@ -77,6 +77,11 @@ VALUES
     (13, 8, 3, NOW()),  -- Giulia likes Marco's headphones review
     (14, 9, 5, NOW());  -- Sofia likes Marco's tablet review
 
+-- Sample Comments
+INSERT INTO comments (review_id, name, email, content, created_at)
+VALUES
+    (1, 'Antonio', 'antonio@example.com', 'Bel prodotto!', NOW());
+
 -- Sample User Settings
 -- Note: In a real MySQL environment, you would use DATE_SUB(NOW(), INTERVAL n DAY) for historical dates
 -- For compatibility, we're using NOW() for all timestamps

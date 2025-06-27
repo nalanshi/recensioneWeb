@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dettaglio Recensione</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/pages.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER_PLACEHOLDER -->
+
+  <main id="main-content" class="main-content single-review">
+    <article class="review-detail">
+      <h1 class="review-title"><!--TITLE_PLACEHOLDER--></h1>
+      <p class="review-author">Admin: <span><!--AUTHOR_PLACEHOLDER--></span></p>
+      <p class="review-email">Email: <span><!--EMAIL_PLACEHOLDER--></span></p>
+      <img src="<!--IMAGE_SRC-->" alt="Immagine prodotto" class="review-image-detail">
+      <div class="review-text"><!--CONTENT_PLACEHOLDER--></div>
+    </article>
+
+    <section class="comments-section" aria-labelledby="commenti-title">
+      <h2 id="commenti-title">Commenti</h2>
+      <!--COMMENTS_PLACEHOLDER-->
+      <form id="comment-form" method="post" class="comment-form">
+        <input type="hidden" name="review_id" value="<!--ID_PLACEHOLDER-->">
+        <div class="form-group">
+          <label for="comment-name" class="form-label required">Nome</label>
+          <input type="text" id="comment-name" name="name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="comment-email" class="form-label required">Email</label>
+          <input type="email" id="comment-email" name="email" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label for="comment-content" class="form-label required">Commento</label>
+          <textarea id="comment-content" name="content" class="form-textarea" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Invia</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER_PLACEHOLDER -->
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

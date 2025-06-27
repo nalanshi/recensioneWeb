@@ -19,6 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $endpoint = $_GET['endpoint'] ?? '';
 
+// Endpoint pubblico per i commenti
+if ($endpoint === 'comments') {
+    $commentManager = new CommentManager();
+    handle_comments($commentManager);
+    exit;
+}
+
 if (!SessionManager::isLoggedIn()) {
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
@@ -358,6 +365,47 @@ function handle_delete($userId, $reviewManager) {
     } else {
         http_response_code(404);
         echo json_encode(['success' => false, 'message' => 'Recensione non trovata']);
+    }
+}
+
+function handle_comments($commentManager) {
+    try {
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'POST':
+                $reviewId = (int)($_POST['review_id'] ?? 0);
+                $name = Utils::sanitizeInput($_POST['name'] ?? '');
+                $email = Utils::sanitizeInput($_POST['email'] ?? '');
+                $content = Utils::sanitizeInput($_POST['content'] ?? '');
+                if ($reviewId && $name && $email && $content) {
+                    if ($commentManager->createComment($reviewId, $name, $email, $content)) {
+                        echo json_encode(['success' => true]);
+                    } else {
+                        http_response_code(500);
+                        echo json_encode(['success' => false, 'message' => 'Errore durante il salvataggio']);
+                    }
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => 'Dati mancanti']);
+                }
+                break;
+            case 'GET':
+                $reviewId = (int)($_GET['review_id'] ?? 0);
+                if ($reviewId) {
+                    $comments = $commentManager->getComments($reviewId);
+                    echo json_encode(['success' => true, 'data' => $comments]);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => 'ID recensione mancante']);
+                }
+                break;
+            default:
+                http_response_code(405);
+                echo json_encode(['success' => false, 'message' => 'Metodo non supportato']);
+        }
+    } catch (Exception $e) {
+        error_log('Errore API commenti: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
     }
 }
 

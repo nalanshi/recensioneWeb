@@ -945,3 +945,37 @@
   }
 }
 
+
+/* Comment Section */
+.comments-section {
+  margin-top: var(--spacing-xl);
+}
+.review-detail {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+.review-image-detail {
+  width: 100%;
+  height: auto;
+  margin: var(--spacing-md) 0;
+}
+.comment {
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-md) 0;
+}
+.comment-author {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.comment-email {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+.comment-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.comment-form {
+  margin-top: var(--spacing-lg);
+}
