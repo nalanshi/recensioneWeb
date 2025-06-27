@@ -472,8 +472,15 @@ nav {
 .nav-links li a:focus,
 .nav-links li span:focus,
 .nav-link-item:focus {
-  outline: 0.125rem solid var(--text-light);
-  outline-offset: 0.125rem;
+  outline: none;
+  box-shadow: 0 0 0 0.125rem var(--text-light);
+}
+
+/* Disable pointer events on the current page link */
+.nav-links a[aria-current="page"],
+.logo-link[aria-current="page"] {
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Login Container */
@@ -503,8 +510,8 @@ nav {
 }
 
 .login-link:focus {
-  outline: 0.125rem solid var(--text-light);
-  outline-offset: 0.125rem;
+  outline: none;
+  box-shadow: 0 0 0 0.125rem var(--text-light);
 }
 
 .user-icon-bg {
