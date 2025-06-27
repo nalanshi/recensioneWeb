@@ -319,7 +319,6 @@ header {
 }
 
 header::before {
-  content: \'\';
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
@@ -392,7 +391,6 @@ nav {
 .nav-links li a::before,
 .nav-links li span::before,
 .nav-link-item::before {
-  content: \'\';
   position: absolute;
   top: 0;
   left: -100%;
