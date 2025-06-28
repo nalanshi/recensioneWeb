@@ -91,8 +91,8 @@ $template = str_replace("<!--IMAGE_SRC-->", $imageSrc, $template);
 $template = str_replace("<!--CONTENT_PLACEHOLDER-->", nl2br(htmlspecialchars($review['content'])), $template);
 $template = str_replace("<!--ID_PLACEHOLDER-->", $reviewId, $template);
 
-$opinioneTitle = $userComment ? 'Questo è il tuo opinione' : 'Lascia un tuo opinione';
-$template = str_replace('Lascia un tuo opinione', $opinioneTitle, $template);
+$opinioneTitle = $userComment ? 'Questa è la tua opinione' : 'Lascia la tua opinione';
+$template = str_replace('Lascia la tua opinione', $opinioneTitle, $template);
 
 $star = $userComment['star'] ?? 1;
 $options = '';
@@ -127,7 +127,7 @@ foreach ($comments as $c) {
 $template = str_replace("<!--COMMENTS_PLACEHOLDER-->", $commentsHtml, $template);
 
 if (!SessionManager::isLoggedIn()) {
-    $loginMsg = "<p class='login-notice'>Clicca in alto a destra per accedere e iniziare a dare un tuo opinione.</p>";
+    $loginMsg = "<p class='login-notice'>Clicca in alto a destra per accedere e lasciare la tua opinione.</p>";
     $template = preg_replace('/<form id="comment-form".*?<\/form>/s', $loginMsg, $template);
     $template = str_replace('<div id="user-comment-info"></div>', '', $template);
 }
