@@ -87,23 +87,18 @@ body {
 /* Skip link styles */
 .skip-link {
   position: absolute;
-  left: -999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  top: -3rem;
+  left: 1rem;
+  padding: var(--spacing-sm);
   color: var(--primary-agid);
   background: var(--text-light);
-  padding: var(--spacing-sm);
   border-radius: var(--radius-sm);
   z-index: 100;
+  transition: top 0.3s ease;
 }
 
 .skip-link:focus {
-  left: 0;
-  top: 0;
-  width: auto;
-  height: auto;
+  top: 1rem;
   outline: 0.125rem solid var(--primary-agid);
 }
 
