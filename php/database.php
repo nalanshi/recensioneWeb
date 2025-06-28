@@ -482,6 +482,116 @@ class CommentManager {
             return [];
         }
     }
+
+    /**
+     * Ottiene i commenti di un utente con paginazione e filtri
+     */
+    public function getUserComments($email, $page = 1, $limit = 10, $filters = []) {
+        try {
+            $offset = ($page - 1) * $limit;
+
+            $where = ["c.email = ?"];
+            $params = [$email];
+
+            if (!empty($filters['search'])) {
+                $where[] = "(LOWER(c.content) LIKE LOWER(?) OR LOWER(r.title) LIKE LOWER(?))";
+                $search = '%' . $filters['search'] . '%';
+                $params[] = $search;
+                $params[] = $search;
+            }
+
+            if (!empty($filters['rating'])) {
+                $where[] = "c.star = ?";
+                $params[] = $filters['rating'];
+            }
+
+            if (!empty($filters['date_filter'])) {
+                switch ($filters['date_filter']) {
+                    case 'week':
+                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+                        break;
+                    case 'month':
+                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+                        break;
+                    case 'year':
+                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+                        break;
+                }
+            }
+
+            $whereClause = implode(' AND ', $where);
+
+            $stmt = $this->db->prepare(
+                "SELECT c.id, c.review_id, c.star, c.content, c.created_at, r.title
+                 FROM comments c
+                 JOIN reviews r ON c.review_id = r.id
+                 WHERE {$whereClause}
+                 ORDER BY c.created_at DESC
+                 LIMIT ? OFFSET ?"
+            );
+
+            $params[] = $limit;
+            $params[] = $offset;
+            $stmt->execute($params);
+            $comments = $stmt->fetchAll();
+
+            $countStmt = $this->db->prepare(
+                "SELECT COUNT(*) as total
+                 FROM comments c JOIN reviews r ON c.review_id = r.id
+                 WHERE {$whereClause}"
+            );
+            $countStmt->execute(array_slice($params, 0, -2));
+            $total = $countStmt->fetch()['total'];
+
+            return [
+                'comments' => $comments,
+                'total' => $total,
+                'page' => $page,
+                'limit' => $limit,
+                'total_pages' => ceil($total / $limit)
+            ];
+        } catch (PDOException $e) {
+            error_log('Errore getUserComments: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Aggiorna un commento
+     */
+    public function updateComment($commentId, $data, $email = null) {
+        try {
+            if ($email === null) {
+                $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ?");
+                return $stmt->execute([$data['star'], $data['content'], $commentId]);
+            }
+            $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ? AND email = ?");
+            $stmt->execute([$data['star'], $data['content'], $commentId, $email]);
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log('Errore updateComment: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Elimina un commento
+     */
+    public function deleteComment($commentId, $email = null) {
+        try {
+            if ($email === null) {
+                $stmt = $this->db->prepare("DELETE FROM comments WHERE id = ?");
+                $stmt->execute([$commentId]);
+            } else {
+                $stmt = $this->db->prepare("DELETE FROM comments WHERE id = ? AND email = ?");
+                $stmt->execute([$commentId, $email]);
+            }
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log('Errore deleteComment: ' . $e->getMessage());
+            return false;
+        }
+    }
 }
 
 

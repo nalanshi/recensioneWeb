@@ -35,6 +35,7 @@ if (!SessionManager::isLoggedIn()) {
 $userId = SessionManager::getUserId();
 $userManager = new UserManager();
 $reviewManager = new ReviewManager();
+$commentManager = new CommentManager();
 
 switch ($endpoint) {
     case 'actions':
@@ -45,6 +46,9 @@ switch ($endpoint) {
         break;
     case 'reviews':
         handle_reviews($userId, $reviewManager);
+        break;
+    case 'user_comments':
+        handle_user_comments($commentManager);
         break;
     case 'delete':
         handle_delete($userId, $reviewManager);
@@ -408,6 +412,90 @@ function handle_comments($commentManager) {
         }
     } catch (Exception $e) {
         error_log('Errore API commenti: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
+    }
+}
+
+function handle_user_comments($commentManager) {
+    $email = $_SESSION['user_data']['email'] ?? '';
+    if (!$email) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
+        return;
+    }
+
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method === 'POST' && isset($_POST['_method'])) {
+        $method = strtoupper($_POST['_method']);
+    }
+
+    try {
+        switch ($method) {
+            case 'GET':
+                $page = (int)($_GET['page'] ?? 1);
+                $limit = (int)($_GET['limit'] ?? 10);
+                $filters = [
+                    'search' => Utils::sanitizeInput($_GET['search'] ?? ''),
+                    'rating' => (int)($_GET['rating'] ?? 0),
+                    'date_filter' => Utils::sanitizeInput($_GET['date_filter'] ?? '')
+                ];
+                $filters = array_filter($filters);
+                $result = $commentManager->getUserComments($email, $page, $limit, $filters);
+                if ($result !== false) {
+                    foreach ($result['comments'] as &$comment) {
+                        $comment['formatted_date'] = Utils::formatDate($comment['created_at']);
+                        $comment['stars_html'] = Utils::generateStars($comment['star']);
+                        $comment['content_preview'] = strlen($comment['content']) > 150
+                            ? substr($comment['content'], 0, 150) . '...'
+                            : $comment['content'];
+                    }
+                    echo json_encode(['success' => true, 'data' => $result]);
+                } else {
+                    http_response_code(500);
+                    echo json_encode(['success' => false, 'message' => 'Errore nel recupero dei commenti']);
+                }
+                break;
+            case 'PUT':
+                $commentId = (int)($_GET['id'] ?? 0);
+                if (!$commentId) {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => 'ID commento mancante']);
+                    break;
+                }
+                $data = [
+                    'star' => (int)($_POST['star'] ?? 1),
+                    'content' => Utils::sanitizeInput($_POST['content'] ?? '')
+                ];
+                $updated = $commentManager->updateComment($commentId, $data, $email);
+                if ($updated) {
+                    echo json_encode(['success' => true, 'message' => 'Commento aggiornato con successo']);
+                } else {
+                    http_response_code(404);
+                    echo json_encode(['success' => false, 'message' => 'Commento non trovato']);
+                }
+                break;
+            case 'DELETE':
+                $commentId = (int)($_GET['id'] ?? 0);
+                if (!$commentId) {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => 'ID commento mancante']);
+                    break;
+                }
+                $deleted = $commentManager->deleteComment($commentId, $email);
+                if ($deleted) {
+                    echo json_encode(['success' => true, 'message' => 'Commento eliminato con successo']);
+                } else {
+                    http_response_code(404);
+                    echo json_encode(['success' => false, 'message' => 'Commento non trovato']);
+                }
+                break;
+            default:
+                http_response_code(405);
+                echo json_encode(['success' => false, 'message' => 'Metodo non supportato']);
+        }
+    } catch (Exception $e) {
+        error_log('Errore API user_comments: ' . $e->getMessage());
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
     }

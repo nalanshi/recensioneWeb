@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     p.textContent = text;
     return p.innerHTML;
   }
-  //alt="${escapeHtml(r.product_name) tolto perchè sennò mi stampa due volte il nome prodotto
+  // Aggiunge le recensioni e le rende espandibili
   async function loadReviews() {
     try {
       const res = await fetch('api.php?endpoint=reviews&limit=20&all=1');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <p class="review-author">${escapeHtml(r.username || '')}</p>
             </div>
             <div class="review-details">  
-              ${r.product_image ? `<img src="${escapeHtml(r.product_image)}"}" class="review-image">` : ''}
+              ${r.product_image ? `<img src="${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name)}" class="review-image">` : ''}
               <p><strong>Prodotto:</strong> ${escapeHtml(r.product_name)}</p>
               <p><strong>Valutazione:</strong> ${r.rating}</p>
               <p>${escapeHtml(r.content)}</p>
