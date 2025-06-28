@@ -87,4 +87,9 @@ foreach ($comments as $c) {
 }
 $template = str_replace("<!--COMMENTS_PLACEHOLDER-->", $commentsHtml, $template);
 
+if (!SessionManager::isLoggedIn()) {
+    $loginMsg = "<p class='login-notice'>Clicca in alto a destra per accedere e iniziare a dare un tuo opinione.</p>";
+    $template = preg_replace('/<form id="comment-form".*?<\/form>/s', $loginMsg, $template);
+}
+
 echo $template;
