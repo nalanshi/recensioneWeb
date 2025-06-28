@@ -603,6 +603,25 @@ class CommentManager {
             return false;
         }
     }
+
+    /**
+     * Calcola la valutazione media dei commenti per un determinato prodotto
+     */
+    public function getAverageRatingForProduct($productName) {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT AVG(c.star) AS avg_rating FROM comments c " .
+                "JOIN reviews r ON c.review_id = r.id " .
+                "WHERE r.product_name = ? AND r.deleted_at IS NULL"
+            );
+            $stmt->execute([$productName]);
+            $row = $stmt->fetch();
+            return $row && $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 2) : 0;
+        } catch (PDOException $e) {
+            error_log('Errore getAverageRatingForProduct: ' . $e->getMessage());
+            return 0;
+        }
+    }
 }
 
 
