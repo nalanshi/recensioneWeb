@@ -25,6 +25,13 @@ if (!$reviewId) {
 
 $reviewManager = new ReviewManager();
 $commentManager = new CommentManager();
+$userComment = null;
+if (SessionManager::isLoggedIn()) {
+    $email = $_SESSION['user_data']['email'] ?? '';
+    if ($email) {
+        $userComment = $commentManager->getUserCommentForReview($reviewId, $email);
+    }
+}
 $review = $reviewManager->getReviewById($reviewId);
 if (!$review) {
     http_response_code(404);
@@ -75,6 +82,29 @@ $template = str_replace("<!--IMAGE_SRC-->", $imageSrc, $template);
 $template = str_replace("<!--CONTENT_PLACEHOLDER-->", nl2br(htmlspecialchars($review['content'])), $template);
 $template = str_replace("<!--ID_PLACEHOLDER-->", $reviewId, $template);
 
+$opinioneTitle = $userComment ? 'Questo è il tuo opinione' : 'Lascia un tuo opinione';
+$template = str_replace('Lascia un tuo opinione', $opinioneTitle, $template);
+
+$star = $userComment['star'] ?? 1;
+$options = '';
+for ($i = 5; $i >= 1; $i--) {
+    $selected = $star == $i ? ' selected' : '';
+    $options .= "<option value='{$i}'{$selected}>{$i}</option>";
+}
+$template = str_replace('<!--STAR_OPTIONS-->', $options, $template);
+
+$commentContent = $userComment ? htmlspecialchars($userComment['content']) : '';
+$template = str_replace('<!--COMMENT_CONTENT-->', $commentContent, $template);
+$buttonText = $userComment ? 'Aggiorna' : 'Invia';
+$template = str_replace('>Invia<', ">{$buttonText}<", $template);
+
+if ($userComment) {
+    $commentDate = Utils::formatDate($userComment['created_at']);
+    $starsHtml = Utils::generateStars($userComment['star']);
+    $commentInfo = "<div class='comment'><div class='comment-author'>{$_SESSION['username']}</div><div class='comment-email'>{$email}</div><div class='comment-rating' aria-label='Valutazione {$userComment['star']} su 5'>{$starsHtml}</div><p class='comment-content'>" . htmlspecialchars($userComment['content']) . "</p><div class='comment-date'>{$commentDate}</div></div>";
+    $template = str_replace('<div id="user-comment-info"></div>', $commentInfo, $template);
+}
+
 $commentsHtml = '';
 foreach ($comments as $c) {
     $date = Utils::formatDate($c['created_at']);
@@ -90,6 +120,7 @@ $template = str_replace("<!--COMMENTS_PLACEHOLDER-->", $commentsHtml, $template)
 if (!SessionManager::isLoggedIn()) {
     $loginMsg = "<p class='login-notice'>Clicca in alto a destra per accedere e iniziare a dare un tuo opinione.</p>";
     $template = preg_replace('/<form id="comment-form".*?<\/form>/s', $loginMsg, $template);
+    $template = str_replace('<div id="user-comment-info"></div>', '', $template);
 }
 
 echo $template;
