@@ -8,7 +8,6 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Drop old tables if they exist
-DROP TABLE IF EXISTS user_settings;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS utenti;
@@ -61,7 +60,6 @@ CREATE TABLE comments (
 
 -- Indexes for better performance
 CREATE INDEX idx_reviews_user_id ON reviews(user_id);
-CREATE INDEX idx_reviews_rating ON reviews(rating);
 CREATE INDEX idx_reviews_created_at ON reviews(created_at);
 CREATE INDEX idx_comments_review_id ON comments(review_id);
 
