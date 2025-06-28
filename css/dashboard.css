@@ -635,6 +635,7 @@ body {
   gap: var(--spacing-sm);
 }
 
+.review-actions .view-btn,
 .review-actions button {
   padding: var(--spacing-xs) var(--spacing-sm);
   border: 0.0625rem solid var(--border);
@@ -644,8 +645,10 @@ body {
   cursor: pointer;
   transition: var(--transition);
   font-size: 0.85rem;
+  text-decoration: none;
 }
 
+.review-actions .view-btn:hover,
 .review-actions button:hover {
   color: var(--primary-agid);
   border-color: var(--primary-agid);
