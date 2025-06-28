@@ -818,13 +818,6 @@ class Utils {
         return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
     }
 
-    /**
-     * Truncate text to avoid overly long alt attributes
-     */
-    public static function truncateAltText($text, $maxLength = 99) {
-        return mb_strlen($text) > $maxLength ? mb_substr($text, 0, $maxLength) : $text;
-    }
-
 }
 
 /**
