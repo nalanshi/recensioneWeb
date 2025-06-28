@@ -120,8 +120,8 @@ if (isset($_SESSION['login_error'])) {
       </form>
 
       <div class="auth-links">
-        <a href="#" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
-        <a href="#" class="auth-link"><span>Accedi via <abbr title="Short Message Service">SMS</abbr></span></a>
+        <a href="#password-dimenticata" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
+        <a href="#login-sms" class="auth-link"><span>Accedi via <abbr title="Short Message Service">SMS</abbr></span></a>
       </div>
 
       <div class="auth-footer">
