@@ -6,7 +6,6 @@
 -- Reset AUTO_INCREMENT values (commented out as it may cause syntax errors)
 -- ALTER TABLE utenti AUTO_INCREMENT = 7;
 -- ALTER TABLE reviews AUTO_INCREMENT = 10;
--- ALTER TABLE review_likes AUTO_INCREMENT = 15;
 
 -- Sample Users
 -- Note: Passwords are hashed using bcrypt with cost factor 10
@@ -63,45 +62,6 @@ VALUES
     (17, 14, 'Chiavetta USB', 'Velocità di trasferimento buona e design compatto.', 4, 'USB 64GB', NULL, NOW()),
     (18, 15, 'Altoparlante Bluetooth', 'Suono potente e connessione stabile.', 5, 'Speaker BT', NULL, NOW()),
     (19, 16, 'Controller per PC', 'Impugnatura comoda e compatibilità perfetta.', 4, 'Controller Pro', NULL, NOW());
-
--- Sample Review Likes
--- Note: In a real MySQL environment, you would use DATE_SUB(NOW(), INTERVAL n DAY) for historical dates
--- For compatibility, we're using NOW() for all timestamps
-INSERT INTO review_likes (id, review_id, user_id, created_at)
-VALUES
-    -- Likes for Mario's reviews
-    (1, 1, 3, NOW()), -- Giulia likes Mario's smartphone review
-    (2, 1, 4, NOW()), -- Luca likes Mario's smartphone review
-    (3, 1, 5, NOW()), -- Sofia likes Mario's smartphone review
-    (4, 2, 5, NOW()), -- Sofia likes Mario's camera review
-
-    -- Likes for Giulia's reviews
-    (5, 3, 2, NOW()), -- Mario likes Giulia's headphones review
-    (6, 3, 4, NOW()), -- Luca likes Giulia's headphones review
-    (7, 3, 6, NOW()), -- Marco likes Giulia's headphones review
-    (8, 4, 2, NOW()), -- Mario likes Giulia's tablet review
-
-    -- Likes for Luca's reviews
-    (9, 5, 6, NOW()), -- Marco likes Luca's action camera review
-
-    -- Likes for Sofia's reviews
-    (10, 7, 2, NOW()), -- Mario likes Sofia's camera review
-    (11, 7, 3, NOW()), -- Giulia likes Sofia's camera review
-    (12, 7, 4, NOW()),  -- Luca likes Sofia's camera review
-
-    -- Likes for Marco's reviews
-    (13, 8, 3, NOW()),  -- Giulia likes Marco's headphones review
-    (14, 9, 5, NOW()),  -- Sofia likes Marco's tablet review
-    (15, 10, 7, NOW()),
-    (16, 11, 8, NOW()),
-    (17, 12, 9, NOW()),
-    (18, 13, 10, NOW()),
-    (19, 14, 11, NOW()),
-    (20, 15, 12, NOW()),
-    (21, 16, 13, NOW()),
-    (22, 18, 14, NOW()),
-    (23, 19, 15, NOW()),
-    (24, 10, 16, NOW());
 
 -- Sample Comments
 INSERT INTO comments (review_id, name, email, star, content, created_at)
