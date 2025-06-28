@@ -695,12 +695,70 @@ class Utils {
         $filename = 'profile_' . $userId . '_' . time() . '.' . $extension;
         $filepath = $uploadDir . $filename;
 
-        // Sposta file
-        if (move_uploaded_file($file['tmp_name'], $filepath)) {
-            return ['success' => true, 'path' => 'images/profiles/' . $filename];
-        } else {
-            return ['success' => false, 'message' => 'Errore durante l\'upload'];
+        // Ridimensiona e comprime la foto prima di salvarla
+        $imageResource = null;
+        switch ($file['type']) {
+            case 'image/jpeg':
+                $imageResource = imagecreatefromjpeg($file['tmp_name']);
+                break;
+            case 'image/png':
+                $imageResource = imagecreatefrompng($file['tmp_name']);
+                break;
+            case 'image/gif':
+                $imageResource = imagecreatefromgif($file['tmp_name']);
+                break;
+            case 'image/webp':
+                if (function_exists('imagecreatefromwebp')) {
+                    $imageResource = imagecreatefromwebp($file['tmp_name']);
+                }
+                break;
         }
+
+        if (!$imageResource) {
+            return ['success' => false, 'message' => 'Errore elaborazione immagine'];
+        }
+
+        $maxDimension = 256;
+        $width = imagesx($imageResource);
+        $height = imagesy($imageResource);
+        $scale = min(1, $maxDimension / max($width, $height));
+        $newWidth = (int)($width * $scale);
+        $newHeight = (int)($height * $scale);
+
+        $resized = imagecreatetruecolor($newWidth, $newHeight);
+        if (in_array($file['type'], ['image/png', 'image/gif', 'image/webp'])) {
+            imagecolortransparent($resized, imagecolorallocatealpha($resized, 0, 0, 0, 127));
+            imagealphablending($resized, false);
+            imagesavealpha($resized, true);
+        }
+        imagecopyresampled($resized, $imageResource, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        $saved = false;
+        switch ($file['type']) {
+            case 'image/jpeg':
+                $saved = imagejpeg($resized, $filepath, 85);
+                break;
+            case 'image/png':
+                $saved = imagepng($resized, $filepath, 6);
+                break;
+            case 'image/gif':
+                $saved = imagegif($resized, $filepath);
+                break;
+            case 'image/webp':
+                if (function_exists('imagewebp')) {
+                    $saved = imagewebp($resized, $filepath, 85);
+                }
+                break;
+        }
+
+        imagedestroy($imageResource);
+        imagedestroy($resized);
+
+        if ($saved) {
+            return ['success' => true, 'path' => 'images/profiles/' . $filename];
+        }
+
+        return ['success' => false, 'message' => 'Errore durante l\'upload'];
     }
 
     /**
