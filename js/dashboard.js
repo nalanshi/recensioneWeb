@@ -11,25 +11,6 @@ class DashboardManager {
         this.init();
     }
 
-    /**
-     * Mostra la schermata di caricamento
-     */
-    showLoading() {
-        const loader = document.getElementById('loadingOverlay');
-        if (loader) {
-            loader.classList.add('active');
-        }
-    }
-
-    /**
-     * Nasconde la schermata di caricamento
-     */
-    hideLoading() {
-        const loader = document.getElementById('loadingOverlay');
-        if (loader) {
-            loader.classList.remove('active');
-        }
-    }
     showPage() {
         document.getElementById("sidebar")?.classList.remove("hidden");
         document.getElementById("main-content")?.classList.remove("hidden");
@@ -293,7 +274,6 @@ class DashboardManager {
      * Carica dati utente
      */
     async loadUserData() {
-        this.showLoading();
         try {
             const data = await this.safeFetchJson('api.php?endpoint=profile');
 
@@ -306,8 +286,6 @@ class DashboardManager {
         } catch (error) {
             console.error('Errore caricamento dati utente:', error);
             this.showNotification('Errore di connessione', 'error');
-        } finally {
-            this.hideLoading();
         }
     }
 
