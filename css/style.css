@@ -84,6 +84,29 @@ body {
   border: 0;
 }
 
+/* Skip link styles */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  color: var(--primary-agid);
+  background: var(--text-light);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  outline: 0.125rem solid var(--primary-agid);
+}
+
 /* Layout principale */
 main {
   min-height: 100vh;
@@ -139,6 +162,15 @@ a:focus {
   outline: 0.125rem solid var(--primary-agid);
   outline-offset: 0.125rem;
   border-radius: 0.25rem;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+.btn:focus {
+  outline: 0.125rem solid var(--primary-agid);
+  outline-offset: 0.125rem;
 }
 
 /* Pulsanti */
