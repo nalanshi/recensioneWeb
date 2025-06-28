@@ -44,7 +44,7 @@ if (!SessionManager::isLoggedIn()) {
   $contenutoLogin = "";
 
   // Link di login per l'header
-  $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Accedi al tuo account'>
+  $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Login - Accedi al tuo account'>
                         <div class='user-icon-bg'>
                           <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>
                             <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path>
@@ -96,7 +96,8 @@ foreach ($topReviews as $review) {
     $stars = Utils::generateStars(round($review['avg_rating']));
     $ratingNum = number_format($review['avg_rating'], 1);
     $title = htmlspecialchars($review['product_name']);
-    $rowImg = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$title}' class='product-image'>" : '';
+    $altProduct = htmlspecialchars(Utils::truncateAltText($review['product_name']));
+    $rowImg = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='product-image'>" : '';
     $rankClass = '';
     if ($position == 1) { $rankClass = 'gold'; }
     elseif ($position == 2) { $rankClass = 'silver'; }

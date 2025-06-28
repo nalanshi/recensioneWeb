@@ -44,7 +44,7 @@ if (!SessionManager::isLoggedIn()) {
   $contenutoLogin = "";
 
   // Link di login per l'header
-  $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Accedi al tuo account'>
+  $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Login - Accedi al tuo account'>
                         <div class='user-icon-bg'>
                           <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>
                             <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path>
@@ -96,7 +96,8 @@ if ($result !== false) {
         $stars = Utils::generateStars($review['rating']);
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
-        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='" . htmlspecialchars($review['product_name']) . "' class='review-image'>" : '';
+        $altProduct = Utils::truncateAltText($review['product_name']);
+        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='" . htmlspecialchars($altProduct) . "' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
         $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$review['rating']}'>" .
