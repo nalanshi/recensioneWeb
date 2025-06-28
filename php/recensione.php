@@ -46,6 +46,12 @@ $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
 $template = file_get_contents("../static/recensione.html");
 
+// Corregge il percorso dei fogli di stile quando lo script viene eseguito
+// dalla root del progetto, ad esempio tramite rewrite degli URL.
+$cssBase = dirname($_SERVER['PHP_SELF']) === '/' ? 'css/' : '../css/';
+$template = str_replace("../css/style.css", $cssBase . 'style.css', $template);
+$template = str_replace("../css/pages.css", $cssBase . 'pages.css', $template);
+
 $headerLoginHtml = '';
 if (!SessionManager::isLoggedIn()) {
     $headerLoginHtml = "<a href='login.php' class='login-link' aria-label='Login - Accedi al tuo account'>".
