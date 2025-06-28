@@ -707,10 +707,13 @@
 
 .ranking-row {
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .ranking-row:hover {
   background: rgb(0 102 204 / 2%);
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-lg);
 }
 
 .rank-position {
@@ -759,7 +762,8 @@
 
 .rating-display {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--spacing-xs);
 }
 
