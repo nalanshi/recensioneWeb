@@ -427,7 +427,8 @@ nav {
 
 /* Disable pointer events on the current page link */
 .nav-links a[aria-current="page"],
-.logo-link[aria-current="page"] {
+.logo-link[aria-current="page"],
+.user-dropdown a[aria-current="page"] {
   pointer-events: none;
   cursor: default;
 }

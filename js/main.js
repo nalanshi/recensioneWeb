@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Disable navigation link for the current page
   const currentPage = window.location.pathname.split('/').pop();
-  const navAnchors = document.querySelectorAll('.nav-links a, .logo-link');
+  const navAnchors = document.querySelectorAll('.nav-links a, .logo-link, .user-dropdown a');
   navAnchors.forEach((link) => {
     const linkPage = new URL(link.href).pathname.split('/').pop();
     if (linkPage === currentPage) {
