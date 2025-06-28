@@ -431,6 +431,7 @@ nav {
 .user-dropdown a[aria-current="page"] {
   pointer-events: none;
   cursor: default;
+  text-decoration: underline;
 }
 
 /* Login Container */
