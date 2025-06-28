@@ -48,7 +48,6 @@ $headerLoginHtml = " <div class='login-link user-menu' role='button' tabindex='0
                           <a href='logout.php'><span lang='en'>Logout</span></a>
                         </div>
                       </div>";
-
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
 echo $DOM;
