@@ -57,16 +57,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="review-card" data-id="${r.id}">
             <div class="review-content">
               <div class="review-header">
-                <h3 class="review-title">${escapeHtml(r.title)}</h3>
+                <h3 class="review-title">${escapeHtml(r.product_name)}</h3>
                 <div class="review-rating" aria-label="Valutazione ${r.rating} su 5">${r.stars_html}</div>
               </div>
               ${r.product_image ? `<img src="../${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name.slice(0, 99))}" class="review-image">` : ''}
               <div class="review-meta">
-                <span class="review-author">${escapeHtml(r.username || '')}</span>
                 <span class="review-date">${escapeHtml(r.formatted_date)}</span>
               </div>
-              <p class="review-excerpt">${escapeHtml(r.content_preview)}</p>
               <div class="review-actions">
+                <a href="recensione.php?id=${r.id}" class="view-btn">Visualizza</a>
                 <button class="delete-btn" data-id="${r.id}">Elimina</button>
               </div>
             </div>
