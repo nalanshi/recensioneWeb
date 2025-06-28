@@ -96,8 +96,8 @@ if ($result !== false) {
         $stars = Utils::generateStars($review['rating']);
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
-        $altProduct = Utils::truncateAltText($review['product_name']);
-        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='" . htmlspecialchars($altProduct) . "' class='review-image'>" : '';
+        $altProduct = htmlspecialchars($review['product_name']);
+        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
         $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$review['rating']}'>" .
