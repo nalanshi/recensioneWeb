@@ -31,11 +31,6 @@
       </div>
       -->
     <div class="tab-content active" id="tecnologia">
-        <!-- Podio Top 3 -->
-        <div class="podium-container" id="podium-container" aria-label="Primi tre prodotti">
-          <!--PODIUM_PLACEHOLDER-->
-        </div>
-
         <!-- Classifica Completa -->
         <div class="ranking-section">
           <div class="ranking-header">
@@ -144,22 +139,6 @@
         });
       });
 
-      // Gestione click su elementi del podio
-      const podiumItems = document.querySelectorAll('.podium-item');
-      podiumItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const id = this.dataset.reviewId;
-          if (id) {
-            window.location.href = 'recensione.php?id=' + id;
-          }
-        });
-        item.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            item.click();
-          }
-        });
-      });
     });
   </script>
 </body>
