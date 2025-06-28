@@ -293,7 +293,7 @@ body {
 .profile-name-section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
   margin-right: var(--spacing-md);
 }
