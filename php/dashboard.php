@@ -21,7 +21,11 @@ if (SessionManager::isLoggedIn()) {
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
 $footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', $footer);
-$DOM = file_get_contents("../static/dashboard.html");
+  $DOM = file_get_contents("../static/dashboard.html");
+
+  if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+      $DOM = preg_replace('/<!--\s*Sezione pericolosa\s*-->.*?<\\/div>\s*/s', '', $DOM);
+  }
 
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
