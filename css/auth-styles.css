@@ -335,34 +335,6 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* Link di supporto */
-.auth-links {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: var(--spacing-lg);
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-}
-
-.auth-link {
-  color: var(--color-primary);
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: var(--transition);
-  padding: 0.25rem 0;
-}
-
-.auth-link:hover {
-  text-decoration: underline;
-  color: var(--color-secondary);
-}
-
-.auth-link:focus {
-  outline: 0.125rem solid var(--color-primary);
-  outline-offset: 0.125rem;
-  border-radius: 0.25rem;
-}
 
 .auth-footer {
   text-align: center;
@@ -442,10 +414,6 @@ body {
     gap: var(--spacing-md);
   }
   
-  .auth-links {
-    flex-direction: column;
-    text-align: center;
-  }
 }
 
 /* Animazioni */

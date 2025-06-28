@@ -24,7 +24,7 @@ require_once 'database.php';
 // Funzione per reindirizzare con un messaggio di errore
 function redirectWithError($error) {
     $_SESSION['registration_error'] = $error;
-    header("Location: ../static/registrazione.html");
+    header("Location: ../php/registrazione_form.php");
     exit();
 }
 
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // Se la richiesta non è di tipo POST, reindirizza alla pagina di registrazione
-    header("Location: ../static/registrazione.html");
+    header("Location: ../php/registrazione_form.php");
     exit();
 }
 ?>
