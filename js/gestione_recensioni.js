@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     p.textContent = text;
     return p.innerHTML;
   }
-  // Aggiunge le recensioni e le rende espandibili
+  // Aggiunge le recensioni in formato card
   async function loadReviews(page = 1) {
     const search = searchInput ? searchInput.value : '';
     currentPage = page;
@@ -54,16 +54,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = await res.json();
       if (data.success) {
         list.innerHTML = data.data.reviews.map(r => `
-          <div class="review-item" data-id="${r.id}" data-product="${escapeHtml(r.product_name)}" data-image="${escapeHtml(r.product_image || '')}" data-rating="${r.rating}" data-content="${escapeHtml(r.content)}" data-title="${escapeHtml(r.title)}">
-            <div class="review-summary">
-              <h3>${escapeHtml(r.title)}</h3>
-              <p class="review-author">${escapeHtml(r.username || '')}</p>
-            </div>
-            <div class="review-details">  
+          <div class="review-card" data-id="${r.id}">
+            <div class="review-content">
+              <div class="review-header">
+                <h3 class="review-title">${escapeHtml(r.title)}</h3>
+                <div class="review-rating" aria-label="Valutazione ${r.rating} su 5">${r.stars_html}</div>
+              </div>
               ${r.product_image ? `<img src="../${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name.slice(0, 99))}" class="review-image">` : ''}
-              <p><strong>Prodotto:</strong> ${escapeHtml(r.product_name)}</p>
-              <p><strong>Valutazione:</strong> ${r.rating}</p>
-              <p>${escapeHtml(r.content)}</p>
+              <div class="review-meta">
+                <span class="review-author">${escapeHtml(r.username || '')}</span>
+                <span class="review-date">${escapeHtml(r.formatted_date)}</span>
+              </div>
+              <p class="review-excerpt">${escapeHtml(r.content_preview)}</p>
               <div class="review-actions">
                 <button class="delete-btn" data-id="${r.id}">Elimina</button>
               </div>
@@ -71,15 +73,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         `).join('');
 
-        document.querySelectorAll('.review-details').forEach(d => d.classList.add('hidden'));
-        document.querySelectorAll('.review-summary').forEach(sum => {
-          sum.addEventListener('click', () => {
-            const item = sum.closest('.review-item');
-            const details = item.querySelector('.review-details');
-            item.classList.toggle('expanded');
-            details.classList.toggle('hidden');
-          });
-        });
         updatePagination(data.data);
       } else {
         list.textContent = 'Errore nel caricamento delle recensioni';
