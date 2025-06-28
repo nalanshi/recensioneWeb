@@ -260,10 +260,10 @@ function validateLoginForm() {
   // Pulisce i messaggi precedenti
   document.getElementById('error-container').innerHTML = '';
   
-  // Validazione username/email
+  // Validazione username
   const username = document.getElementById('username').value.trim();
   if (!username) {
-    showError('username', 'Username o email è richiesto');
+    showError('username', 'Username è richiesto');
     isValid = false;
   } else {
     showSuccess('username');
