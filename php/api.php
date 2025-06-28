@@ -265,6 +265,11 @@ function handle_reviews($userId, $reviewManager) {
                 if ($data['rating'] < 1 || $data['rating'] > 5) {
                     $errors[] = 'La valutazione deve essere tra 1 e 5 stelle';
                 }
+                if (empty($data['product_name'])) {
+                    $errors[] = 'Il nome del prodotto è obbligatorio';
+                } elseif (strlen($data['product_name']) > 60) {
+                    $errors[] = 'Il nome del prodotto non può superare 60 caratteri';
+                }
                 if (!empty($errors)) {
                     http_response_code(400);
                     echo json_encode(['success' => false, 'message' => implode(', ', $errors)]);
@@ -312,6 +317,11 @@ function handle_reviews($userId, $reviewManager) {
                 }
                 if ($data['rating'] < 1 || $data['rating'] > 5) {
                     $errors[] = 'La valutazione deve essere tra 1 e 5 stelle';
+                }
+                if (empty($data['product_name'])) {
+                    $errors[] = 'Il nome del prodotto è obbligatorio';
+                } elseif (strlen($data['product_name']) > 60) {
+                    $errors[] = 'Il nome del prodotto non può superare 60 caratteri';
                 }
                 if (!empty($errors)) {
                     http_response_code(400);

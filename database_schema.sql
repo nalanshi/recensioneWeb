@@ -36,7 +36,7 @@ CREATE TABLE reviews (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     rating INT NOT NULL,
-    product_name VARCHAR(255) NOT NULL,
+    product_name VARCHAR(60) NOT NULL,
     product_image VARCHAR(255),      -- Path to product image
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT NULL,
