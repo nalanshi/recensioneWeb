@@ -24,9 +24,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#recensioni" class="nav-link" data-section="recensioni">
+          <a href="#commenti" class="nav-link" data-section="commenti">
             <i aria-hidden="true" class="fas fa-star"></i>
-            <span>Le mie recensioni</span>
+            <span>I miei commenti</span>
           </a>
         </li>
       </ul>
@@ -127,11 +127,11 @@
         </div>
       </section>
 
-      <!-- Sezione Le mie recensioni -->
-      <section id="recensioni-section" class="content-section">
+      <!-- Sezione I miei commenti -->
+      <section id="commenti-section" class="content-section">
         <div class="section-header">
-          <h1>Le mie recensioni</h1>
-          <p>Visualizza e gestisci tutte le tue recensioni</p>
+          <h1>I miei commenti</h1>
+          <p>Visualizza e gestisci tutti i tuoi commenti</p>
         </div>
 
         <div class="reviews-container">
@@ -139,10 +139,10 @@
           <div class="search-container">
             <div class="search-box">
               <i aria-hidden="true" class="fas fa-search"></i>
-              <input type="text" id="reviewSearch" placeholder="Cerca nelle tue recensioni...">
+              <input type="text" id="commentSearch" placeholder="Cerca nei tuoi commenti...">
             </div>
             <div class="filter-options">
-              <select id="ratingFilter">
+              <select id="commentRatingFilter">
                 <option value="">Tutte le valutazioni</option>
                 <option value="5">5 stelle</option>
                 <option value="4">4 stelle</option>
@@ -150,7 +150,7 @@
                 <option value="2">2 stelle</option>
                 <option value="1">1 stella</option>
               </select>
-              <select id="dateFilter">
+              <select id="commentDateFilter">
                 <option value="">Tutte le date</option>
                 <option value="week">Ultima settimana</option>
                 <option value="month">Ultimo mese</option>
@@ -159,13 +159,13 @@
             </div>
           </div>
 
-          <!-- Lista recensioni -->
-          <div class="reviews-list" id="reviewsList">
-            <!-- Le recensioni verranno caricate dinamicamente -->
+          <!-- Lista commenti -->
+          <div class="reviews-list" id="commentsList">
+            <!-- I commenti verranno caricati dinamicamente -->
           </div>
 
           <!-- Paginazione -->
-          <div class="pagination" id="reviewsPagination">
+          <div class="pagination" id="commentsPagination">
             <!-- Paginazione generata dinamicamente -->
           </div>
         </div>
@@ -234,6 +234,39 @@
           <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>Elimina <span lang="en">account</span></button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal per modifica commento -->
+  <div class="modal" id="editCommentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Modifica commento</h3>
+        <button class="modal-close" id="editCommentModalClose">
+          <i aria-hidden="true" class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="editCommentForm" class="modal-body">
+        <input type="hidden" id="editCommentId" name="comment_id">
+        <div class="form-group">
+          <label for="editCommentRating">Valutazione*</label>
+          <select id="editCommentRating" name="star" required>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editCommentContent">Commento*</label>
+          <textarea id="editCommentContent" name="content" required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelEditCommentBtn">Annulla</button>
+          <button type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </form>
     </div>
   </div>
 

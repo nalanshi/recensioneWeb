@@ -7,7 +7,7 @@ class DashboardManager {
     constructor() {
         this.currentSection = 'profilo';
         this.currentPage = 1;
-        this.reviewsPerPage = 10;
+        this.commentsPerPage = 10;
         this.init();
     }
 
@@ -161,19 +161,34 @@ class DashboardManager {
             });
         }
 
-        // Ricerca e filtri recensioni
-        const reviewSearch = document.getElementById('reviewSearch');
-        const ratingFilter = document.getElementById('ratingFilter');
-        const dateFilter = document.getElementById('dateFilter');
+        // Modale modifica commento
+        const editModalClose = document.getElementById('editCommentModalClose');
+        const cancelEditBtn = document.getElementById('cancelEditCommentBtn');
+        const editForm = document.getElementById('editCommentForm');
 
-        if (reviewSearch) {
-            reviewSearch.addEventListener('input', this.debounce(() => this.loadReviews(), 500));
+        if (editModalClose) {
+            editModalClose.addEventListener('click', () => this.closeModal('editCommentModal'));
         }
-        if (ratingFilter) {
-            ratingFilter.addEventListener('change', () => this.loadReviews());
+        if (cancelEditBtn) {
+            cancelEditBtn.addEventListener('click', () => this.closeModal('editCommentModal'));
         }
-        if (dateFilter) {
-            dateFilter.addEventListener('change', () => this.loadReviews());
+        if (editForm) {
+            editForm.addEventListener('submit', (e) => this.submitEditComment(e));
+        }
+
+        // Ricerca e filtri commenti
+        const commentSearch = document.getElementById('commentSearch');
+        const commentRatingFilter = document.getElementById('commentRatingFilter');
+        const commentDateFilter = document.getElementById('commentDateFilter');
+
+        if (commentSearch) {
+            commentSearch.addEventListener('input', this.debounce(() => this.loadComments(), 500));
+        }
+        if (commentRatingFilter) {
+            commentRatingFilter.addEventListener('change', () => this.loadComments());
+        }
+        if (commentDateFilter) {
+            commentDateFilter.addEventListener('change', () => this.loadComments());
         }
 
 
@@ -207,8 +222,8 @@ class DashboardManager {
             this.updateActiveNavItem(section);
 
             // Carica dati specifici per la sezione
-            if (section === 'recensioni') {
-                this.loadReviews();
+            if (section === 'commenti') {
+                this.loadComments();
             }
 
             // Chiudi sidebar mobile
@@ -512,76 +527,77 @@ class DashboardManager {
     }
 
     /**
-     * Carica recensioni utente
+     * Carica commenti utente
      */
-    async loadReviews(page = 1) {
-        const search = document.getElementById('reviewSearch')?.value || '';
-        const rating = document.getElementById('ratingFilter')?.value || '';
-        const dateFilter = document.getElementById('dateFilter')?.value || '';
+    async loadComments(page = 1) {
+        const search = document.getElementById('commentSearch')?.value || '';
+        const rating = document.getElementById('commentRatingFilter')?.value || '';
+        const commentDateFilter = document.getElementById('commentDateFilter')?.value || '';
 
         const params = new URLSearchParams({
             page: page,
-            limit: this.reviewsPerPage,
+            limit: this.commentsPerPage,
             search: search,
             rating: rating,
-            date_filter: dateFilter
+            date_filter: commentDateFilter
         });
 
         try {
-            const response = await fetch(`api.php?endpoint=reviews&${params}`);
+            const response = await fetch(`api.php?endpoint=user_comments&${params}`);
             const data = await response.json();
 
             if (data.success) {
-                this.displayReviews(data.data);
+                this.displayComments(data.data);
                 this.updatePagination(data.data);
             } else {
-                this.showNotification('Errore nel caricamento delle recensioni', 'error');
+                this.showNotification('Errore nel caricamento dei commenti', 'error');
             }
         } catch (error) {
-            console.error('Errore caricamento recensioni:', error);
+            console.error('Errore caricamento commenti:', error);
             this.showNotification('Errore di connessione', 'error');
         }
     }
 
     /**
-     * Visualizza recensioni
+     * Visualizza commenti
      */
-    displayReviews(data) {
-        const reviewsList = document.getElementById('reviewsList');
-        if (!reviewsList) return;
+    displayComments(data) {
+        const commentsList = document.getElementById('commentsList');
+        if (!commentsList) return;
 
-        if (data.reviews.length === 0) {
-            reviewsList.innerHTML = `
+        if (data.comments.length === 0) {
+            commentsList.innerHTML = `
                 <div class="no-reviews">
                     <i aria-hidden="true" class="fas fa-star" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem;"></i>
-                    <h3>Nessuna recensione trovata</h3>
-                    <p>Non hai ancora scritto recensioni o nessuna recensione corrisponde ai filtri selezionati.</p>
+                    <h3>Nessun commento trovato</h3>
+                    <p>Non hai ancora scritto commenti o nessun commento corrisponde ai filtri selezionati.</p>
                 </div>
             `;
             return;
         }
 
-        const reviewsHTML = data.reviews.map(review => `
-            <div class="review-item" data-review-id="${review.id}">
-                ${review.product_image ? `<img src="${review.product_image}" alt="${review.product_name}" class="review-image">` : ''}
+        const reviewsHTML = data.comments.map(comment => `
+            <div class="review-item" data-comment-id="${comment.id}"
+                 data-content="${this.escapeHtml(comment.content)}"
+                 data-rating="${comment.star}"
+                 data-title="${this.escapeHtml(comment.title)}">
                 <div class="review-content">
                     <div class="review-header">
-                        <h3 class="review-title">${this.escapeHtml(review.title)}</h3>
-                        <span class="review-date">${review.formatted_date}</span>
+                        <h3 class="review-title">${this.escapeHtml(comment.title)}</h3>
+                        <span class="review-date">${comment.formatted_date}</span>
                     </div>
                     <div class="review-rating">
-                        ${review.stars_html}
+                        ${comment.stars_html}
                     </div>
-                    <p class="review-text">${this.escapeHtml(review.content_preview)}</p>
+                    <p class="review-text">${this.escapeHtml(comment.content_preview)}</p>
                     <div class="review-meta">
-                        <span class="product-name"><i aria-hidden="true" class="fas fa-tag"></i> ${this.escapeHtml(review.product_name)}</span>
-                        <span class="likes-count"><i aria-hidden="true" class="fas fa-heart"></i> ${review.likes_count} like</span>
+                        <span class="product-name"><i aria-hidden="true" class="fas fa-tag"></i> ${this.escapeHtml(comment.title)}</span>
                     </div>
                     <div class="review-actions">
-                        <button onclick="dashboard.editReview(${review.id})" class="btn-action">
+                        <button onclick="dashboard.editComment(${comment.id})" class="btn-action">
                             <i aria-hidden="true" class="fas fa-edit"></i> Modifica
                         </button>
-                        <button onclick="dashboard.deleteReview(${review.id})" class="btn-action btn-danger">
+                        <button onclick="dashboard.deleteComment(${comment.id})" class="btn-action btn-danger">
                             <i aria-hidden="true" class="fas fa-trash"></i> Elimina
                         </button>
                     </div>
@@ -589,14 +605,14 @@ class DashboardManager {
             </div>
         `).join('');
 
-        reviewsList.innerHTML = reviewsHTML;
+        commentsList.innerHTML = reviewsHTML;
     }
 
     /**
      * Aggiorna paginazione
      */
     updatePagination(data) {
-        const pagination = document.getElementById('reviewsPagination');
+        const pagination = document.getElementById('commentsPagination');
         if (!pagination) return;
 
         const totalPages = data.total_pages;
@@ -611,7 +627,7 @@ class DashboardManager {
 
         // Pulsante precedente
         if (currentPage > 1) {
-            paginationHTML += `<button onclick="dashboard.loadReviews(${currentPage - 1})" class="pagination-btn">
+            paginationHTML += `<button onclick="dashboard.loadComments(${currentPage - 1})" class="pagination-btn">
                 <i aria-hidden="true" class="fas fa-chevron-left"></i>
             </button>`;
         }
@@ -621,14 +637,14 @@ class DashboardManager {
         const endPage = Math.min(totalPages, currentPage + 2);
 
         if (startPage > 1) {
-            paginationHTML += `<button onclick="dashboard.loadReviews(1)" class="pagination-btn">1</button>`;
+            paginationHTML += `<button onclick="dashboard.loadComments(1)" class="pagination-btn">1</button>`;
             if (startPage > 2) {
                 paginationHTML += `<span class="pagination-dots">...</span>`;
             }
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            paginationHTML += `<button onclick="dashboard.loadReviews(${i})" 
+            paginationHTML += `<button onclick="dashboard.loadComments(${i})" 
                 class="pagination-btn ${i === currentPage ? 'active' : ''}">${i}</button>`;
         }
 
@@ -636,12 +652,12 @@ class DashboardManager {
             if (endPage < totalPages - 1) {
                 paginationHTML += `<span class="pagination-dots">...</span>`;
             }
-            paginationHTML += `<button onclick="dashboard.loadReviews(${totalPages})" class="pagination-btn">${totalPages}</button>`;
+            paginationHTML += `<button onclick="dashboard.loadComments(${totalPages})" class="pagination-btn">${totalPages}</button>`;
         }
 
         // Pulsante successivo
         if (currentPage < totalPages) {
-            paginationHTML += `<button onclick="dashboard.loadReviews(${currentPage + 1})" class="pagination-btn">
+            paginationHTML += `<button onclick="dashboard.loadComments(${currentPage + 1})" class="pagination-btn">
                 <i aria-hidden="true" class="fas fa-chevron-right"></i>
             </button>`;
         }
@@ -650,15 +666,15 @@ class DashboardManager {
     }
 
     /**
-     * Elimina recensione
+     * Elimina commento
      */
-    async deleteReview(reviewId) {
-        if (!confirm('Sei sicuro di voler eliminare questa recensione?')) {
+    async deleteComment(commentId) {
+        if (!confirm('Sei sicuro di voler eliminare questo commento?')) {
             return;
         }
 
         try {
-            const response = await fetch(`api.php?endpoint=delete&id=${reviewId}`, {
+            const response = await fetch(`api.php?endpoint=user_comments&id=${commentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -669,13 +685,56 @@ class DashboardManager {
             const result = await response.json();
 
             if (result.success) {
-                this.showNotification('Recensione eliminata con successo', 'success');
-                this.loadReviews(this.currentPage);
+                this.showNotification('Commento eliminato con successo', 'success');
+                this.loadComments(this.currentPage);
             } else {
                 this.showNotification(result.message || 'Errore durante l\'eliminazione', 'error');
             }
         } catch (error) {
-            console.error('Errore eliminazione recensione:', error);
+            console.error('Errore eliminazione commento:', error);
+            this.showNotification('Errore di connessione', 'error');
+        }
+    }
+
+    /**
+     * Apre il modal di modifica con i dati del commento
+     */
+    editComment(commentId) {
+        const item = document.querySelector(`[data-comment-id="${commentId}"]`);
+        if (!item) return;
+
+        document.getElementById('editCommentId').value = commentId;
+        document.getElementById('editCommentRating').value = item.dataset.rating || '1';
+        document.getElementById('editCommentContent').value = item.dataset.content || '';
+
+        this.openModal('editCommentModal');
+    }
+
+    /**
+     * Invia la modifica del commento
+     */
+    async submitEditComment(e) {
+        e.preventDefault();
+        const form = e.target;
+        const commentId = document.getElementById('editCommentId').value;
+        const formData = new FormData(form);
+        formData.append('_method', 'PUT');
+
+        try {
+            const res = await fetch(`api.php?endpoint=user_comments&id=${commentId}`, {
+                method: 'POST',
+                body: formData
+            });
+            const result = await res.json();
+            if (result.success) {
+                this.showNotification('Commento aggiornato con successo', 'success');
+                this.closeModal('editCommentModal');
+                this.loadComments(this.currentPage);
+            } else {
+                this.showNotification(result.message || 'Errore durante l\'aggiornamento', 'error');
+            }
+        } catch (error) {
+            console.error('Errore aggiornamento commento:', error);
             this.showNotification('Errore di connessione', 'error');
         }
     }
@@ -834,7 +893,7 @@ class DashboardManager {
                     break;
                 case '2':
                     e.preventDefault();
-                    this.switchSection('recensioni');
+                    this.switchSection('commenti');
                     break;
             }
         }
