@@ -31,6 +31,10 @@ $footer = file_get_contents("../static/footer.html");
 
 // Caricamento del template HTML
 $DOM = file_get_contents("../static/recensioni.html");
+// Correzione del percorso dei fogli di stile in base alla posizione dello script
+$cssBase = dirname($_SERVER['PHP_SELF']) === '/' ? 'css/' : '../css/';
+$DOM = str_replace("../css/style.css", $cssBase . 'style.css', $DOM);
+$DOM = str_replace("../css/pages.css", $cssBase . 'pages.css', $DOM);
 // Inserimento header e footer
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);

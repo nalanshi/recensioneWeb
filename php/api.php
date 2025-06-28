@@ -398,11 +398,11 @@ function handle_comments($commentManager) {
                 $reviewId = (int)($_POST['review_id'] ?? 0);
                 $star = min(5, max(1, intval($_POST['star'] ?? 1)));
                 $content = Utils::sanitizeInput($_POST['content'] ?? '');
-                $name = $_SESSION['user_data']['username'] ?? '';
+                $username = $_SESSION['user_data']['username'] ?? '';
                 $email = $_SESSION['user_data']['email'] ?? '';
 
-                if ($reviewId && $name && $email && $content) {
-                    if ($commentManager->createComment($reviewId, $name, $email, $star, $content)) {
+                if ($reviewId && $username && $content) {
+                    if ($commentManager->createComment($reviewId, $username, $email, $star, $content)) {
                         echo json_encode(['success' => true]);
                     } else {
                         http_response_code(500);
@@ -435,8 +435,8 @@ function handle_comments($commentManager) {
 }
 
 function handle_user_comments($commentManager) {
-    $email = $_SESSION['user_data']['email'] ?? '';
-    if (!$email) {
+    $username = $_SESSION['user_data']['username'] ?? '';
+    if (!$username) {
         http_response_code(401);
         echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
         return;
@@ -458,7 +458,7 @@ function handle_user_comments($commentManager) {
                     'date_filter' => Utils::sanitizeInput($_GET['date_filter'] ?? '')
                 ];
                 $filters = array_filter($filters);
-                $result = $commentManager->getUserComments($email, $page, $limit, $filters);
+                $result = $commentManager->getUserComments($username, $page, $limit, $filters);
                 if ($result !== false) {
                     foreach ($result['comments'] as &$comment) {
                         $comment['formatted_date'] = Utils::formatDate($comment['created_at']);
@@ -484,7 +484,7 @@ function handle_user_comments($commentManager) {
                     'star' => (int)($_POST['star'] ?? 1),
                     'content' => Utils::sanitizeInput($_POST['content'] ?? '')
                 ];
-                $updated = $commentManager->updateComment($commentId, $data, $email);
+                $updated = $commentManager->updateComment($commentId, $data, $username);
                 if ($updated) {
                     echo json_encode(['success' => true, 'message' => 'Commento aggiornato con successo']);
                 } else {
@@ -499,7 +499,7 @@ function handle_user_comments($commentManager) {
                     echo json_encode(['success' => false, 'message' => 'ID commento mancante']);
                     break;
                 }
-                $deleted = $commentManager->deleteComment($commentId, $email);
+                $deleted = $commentManager->deleteComment($commentId, $username);
                 if ($deleted) {
                     echo json_encode(['success' => true, 'message' => 'Commento eliminato con successo']);
                 } else {
