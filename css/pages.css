@@ -557,3 +557,12 @@
     margin-top: var(--spacing-lg);
   }
 }
+
+/* Sezioni in stile dashboard */
+.profile-info-section {
+  background: var(--surface);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 0.0625rem solid var(--border);
+}
