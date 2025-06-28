@@ -49,12 +49,12 @@ CREATE TABLE reviews (
 CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     star TINYINT NOT NULL DEFAULT 1,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY unique_comment (review_id, email),
+    UNIQUE KEY unique_comment (review_id, username),
     FOREIGN KEY (review_id) REFERENCES reviews(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

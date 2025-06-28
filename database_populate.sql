@@ -64,19 +64,19 @@ VALUES
     (19, 16, 'Controller per PC', 'Impugnatura comoda e compatibilità perfetta.', 4, 'Controller Pro', NULL, NOW());
 
 -- Sample Comments
-INSERT INTO comments (review_id, name, email, star, content, created_at)
+INSERT INTO comments (review_id, username, email, star, content, created_at)
 VALUES
-    (1, 'Antonio', 'antonio@example.com', 5, 'Bel prodotto!', NOW()),
-    (2, 'Beatrice', 'bea@example.com', 4, 'Molto utile!', NOW()),
-    (3, 'Carlo', 'carlo@example.com', 5, 'Fantastico', NOW()),
-    (4, 'Diana', 'diana@example.com', 3, 'Non male', NOW()),
-    (5, 'Enrico', 'enrico@example.com', 4, 'Buon prodotto', NOW()),
-    (6, 'Federica', 'federica@example.com', 5, 'Lo adoro!', NOW()),
-    (7, 'Giorgio', 'giorgio@example.com', 2, 'Mi aspettavo di più', NOW()),
-    (8, 'Helena', 'helena@example.com', 4, 'Soddisfatta', NOW()),
-    (9, 'Ivan', 'ivan@example.com', 5, 'Eccellente', NOW()),
-    (10, 'Lara', 'lara@example.com', 3, 'Così così', NOW()),
-    (11, 'Mauro', 'mauro@example.com', 4, 'Buona scelta', NOW());
+    (1, 'antonio97', 'antonio@example.com', 5, 'Bel prodotto!', NOW()),
+    (2, 'bea90', 'bea@example.com', 4, 'Molto utile!', NOW()),
+    (3, 'carloUser', 'carlo@example.com', 5, 'Fantastico', NOW()),
+    (4, 'diana88', 'diana@example.com', 3, 'Non male', NOW()),
+    (5, 'enrico33', 'enrico@example.com', 4, 'Buon prodotto', NOW()),
+    (6, 'federica22', 'federica@example.com', 5, 'Lo adoro!', NOW()),
+    (7, 'giorgio7', 'giorgio@example.com', 2, 'Mi aspettavo di più', NOW()),
+    (8, 'helena9', 'helena@example.com', 4, 'Soddisfatta', NOW()),
+    (9, 'ivan_iv', 'ivan@example.com', 5, 'Eccellente', NOW()),
+    (10, 'lara_the_best', 'lara@example.com', 3, 'Così così', NOW()),
+    (11, 'mauro75', 'mauro@example.com', 4, 'Buona scelta', NOW());
 
 -- Confirmation message
 SELECT 'Database populated successfully with sample data.' AS message;

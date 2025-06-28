@@ -444,18 +444,18 @@ class CommentManager {
     /**
      * Crea un nuovo commento
      */
-    public function createComment($reviewId, $name, $email, $star, $content) {
+    public function createComment($reviewId, $username, $email, $star, $content) {
         try {
             // Verifica se esiste già un commento dello stesso utente per la stessa recensione
-            $check = $this->db->prepare("SELECT id FROM comments WHERE review_id = ? AND email = ?");
-            $check->execute([$reviewId, $email]);
+            $check = $this->db->prepare("SELECT id FROM comments WHERE review_id = ? AND username = ?");
+            $check->execute([$reviewId, $username]);
             if ($existing = $check->fetch()) {
                 $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ?, created_at = NOW() WHERE id = ?");
                 return $stmt->execute([$star, $content, $existing['id']]);
             }
 
-            $stmt = $this->db->prepare("INSERT INTO comments (review_id, name, email, star, content, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
-            return $stmt->execute([$reviewId, $name, $email, $star, $content]);
+            $stmt = $this->db->prepare("INSERT INTO comments (review_id, username, email, star, content, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+            return $stmt->execute([$reviewId, $username, $email, $star, $content]);
         } catch (PDOException $e) {
             error_log('Errore createComment: ' . $e->getMessage());
             return false;
@@ -467,7 +467,7 @@ class CommentManager {
      */
     public function getComments($reviewId, $limit = null) {
         try {
-            $sql = "SELECT name, email, star, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
+            $sql = "SELECT username, email, star, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
             if ($limit) {
                 $sql .= " LIMIT " . intval($limit);
             }
@@ -483,10 +483,10 @@ class CommentManager {
     /**
      * Ottiene il commento di un utente per una specifica recensione
      */
-    public function getUserCommentForReview($reviewId, $email) {
+    public function getUserCommentForReview($reviewId, $username) {
         try {
-            $stmt = $this->db->prepare("SELECT id, star, content, created_at FROM comments WHERE review_id = ? AND email = ?");
-            $stmt->execute([$reviewId, $email]);
+            $stmt = $this->db->prepare("SELECT id, star, content, created_at FROM comments WHERE review_id = ? AND username = ?");
+            $stmt->execute([$reviewId, $username]);
             return $stmt->fetch();
         } catch (PDOException $e) {
             error_log('Errore getUserCommentForReview: ' . $e->getMessage());
@@ -497,12 +497,12 @@ class CommentManager {
     /**
      * Ottiene i commenti di un utente con paginazione e filtri
      */
-    public function getUserComments($email, $page = 1, $limit = 10, $filters = []) {
+    public function getUserComments($username, $page = 1, $limit = 10, $filters = []) {
         try {
             $offset = ($page - 1) * $limit;
 
-            $where = ["c.email = ?"];
-            $params = [$email];
+            $where = ["c.username = ?"];
+            $params = [$username];
 
             if (!empty($filters['search'])) {
                 $where[] = "(LOWER(c.content) LIKE LOWER(?) OR LOWER(r.title) LIKE LOWER(?))";
@@ -570,14 +570,14 @@ class CommentManager {
     /**
      * Aggiorna un commento
      */
-    public function updateComment($commentId, $data, $email = null) {
+    public function updateComment($commentId, $data, $username = null) {
         try {
-            if ($email === null) {
+            if ($username === null) {
                 $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ?");
                 return $stmt->execute([$data['star'], $data['content'], $commentId]);
             }
-            $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ? AND email = ?");
-            $stmt->execute([$data['star'], $data['content'], $commentId, $email]);
+            $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ? AND username = ?");
+            $stmt->execute([$data['star'], $data['content'], $commentId, $username]);
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             error_log('Errore updateComment: ' . $e->getMessage());
@@ -588,14 +588,14 @@ class CommentManager {
     /**
      * Elimina un commento
      */
-    public function deleteComment($commentId, $email = null) {
+    public function deleteComment($commentId, $username = null) {
         try {
-            if ($email === null) {
+            if ($username === null) {
                 $stmt = $this->db->prepare("DELETE FROM comments WHERE id = ?");
                 $stmt->execute([$commentId]);
             } else {
-                $stmt = $this->db->prepare("DELETE FROM comments WHERE id = ? AND email = ?");
-                $stmt->execute([$commentId, $email]);
+                $stmt = $this->db->prepare("DELETE FROM comments WHERE id = ? AND username = ?");
+                $stmt->execute([$commentId, $username]);
             }
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {

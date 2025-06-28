@@ -27,9 +27,10 @@ $reviewManager = new ReviewManager();
 $commentManager = new CommentManager();
 $userComment = null;
 if (SessionManager::isLoggedIn()) {
+    $username = $_SESSION['user_data']['username'] ?? '';
     $email = $_SESSION['user_data']['email'] ?? '';
-    if ($email) {
-        $userComment = $commentManager->getUserCommentForReview($reviewId, $email);
+    if ($username) {
+        $userComment = $commentManager->getUserCommentForReview($reviewId, $username);
     }
 }
 $review = $reviewManager->getReviewById($reviewId);
@@ -111,7 +112,7 @@ $commentsHtml = '';
 foreach ($comments as $c) {
     $date = Utils::formatDate($c['created_at']);
     $stars = Utils::generateStars($c['star']);
-    $commentsHtml .= "<div class='comment'><div class='comment-author'>".htmlspecialchars($c['name'])."</div>".
+    $commentsHtml .= "<div class='comment'><div class='comment-author'>".htmlspecialchars($c['username'])."</div>".
                      "<div class='comment-email'>".htmlspecialchars($c['email'])."</div>".
                      "<div class='comment-rating' aria-label='Valutazione {$c['star']} su 5'>{$stars}</div>".
                      "<p class='comment-content'>".htmlspecialchars($c['content'])."</p>".
