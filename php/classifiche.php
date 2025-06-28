@@ -104,9 +104,9 @@ foreach ($topReviews as $review) {
     elseif ($position == 3) { $rankClass = 'bronze'; }
 
     $rowsHtml .= "<tr class='ranking-row' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
-                 "<td class='rank-position {$rankClass}'>{$position}</td>".
-                 "<td class='product-info'>{$rowImg}<div class='product-details'><p class='product-title'>{$title}</p></div></td>".
-                 "<td class='rating-display'><div class='rating-container'><span class='rating-number'>{$ratingNum}</span><div class='rating-stars'>{$stars}</div></div></td>".
+                 "<td class='rank-position {$rankClass}' data-label='Pos.'>{$position}</td>".
+                 "<td class='product-info' data-label='Prodotto'>{$rowImg}<div class='product-details'><p class='product-title'>{$title}</p></div></td>".
+                 "<td class='rating-display' data-label='Valutazione'><div class='rating-container'><span class='rating-number'>{$ratingNum}</span><div class='rating-stars'>{$stars}</div></div></td>".
                  "</tr>";
 
     $position++;
