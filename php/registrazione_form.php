@@ -214,13 +214,6 @@ $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $he
           <div id="confirm-password-error" class="error-message" aria-live="polite"></div>
         </div>
 
-        <div class="checkbox-wrapper">
-          <input type="checkbox" id="terms" name="terms" class="checkbox-input" required aria-required="true">
-          <label for="terms" class="checkbox-label">
-            Accetto i <a href="#" target="_blank"><span>Termini e Condizioni</span></a> e la <a href="#" target="_blank"><span lang="en">Privacy Policy</span></a>
-          </label>
-          <div id="terms-error" class="error-message" aria-live="polite"></div>
-        </div>
 
         <button type="submit" class="btn btn-primary">
           Crea  <span lang="en">Account</span>

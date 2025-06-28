@@ -381,12 +381,6 @@ function validateRegistrationForm() {
     showSuccess('confirm-password');
   }
   
-  // Validazione accettazione termini
-  const terms = document.getElementById('terms').checked;
-  if (!terms) {
-    showError('terms', 'Devi accettare i termini e condizioni');
-    isValid = false;
-  }
   
   if (!isValid) {
     showMessage('Correggi gli errori evidenziati per continuare');
