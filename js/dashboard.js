@@ -534,6 +534,16 @@ class DashboardManager {
         const rating = document.getElementById('commentRatingFilter')?.value || '';
         const commentDateFilter = document.getElementById('commentDateFilter')?.value || '';
 
+        const commentsList = document.getElementById('commentsList');
+        const pagination = document.getElementById('commentsPagination');
+        if (commentsList) {
+            commentsList.innerHTML = `
+                <div class="list-loading" role="status" aria-live="polite">
+                    <span class="spinner" aria-hidden="true"></span> Caricamento in corso...
+                </div>`;
+        }
+        if (pagination) pagination.innerHTML = '';
+
         const params = new URLSearchParams({
             page: page,
             limit: this.commentsPerPage,
