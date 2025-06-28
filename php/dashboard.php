@@ -36,7 +36,7 @@ $icon = $profilePhoto ? "<img src='../{$profilePhoto}' alt='Foto profilo di {$us
       {$icon}
     </div>
     <span class='login-text'>{$username}</span>
-    <div class='user-dropdown'>
+    <div class='user-menu-panel' aria-hidden='true'>
       <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
 
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {

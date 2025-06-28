@@ -29,6 +29,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  const userMenus = document.querySelectorAll('.user-menu');
+  if (userMenus.length) {
+    userMenus.forEach((menu) => {
+      const panel = menu.querySelector('.user-menu-panel');
+      if (!panel) return;
+
+      menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = panel.classList.toggle('open');
+        menu.setAttribute('aria-expanded', isOpen);
+        panel.setAttribute('aria-hidden', !isOpen);
+      });
+
+      menu.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          menu.click();
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      userMenus.forEach((menu) => {
+        const panel = menu.querySelector('.user-menu-panel');
+        if (panel && panel.classList.contains('open')) {
+          panel.classList.remove('open');
+          menu.setAttribute('aria-expanded', 'false');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+  }
+
   const commentForm = document.getElementById('comment-form');
   if (commentForm) {
     commentForm.addEventListener('submit', async (e) => {
@@ -71,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Disable navigation link for the current page
   const currentPage = window.location.pathname.split('/').pop();
-  const navAnchors = document.querySelectorAll('.nav-links a, .logo-link, .user-dropdown a');
+  const navAnchors = document.querySelectorAll('.nav-links a, .logo-link, .user-menu-panel a');
   navAnchors.forEach((link) => {
     const linkPage = new URL(link.href).pathname.split('/').pop();
     if (linkPage === currentPage) {

@@ -247,7 +247,7 @@ a:focus {
   cursor: pointer;
 }
 
-.user-dropdown {
+.user-menu-panel {
   position: absolute;
   top: 100%;
   right: 0;
@@ -259,18 +259,17 @@ a:focus {
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(0.625rem);
+  transform: translateX(0.625rem);
   transition: var(--transition);
 }
 
-.user-menu:hover .user-dropdown,
-.user-menu:focus-within .user-dropdown {
+.user-menu-panel.open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
-.user-dropdown a {
+.user-menu-panel a {
   display: block;
   padding: var(--spacing-sm) var(--spacing-md);
   color: var(--text-primary);
@@ -279,14 +278,14 @@ a:focus {
   border-left: 0.1875rem solid transparent;
 }
 
-.user-dropdown a:hover {
+.user-menu-panel a:hover {
   background: var(--background);
   color: var(--primary-agid);
   border-left-color: var(--primary-agid);
   text-decoration: none;
 }
 
-.user-dropdown a:not(:last-child) {
+.user-menu-panel a:not(:last-child) {
   border-bottom: 0.0625rem solid var(--border);
 }
 
@@ -302,7 +301,7 @@ a:focus {
     padding-top: 0;
   }
 
-  .user-dropdown {
+  .user-menu-panel {
     display: none;
   }
 }
@@ -428,7 +427,7 @@ nav {
 /* Disable pointer events on the current page link */
 .nav-links a[aria-current="page"],
 .logo-link[aria-current="page"],
-.user-dropdown a[aria-current="page"] {
+.user-menu-panel a[aria-current="page"] {
   pointer-events: none;
   cursor: default;
   text-decoration: underline;
@@ -706,7 +705,7 @@ nav {
     justify-content: center;
   }
 
-  .user-dropdown {
+  .user-menu-panel {
     width: auto;
     min-width: 12rem;
   }

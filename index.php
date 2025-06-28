@@ -73,7 +73,7 @@ if (!SessionManager::isLoggedIn()) {
       {$icon}
     </div>
     <div class='login-text'>{$username}</div>
-    <div class='user-dropdown'>
+    <div class='user-menu-panel' aria-hidden='true'>
       <a href='php/dashboard.php'><span lang='en'>Dashboard</span></a>";
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         $headerLoginHtml .= "
