@@ -515,7 +515,7 @@ class DashboardManager {
             if (result.success) {
                 this.showNotification('Account eliminato con successo', 'success');
                 setTimeout(() => {
-                    window.location.href = '../php/login_form.php';
+                    window.location.href = '../php/login.php';
                 }, 2000);
             } else {
                 this.showNotification(result.message || 'Errore durante l\'eliminazione', 'error');

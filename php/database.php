@@ -850,7 +850,7 @@ class SessionManager {
 
     public static function requireLogin() {
         if (!self::isLoggedIn()) {
-            header('Location: login_form.php');
+            header('Location: login.php');
             exit;
         }
     }

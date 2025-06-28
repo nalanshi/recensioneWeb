@@ -24,7 +24,7 @@ require_once 'database.php';
 // Funzione per reindirizzare con un messaggio di errore
 function redirectWithError($error) {
     $_SESSION['registration_error'] = $error;
-    header("Location: ../php/registrazione_form.php");
+    header("Location: registrazione.php");
     exit();
 }
 
@@ -131,8 +131,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirectWithError("Si è verificato un errore durante la registrazione. Riprova più tardi.");
     }
 } else {
-    // Se la richiesta non è di tipo POST, reindirizza alla pagina di registrazione
-    header("Location: ../php/registrazione_form.php");
-    exit();
+    $header = file_get_contents("../static/header.html");
+    $footer = file_get_contents("../static/footer.html");
+
+    if (!SessionManager::isLoggedIn()) {
+        $headerLoginHtml = "<a href='login.php' class='login-link' aria-label='Login - Accedi al tuo account'>\n" .
+            "  <div class='user-icon-bg'>\n" .
+            "    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>\n" .
+            "      <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path>\n" .
+            "      <circle cx='12' cy='7' r='4'></circle>\n" .
+            "    </svg>\n" .
+            "  </div>\n" .
+            "  <span class='login-text'>Login</span>\n" .
+            "</a>";
+    } else {
+        $username = $_SESSION['username'];
+        $profilePhoto = $_SESSION['user_data']['profile_photo'] ?? $_SESSION['profile_photo'] ?? '';
+        $icon = $profilePhoto ? "<img src='../{$profilePhoto}' alt='Foto profilo di {$username}' class='user-avatar'>" : "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>";
+        $headerLoginHtml = "<div class='login-link user-menu' role='button' tabindex='0' aria-haspopup='true' aria-expanded='false' aria-label='Menu utente'>\n" .
+            "  <div class='user-icon-bg'>\n" .
+            "    {$icon}\n" .
+            "  </div>\n" .
+            "  <span class='login-text'>{$username}</span>\n" .
+            "  <div class='user-menu-panel' aria-hidden='true'>\n" .
+            "    <a href='dashboard.php'><span lang='en'>Dashboard</span></a>";
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+            $headerLoginHtml .= "<a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>";
+        }
+        $headerLoginHtml .= "<a href='logout.php'><span lang='en'>Logout</span></a>\n" .
+            "  </div>\n" .
+            "</div>";
+    }
+
+    $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $header);
+
+    $template = file_get_contents("../static/registrazione.html");
+    $template = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $template);
+    $template = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $template);
+
+    $errorHtml = '';
+    if (isset($_SESSION['registration_error'])) {
+        $msg = htmlspecialchars($_SESSION['registration_error']);
+        $errorHtml = "<div class='message error'>\n" .
+            "  <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>\n" .
+            "    <circle cx='12' cy='12' r='10'></circle>\n" .
+            "    <line x1='15' y1='9' x2='9' y2='15'></line>\n" .
+            "    <line x1='9' y1='9' x2='15' y2='15'></line>\n" .
+            "  </svg>\n" .
+            "  {$msg}\n" .
+            "</div>";
+        unset($_SESSION['registration_error']);
+    }
+    $template = str_replace("<!-- ERROR_MESSAGE_PLACEHOLDER -->", $errorHtml, $template);
+
+    echo $template;
 }
 ?>

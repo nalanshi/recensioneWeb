@@ -24,7 +24,7 @@ SessionManager::start();
 // Funzione per reindirizzare con un messaggio di errore
 function redirectWithError($error) {
     $_SESSION['login_error'] = $error;
-    header("Location: login_form.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -111,8 +111,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirectWithError("Si è verificato un errore durante l'accesso. Riprova più tardi.");
     }
 } else {
-    // Se la richiesta non è di tipo POST, reindirizza alla pagina di login
-    header("Location: login_form.php");
-    exit();
+    $header = file_get_contents("../static/header.html");
+    $footer = file_get_contents("../static/footer.html");
+
+    $homeLink = "<a href='../index.php' class='login-link' aria-label='Torna alla homepage' aria-current='page'>\n" .
+        "  <div class='user-icon-bg'>\n" .
+        "    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>\n" .
+        "      <path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path>\n" .
+        "      <polyline points='9,22 9,12 15,12 15,22'></polyline>\n" .
+        "    </svg>\n" .
+        "  </div>\n" .
+        "  <span class='login-text'>Home</span>\n" .
+        "</a>";
+    $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $homeLink, $header);
+
+    $template = file_get_contents("../static/login.html");
+    $template = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $template);
+    $template = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $template);
+
+    $errorHtml = '';
+    if (isset($_SESSION['login_error'])) {
+        $msg = htmlspecialchars($_SESSION['login_error']);
+        $errorHtml = "<div class='message error'>\n" .
+            "  <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>\n" .
+            "    <circle cx='12' cy='12' r='10'></circle>\n" .
+            "    <line x1='15' y1='9' x2='9' y2='15'></line>\n" .
+            "    <line x1='9' y1='9' x2='15' y2='15'></line>\n" .
+            "  </svg>\n" .
+            "  {$msg}\n" .
+            "</div>";
+        unset($_SESSION['login_error']);
+    }
+    $template = str_replace("<!-- ERROR_MESSAGE_PLACEHOLDER -->", $errorHtml, $template);
+
+    echo $template;
 }
 ?>
