@@ -44,12 +44,11 @@ $headerLoginHtml = " <div class='login-link user-menu' role='button' tabindex='0
                         <span class='login-text'>{$username}</span>
                         <div class='user-dropdown'>
                           <a href='dashboard.php'><span lang='en'>Dashboard</span></a>
+                          <a href='gestione_recensioni.php'><span>Gestione recensioni</span></a>
                           <a href='logout.php'><span lang='en'>Logout</span></a>
                         </div>
                       </div>";
 
-//<a href='gestione_recensioni.php'><span>Gestione recensioni</span></a> tolto perchè se sono nella pagina corrente per acc. non ha senso renderlo cliccabile, migliora la fluidità per i screenreader
-//Oppure possiamo renderlo non cliccabile
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
 echo $DOM;
