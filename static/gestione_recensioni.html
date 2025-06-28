@@ -39,7 +39,18 @@
           <p>Aggiungi o elimina le recensioni</p>
         </div>
 
-        <div id="reviews-list"></div>
+        <div class="reviews-container">
+          <div class="search-container">
+            <div class="search-box">
+              <i aria-hidden="true" class="fas fa-search"></i>
+              <input type="text" id="reviewSearch" placeholder="Cerca recensioni...">
+            </div>
+          </div>
+
+          <div class="reviews-list" id="reviews-list"></div>
+
+          <div class="pagination" id="reviewsPagination"></div>
+        </div>
       </section>
 
       <section id="pubblica-section" class="content-section">
