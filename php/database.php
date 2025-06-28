@@ -484,6 +484,20 @@ class CommentManager {
     }
 
     /**
+     * Ottiene il commento di un utente per una specifica recensione
+     */
+    public function getUserCommentForReview($reviewId, $email) {
+        try {
+            $stmt = $this->db->prepare("SELECT id, star, content, created_at FROM comments WHERE review_id = ? AND email = ?");
+            $stmt->execute([$reviewId, $email]);
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log('Errore getUserCommentForReview: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Ottiene i commenti di un utente con paginazione e filtri
      */
     public function getUserComments($email, $page = 1, $limit = 10, $filters = []) {

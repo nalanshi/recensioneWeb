@@ -38,21 +38,18 @@
 
     <section class="comments-section content-box" aria-labelledby="opinione-title">
       <h2 id="opinione-title">Lascia un tuo opinione</h2>
+      <div id="user-comment-info"></div>
       <form id="comment-form" method="post" class="comment-form">
         <input type="hidden" name="review_id" value="<!--ID_PLACEHOLDER-->">
         <div class="form-group">
           <label for="comment-star" class="form-label required">Valutazione</label>
           <select id="comment-star" name="star" class="form-select" required>
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1" selected>1</option>
+            <!--STAR_OPTIONS-->
           </select>
         </div>
         <div class="form-group">
           <label for="comment-content" class="form-label required">Commento</label>
-          <textarea id="comment-content" name="content" class="form-textarea" required></textarea>
+          <textarea id="comment-content" name="content" class="form-textarea" required><!--COMMENT_CONTENT--></textarea>
         </div>
         <button type="submit" class="form-submit">Invia</button>
       </form>
