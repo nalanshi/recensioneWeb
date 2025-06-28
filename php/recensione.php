@@ -47,7 +47,7 @@ $template = file_get_contents("../static/recensione.html");
 
 $headerLoginHtml = '';
 if (!SessionManager::isLoggedIn()) {
-    $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Accedi al tuo account'>".
+    $headerLoginHtml = "<a href='login_form.php' class='login-link' aria-label='Login - Accedi al tuo account'>".
                        "<div class='user-icon-bg'>".
                        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' id='user-icon'>".
                        "<path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path>".
@@ -72,6 +72,8 @@ $template = str_replace("<!--AUTHOR_PLACEHOLDER-->", htmlspecialchars($review['u
 $template = str_replace("<!--EMAIL_PLACEHOLDER-->", htmlspecialchars($review['email']), $template);
 $authorPhoto = $review['profile_photo'] ? '../' . $review['profile_photo'] : '../images/icon/user.png';
 $template = str_replace("<!--AUTHOR_PHOTO-->", $authorPhoto, $template);
+$altProduct = htmlspecialchars(Utils::truncateAltText($review['product_name']));
+$template = str_replace('alt="Immagine di <!--PRODUCT_NAME-->"', 'alt="Immagine di ' . $altProduct . '"', $template);
 $template = str_replace("<!--PRODUCT_NAME-->", htmlspecialchars($review['product_name']), $template);
 $ratingHtml = "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>" . Utils::generateStars($review['rating']) . "</div>";
 $template = str_replace("<!--RATING_HTML-->", $ratingHtml, $template);

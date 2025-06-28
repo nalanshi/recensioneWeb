@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <p class="review-author">${escapeHtml(r.username || '')}</p>
             </div>
             <div class="review-details">  
-              ${r.product_image ? `<img src="${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name)}" class="review-image">` : ''}
+              ${r.product_image ? `<img src="${escapeHtml(r.product_image)}" alt="${escapeHtml(r.product_name.slice(0, 99))}" class="review-image">` : ''}
               <p><strong>Prodotto:</strong> ${escapeHtml(r.product_name)}</p>
               <p><strong>Valutazione:</strong> ${r.rating}</p>
               <p>${escapeHtml(r.content)}</p>
