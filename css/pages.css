@@ -496,6 +496,42 @@
   margin-top: var(--spacing-lg);
 }
 
+.comment-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.comment-form .form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.comment-form .form-select,
+.comment-form .form-textarea {
+  padding: var(--spacing-sm);
+  border: 0.125rem solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.comment-form .form-select:focus,
+.comment-form .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-agid);
+  box-shadow: 0 0 0 0.1875rem rgb(0 102 204 / 10%);
+}
+
+.comment-form .form-textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
 /* Dettaglio recensione */
 .review-product {
   font-weight: 500;
