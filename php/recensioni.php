@@ -100,10 +100,10 @@ if ($result !== false) {
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
         $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$review['rating']}'>" .
-                        $img .
                         "<div class='review-content'>" .
                         "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
                         "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$stars}</div></div>" .
+                        $img .
                         "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
                         "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
                         "</div></a>";
