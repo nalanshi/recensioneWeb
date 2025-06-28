@@ -970,6 +970,30 @@ input:checked + .toggle-slider::before {
   display: flex;
 }
 
+/* Indicatori di caricamento nelle liste */
+.list-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-lg);
+  color: var(--text-secondary);
+}
+
+.list-loading .spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.25rem solid currentcolor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Responsive Design */
 @media (width <= 64rem) {
   .profile-container {

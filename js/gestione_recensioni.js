@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadReviews(page = 1) {
     const search = searchInput ? searchInput.value : '';
     currentPage = page;
+    if (list) {
+      list.innerHTML = `
+        <div class="list-loading" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span> Caricamento in corso...
+        </div>`;
+    }
+    if (pagination) pagination.innerHTML = '';
     const params = new URLSearchParams({
       all: 1,
       page: page,
