@@ -80,6 +80,7 @@
         const searchFilter = document.getElementById('search-filter');
       const sortFilter = document.getElementById('sort-filter');
       const reviewsGrid = document.getElementById('reviews-grid');
+      const originalReviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
       const loadMoreBtn = document.getElementById('load-more-btn');
       const noReviews = document.getElementById('no-reviews');
 
@@ -89,14 +90,15 @@
           const search = searchFilter.value.toLowerCase();
         const sort = sortFilter.value;
 
-        const reviews = reviewsGrid.querySelectorAll('.review-card');
-        let visibleCount = 0;
+        const reviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
+        const visible = [];
 
-          reviews.forEach(review => {
-            let show = true;
+        reviews.forEach(review => {
+          let show = true;
+          const revRating = parseFloat(review.dataset.rating) || 0;
 
           // Filtro rating
-          if (rating && parseInt(review.dataset.rating) < parseInt(rating)) {
+          if (rating && revRating < parseFloat(rating)) {
             show = false;
           }
 
@@ -110,10 +112,21 @@
           }
 
           review.style.display = show ? 'block' : 'none';
-          if (show) visibleCount++;
+          if (show) visible.push(review);
         });
 
-        // Mostra messaggio se nessuna recensione
+        if (sort === 'rating') {
+          visible.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
+          visible.forEach(r => reviewsGrid.appendChild(r));
+        } else {
+          originalReviews.forEach(r => {
+            if (r.style.display !== 'none') {
+              reviewsGrid.appendChild(r);
+            }
+          });
+        }
+
+        const visibleCount = visible.length;
         noReviews.style.display = visibleCount === 0 ? 'block' : 'none';
         reviewsGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
       }

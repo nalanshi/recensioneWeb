@@ -93,10 +93,12 @@ $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
 // Recupero recensioni dal database
 $reviewManager = new ReviewManager();
+$commentManager = new CommentManager();
 $result = $reviewManager->getAllReviews(1, 20);
 $reviewsHtml = '';
 if ($result !== false) {
     foreach ($result['reviews'] as $review) {
+        $avgRating = $commentManager->getAverageRatingForProduct($review['product_name']);
         $stars = Utils::generateStars($review['rating']);
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
@@ -104,7 +106,7 @@ if ($result !== false) {
         $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
-        $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$review['rating']}'>" .
+        $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$avgRating}'>" .
                         "<div class='review-content'>" .
                         "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
                         "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$stars}</div></div>" .
