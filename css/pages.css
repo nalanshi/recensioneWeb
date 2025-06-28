@@ -123,11 +123,13 @@
   display: flex;
   gap: 0.125rem;
   margin-left: var(--spacing-sm);
+  font-weight: 600;
 }
 
 .star {
   color: #FFD700;
   font-size: 1.1rem;
+  font-weight: normal;
 }
 
 .star.empty {

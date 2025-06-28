@@ -99,7 +99,7 @@ $reviewsHtml = '';
 if ($result !== false) {
     foreach ($result['reviews'] as $review) {
         $avgRating = $commentManager->getAverageRatingForProduct($review['product_name']);
-        $stars = Utils::generateStars($review['rating']);
+        $ratingText = htmlspecialchars($review['rating']) . "/5";
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
         $altProduct = htmlspecialchars($review['product_name']);
@@ -109,7 +109,7 @@ if ($result !== false) {
         $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card' data-rating='{$avgRating}'>" .
                         "<div class='review-content'>" .
                         "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
-                        "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$stars}</div></div>" .
+                        "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$ratingText}</div></div>" .
                         $img .
                         "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
                         "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
