@@ -103,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Disable navigation link for the current page
-  const currentPage = window.location.pathname.split('/').pop();
+  let currentPage = window.location.pathname.split('/').pop();
+  if (!currentPage) {
+    currentPage = 'index.php';
+  }
   const navAnchors = document.querySelectorAll('.nav-links a, .logo-link, .user-menu-panel a');
   navAnchors.forEach((link) => {
     const linkPage = new URL(link.href).pathname.split('/').pop();
