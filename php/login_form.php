@@ -119,15 +119,11 @@ if (isset($_SESSION['login_error'])) {
         </button>
       </form>
 
-      <div class="auth-links">
-        <a href="#password-dimenticata" class="auth-link"><span lang="en">Password</span> dimenticata?</a>
-        <a href="#login-sms" class="auth-link"><span>Accedi via <abbr title="Short Message Service">SMS</abbr></span></a>
-      </div>
 
       <div class="auth-footer">
         <p class="auth-footer-text">
           Non hai un <span lang="en">account</span>? 
-          <a href="../static/registrazione.html" class="auth-footer-link"><span>Registrati gratuitamente</span></a>
+          <a href="../php/registrazione_form.php" class="auth-footer-link"><span>Registrati gratuitamente</span></a>
         </p>
       </div>
     </div>
