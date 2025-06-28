@@ -49,11 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Utilizzo della connessione dal file database.php
         $pdo = DatabaseConfig::getConnection();
 
-        // Preparazione della query per verificare le credenziali
-        // Verifica sia per username che per email
-        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE (username = :username OR email = :email) AND deleted_at IS NULL");
+        // Preparazione della query per verificare le credenziali tramite username
+        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE username = :username AND deleted_at IS NULL");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $username, PDO::PARAM_STR); // Utilizziamo lo stesso valore per email
         $stmt->execute();
 
         // Verifica se l'utente esiste

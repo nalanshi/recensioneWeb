@@ -67,14 +67,14 @@ if (isset($_SESSION['login_error'])) {
 
       <form id="login-form" class="auth-form" action="login.php" method="post" onsubmit="return validateLoginForm()">
         <div class="form-group">
-          <label for="username" class="form-label"><span lang="en">Username</span> o <span lang="en">Email</span></label>
+          <label for="username" class="form-label"><span lang="en">Username</span></label>
           <div class="form-input-wrapper">
             <input 
               type="text" 
               id="username" 
               name="username" 
               class="form-input" 
-              placeholder="Inserisci username o email"
+              placeholder="Inserisci il tuo username"
               autocomplete="username" 
               required 
               aria-required="true"
