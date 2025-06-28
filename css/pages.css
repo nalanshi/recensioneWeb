@@ -5,8 +5,9 @@
 
 /* Hero Section */
 .contact-hero {
-  background: var(--nav-gradient-agid);
-  color: var(--text-light);
+  /*background: var(--nav-gradient-agid);*/
+  font-weight: bold;
+  color: var(--accent-agid);
   padding: var(--spacing-xl) 0;
   text-align: center;
   margin-bottom: var(--spacing-xl);
@@ -370,8 +371,9 @@
 
 /* Hero Section */
 .reviews-hero {
-  background: var(--nav-gradient-agid);
-  color: var(--text-light);
+  /*background: var(--nav-gradient-agid);*/
+  color: var(--accent-agid);
+  font-weight: bold;
   padding: var(--spacing-xl) 0;
   text-align: center;
   margin-bottom: var(--spacing-xl);
@@ -584,8 +586,9 @@
 
 /* Hero Section */
 .rankings-hero {
-  background: var(--nav-gradient-agid);
-  color: var(--text-light);
+  /*background: var(--nav-gradient-agid);*/
+  color: var(--accent-agid);
+  font-weight: bold;
   padding: var(--spacing-xl) 0;
   text-align: center;
   margin-bottom: var(--spacing-xl);
