@@ -651,6 +651,15 @@ body {
   border-color: var(--primary-agid);
 }
 
+/* Grid visualizzazione recensioni per l'area admin */
+.admin-reviews-grid {
+  padding: var(--spacing-lg);
+  min-height: 25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18.75rem, 100%), 1fr));
+  gap: var(--spacing-lg);
+}
+
 /* Settings Section */
 .settings-container {
   background: var(--surface);
