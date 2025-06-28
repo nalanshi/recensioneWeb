@@ -379,11 +379,18 @@ function handle_comments($commentManager) {
     try {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
+                if (!SessionManager::isLoggedIn()) {
+                    http_response_code(401);
+                    echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
+                    break;
+                }
+
                 $reviewId = (int)($_POST['review_id'] ?? 0);
-                $name = Utils::sanitizeInput($_POST['name'] ?? '');
-                $email = Utils::sanitizeInput($_POST['email'] ?? '');
                 $star = min(5, max(1, intval($_POST['star'] ?? 1)));
                 $content = Utils::sanitizeInput($_POST['content'] ?? '');
+                $name = $_SESSION['user_data']['username'] ?? '';
+                $email = $_SESSION['user_data']['email'] ?? '';
+
                 if ($reviewId && $name && $email && $content) {
                     if ($commentManager->createComment($reviewId, $name, $email, $star, $content)) {
                         echo json_encode(['success' => true]);
