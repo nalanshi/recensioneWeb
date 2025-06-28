@@ -3,16 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accedi - ReviewDiver!</title>
-  <meta http-equiv="refresh" content="0;url=../php/login_form.php">
+  <title>Accedi - ReviewDiver</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/auth-styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="../js/auth-validation.js" defer></script>
 </head>
 <body>
-  <div id="main-content" style="text-align: center; margin-top: 5rem; font-family: 'Montserrat', sans-serif;">
-    <h1>Reindirizzamento in corso...</h1>
-    <p>Se non vieni reindirizzato automaticamente, <a href="../php/login_form.php"><span>clicca qui</span></a>.</p>
+  <!-- HEADER_PLACEHOLDER -->
+  <div class="auth-page">
+    <div id="main-content" class="auth-container main-content">
+      <div class="auth-header">
+        <div class="auth-logo">
+          DR
+        </div>
+        <h1 class="auth-title">Accedi al tuo <span lang="en">account</span></h1>
+        <p class="auth-subtitle">Benvenuto di nuovo! Inserisci le tue credenziali per continuare.</p>
+      </div>
+
+      <div id="error-container" aria-live="polite">
+        <!-- ERROR_MESSAGE_PLACEHOLDER -->
+      </div>
+
+      <form id="login-form" class="auth-form" action="login.php" method="post" onsubmit="return validateLoginForm()">
+        <div class="form-group">
+          <label for="username" class="form-label"><span lang="en">Username</span></label>
+          <div class="form-input-wrapper">
+            <input type="text" id="username" name="username" class="form-input" placeholder="Inserisci il tuo username" autocomplete="username" required aria-required="true">
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div id="username-error" class="error-message" aria-live="polite"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label"><span lang="en">Password</span></label>
+          <div class="form-input-wrapper">
+            <input type="password" id="password" name="password" class="form-input" placeholder="Inserisci la tua password" autocomplete="current-password" required aria-required="true">
+            <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <circle cx="12" cy="16" r="1"></circle>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div id="password-error" class="error-message" aria-live="polite"></div>
+        </div>
+
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="remember" name="remember" class="checkbox-input">
+          <label for="remember" class="checkbox-label">Ricordami per 30 giorni</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Accedi</button>
+      </form>
+
+      <div class="auth-footer">
+        <p class="auth-footer-text">
+          Non hai un <span lang="en">account</span>?
+          <a href="../php/registrazione.php" class="auth-footer-link"><span>Registrati gratuitamente</span></a>
+        </p>
+      </div>
+    </div>
   </div>
+  <!-- FOOTER_PLACEHOLDER -->
 </body>
 </html>
