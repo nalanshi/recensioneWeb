@@ -447,6 +447,38 @@
   color: var(--text-secondary);
 }
 
+@media (width <= 48rem) {
+  .ranking-table thead {
+    display: none;
+  }
+
+  .ranking-table tr {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    border: 0.0625rem solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .ranking-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
+    border: none;
+  }
+
+  .ranking-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .rank-position {
+    width: auto;
+    text-align: left;
+  }
+}
+
 
 
 /* Comment Section */
