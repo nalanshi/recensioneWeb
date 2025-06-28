@@ -96,7 +96,7 @@ foreach ($topReviews as $review) {
     $stars = Utils::generateStars(round($review['avg_rating']));
     $ratingNum = number_format($review['avg_rating'], 1);
     $title = htmlspecialchars($review['product_name']);
-    $altProduct = htmlspecialchars(Utils::truncateAltText($review['product_name']));
+    $altProduct = htmlspecialchars($review['product_name']);
     $rowImg = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='product-image'>" : '';
     $rankClass = '';
     if ($position == 1) { $rankClass = 'gold'; }

@@ -72,7 +72,7 @@ $template = str_replace("<!--AUTHOR_PLACEHOLDER-->", htmlspecialchars($review['u
 $template = str_replace("<!--EMAIL_PLACEHOLDER-->", htmlspecialchars($review['email']), $template);
 $authorPhoto = $review['profile_photo'] ? '../' . $review['profile_photo'] : '../images/icon/user.png';
 $template = str_replace("<!--AUTHOR_PHOTO-->", $authorPhoto, $template);
-$altProduct = htmlspecialchars(Utils::truncateAltText($review['product_name']));
+$altProduct = htmlspecialchars($review['product_name']);
 $template = str_replace('alt="Immagine di <!--PRODUCT_NAME-->"', 'alt="Immagine di ' . $altProduct . '"', $template);
 $template = str_replace("<!--PRODUCT_NAME-->", htmlspecialchars($review['product_name']), $template);
 $ratingHtml = "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>" . Utils::generateStars($review['rating']) . "</div>";
