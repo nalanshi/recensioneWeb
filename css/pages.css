@@ -334,6 +334,7 @@
   padding: var(--spacing-md);
   text-align: left;
   border-bottom: 0.0625rem solid var(--border);
+  vertical-align: middle;
 }
 
 .ranking-table th {
