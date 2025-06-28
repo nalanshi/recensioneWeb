@@ -290,17 +290,14 @@ class ReviewManager {
             $whereClause = implode(' AND ', $whereConditions);
 
             // Query per le recensioni
-            $stmt = $this->db->prepare("
-                SELECT r.id, r.title, r.content, r.rating, r.product_name, 
-                       r.product_image, r.created_at, r.updated_at,
-                       COUNT(rl.id) as likes_count
-                FROM reviews r
-                LEFT JOIN review_likes rl ON r.id = rl.review_id AND rl.deleted_at IS NULL
-                WHERE {$whereClause}
-                GROUP BY r.id
-                ORDER BY r.created_at DESC
-                LIMIT ? OFFSET ?
-            ");
+            $stmt = $this->db->prepare(
+                "SELECT r.id, r.title, r.content, r.rating, r.product_name,
+                        r.product_image, r.created_at, r.updated_at
+                 FROM reviews r
+                 WHERE {$whereClause}
+                 ORDER BY r.created_at DESC
+                 LIMIT ? OFFSET ?"
+            );
 
             $params[] = $limit;
             $params[] = $offset;
