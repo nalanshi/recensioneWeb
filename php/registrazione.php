@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = isset($_POST['username']) ? sanitizeInput($_POST['username']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : ''; // Non sanifichiamo la password
     $confirmPassword = isset($_POST['confirm-password']) ? $_POST['confirm-password'] : '';
-    $terms = isset($_POST['terms']) ? true : false;
 
     // Validazione dei dati
     if (empty($nome)) {
@@ -80,9 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirectWithError("Le password non coincidono.");
     }
 
-    if (!$terms) {
-        redirectWithError("Devi accettare i termini e le condizioni.");
-    }
 
     // Connessione al database
     try {
