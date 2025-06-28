@@ -106,7 +106,7 @@ foreach ($topReviews as $review) {
     $rowsHtml .= "<tr class='ranking-row' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
                  "<td class='rank-position {$rankClass}'>{$position}</td>".
                  "<td class='product-info'>{$rowImg}<div class='product-details'><p class='product-title'>{$title}</p></div></td>".
-                 "<td class='rating-display'><span class='rating-number'>{$ratingNum}</span><div class='rating-stars'>{$stars}</div></td>".
+                 "<td class='rating-display'><div class='rating-container'><span class='rating-number'>{$ratingNum}</span><div class='rating-stars'>{$stars}</div></div></td>".
                  "</tr>";
 
     $position++;

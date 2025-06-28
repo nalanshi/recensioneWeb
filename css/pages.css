@@ -397,7 +397,7 @@
   color: var(--text-secondary);
 }
 
-.rating-display {
+.rating-display .rating-container {
   display: flex;
   flex-direction: row;
   align-items: center;
