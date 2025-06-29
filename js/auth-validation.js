@@ -283,12 +283,6 @@ function validateLoginForm() {
     return false;
   }
   
-  // Mostra stato di caricamento
-  const submitBtn = document.querySelector('.btn-primary');
-  if (submitBtn) {
-    submitBtn.classList.add('btn-loading');
-    submitBtn.disabled = true;
-  }
   
   return true;
 }
@@ -387,18 +381,6 @@ function validateRegistrationForm() {
     return false;
   }
   
-  // Mostra stato di caricamento
-  const submitBtn = document.querySelector('.btn-primary');
-  if (submitBtn) {
-    submitBtn.classList.add('btn-loading');
-    submitBtn.disabled = true;
-  }
-  
-  return true;
-}
-
-// Inizializza quando il DOM è pronto
-document.addEventListener('DOMContentLoaded', function() {
   setupRealTimeValidation();
   
   // Imposta il controllo forza password
