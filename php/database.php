@@ -387,7 +387,7 @@ class ReviewManager {
         try {
             $stmt = $this->db->prepare(
                 "SELECT r.product_name, r.product_image, " .
-                "AVG(c.rating) AS avg_rating, COUNT(c.id) AS review_count, " .
+                "COALESCE(AVG(c.rating), 0) AS avg_rating, COUNT(c.id) AS review_count, " .
                 "MIN(r.id) AS review_id " .
                 "FROM reviews r " .
                 "LEFT JOIN comments c ON r.id = c.review_id " .
