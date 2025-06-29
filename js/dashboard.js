@@ -162,16 +162,12 @@ class DashboardManager {
         // Ricerca e filtri commenti
         const commentSearch = document.getElementById('commentSearch');
         const commentRatingFilter = document.getElementById('commentRatingFilter');
-        const commentDateFilter = document.getElementById('commentDateFilter');
 
         if (commentSearch) {
             commentSearch.addEventListener('input', this.debounce(() => this.loadComments(), 500));
         }
         if (commentRatingFilter) {
             commentRatingFilter.addEventListener('change', () => this.loadComments());
-        }
-        if (commentDateFilter) {
-            commentDateFilter.addEventListener('change', () => this.loadComments());
         }
 
 
@@ -530,7 +526,6 @@ class DashboardManager {
     async loadComments(page = 1) {
         const search = document.getElementById('commentSearch')?.value || '';
         const rating = document.getElementById('commentRatingFilter')?.value || '';
-        const commentDateFilter = document.getElementById('commentDateFilter')?.value || '';
 
         const commentsList = document.getElementById('commentsList');
         const pagination = document.getElementById('commentsPagination');
@@ -546,8 +541,7 @@ class DashboardManager {
             page: page,
             limit: this.commentsPerPage,
             search: search,
-            rating: rating,
-            date_filter: commentDateFilter
+            rating: rating
         });
 
         try {

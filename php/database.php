@@ -486,20 +486,6 @@ class CommentManager {
                 $params[] = $filters['rating'];
             }
 
-            if (!empty($filters['date_filter'])) {
-                switch ($filters['date_filter']) {
-                    case 'week':
-                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
-                        break;
-                    case 'month':
-                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
-                        break;
-                    case 'year':
-                        $where[] = "c.created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
-                        break;
-                }
-            }
-
             $whereClause = implode(' AND ', $where);
 
             $stmt = $this->db->prepare(
