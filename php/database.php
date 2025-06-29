@@ -356,7 +356,8 @@ class ReviewManager {
                 "FROM reviews r " .
                 "JOIN utenti u ON r.user_id = u.id " .
                 "LEFT JOIN comments c ON r.id = c.review_id " .
-                "WHERE r.id = ? AND r.deleted_at IS NULL"
+                "WHERE r.id = ? AND r.deleted_at IS NULL " .
+                "GROUP BY r.id"
             );
             $stmt->execute([$reviewId]);
             return $stmt->fetch();

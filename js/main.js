@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const html = reviews.map(r => {
         const img = r.product_image ? `<img src='../${escapeHtml(r.product_image)}' alt='${escapeHtml(r.product_name)}' class='review-image'>` : '';
         return `<a href='recensione.php?id=${r.id}' class='review-card-main' data-rating='${r.average_rating}' data-product="${escapeHtml(r.product_name)}">` +
-               `<div class='review-content'>` +
+               `<div class='review-content' title='Clicca per visualizzare la recensione del prodotto e i suoi commenti'>` +
                `<div class='review-header'><h3 class='review-title'>${escapeHtml(r.title)}</h3>` +
                `<div class='review-rating' aria-label='Valutazione ${r.average_rating} su 5'>${escapeHtml(r.average_rating)}/5</div></div>` +
                `${img}` +
