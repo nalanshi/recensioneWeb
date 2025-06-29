@@ -26,6 +26,12 @@ if ($endpoint === 'comments') {
     exit;
 }
 
+// Endpoint pubblico per le recensioni
+if ($endpoint === 'public_reviews') {
+    handle_public_reviews();
+    exit;
+}
+
 if (!SessionManager::isLoggedIn()) {
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
@@ -502,6 +508,31 @@ function handle_user_comments($commentManager) {
         }
     } catch (Exception $e) {
         error_log('Errore API user_comments: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
+    }
+}
+
+function handle_public_reviews() {
+    $reviewManager = new ReviewManager();
+    $commentManager = new CommentManager();
+    $page = (int)($_GET['page'] ?? 1);
+    $limit = (int)($_GET['limit'] ?? 20);
+    try {
+        $result = $reviewManager->getAllReviews($page, $limit);
+        if ($result !== false) {
+            foreach ($result['reviews'] as &$review) {
+                $review['formatted_date'] = Utils::formatDate($review['created_at']);
+                $review['average_rating'] = $commentManager->getAverageRatingForReview($review['id']);
+                $review['content_preview'] = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
+            }
+            echo json_encode(['success' => true, 'data' => $result]);
+        } else {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Errore nel recupero delle recensioni']);
+        }
+    } catch (Exception $e) {
+        error_log('Errore API public_reviews: ' . $e->getMessage());
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Errore interno del server']);
     }
