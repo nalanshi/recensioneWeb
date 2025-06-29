@@ -38,7 +38,7 @@
 
         <div class="filter-group">
           <label for="search-filter">Cerca</label>
-          <input type="text" id="search-filter" class="filter-input" placeholder="Cerca recensioni..." aria-label="Cerca recensioni">
+          <input type="text" id="search-filter" class="filter-input" placeholder="Cerca recensioni...">
         </div>
 
         <div class="filter-group">
@@ -46,7 +46,6 @@
           <select id="sort-filter" class="filter-select">
             <option value="recent">Più recenti</option>
             <option value="rating">Valutazione</option>
-            <option value="popular">Più popolari</option>
           </select>
         </div>
       </section>
@@ -55,12 +54,7 @@
         <!--REVIEWS_PLACEHOLDER-->
       </section>
 
-      <!-- Carica Altri -->
-      <div class="load-more">
-        <button class="load-more-btn" id="load-more-btn" tabindex="0" aria-label="Carica altre recensioni">
-          <i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni
-        </button>
-      </div>
+      <div class="pagination" id="reviewsPagination" role="navigation" aria-label="Paginazione"><!--PAGINATION_PLACEHOLDER--></div>
 
       <!-- Messaggio nessuna recensione (nascosto di default) -->
       <div class="no-reviews" id="no-reviews" style="display: none;">
@@ -74,97 +68,6 @@
   <!-- FOOTER_PLACEHOLDER -->
 
   <script src="../js/main.js"></script>
-  <script>
-    // Script per la gestione dei filtri e caricamento dinamico
-    document.addEventListener('DOMContentLoaded', function() {
-        const ratingFilter = document.getElementById('rating-filter');
-        const searchFilter = document.getElementById('search-filter');
-      const sortFilter = document.getElementById('sort-filter');
-      const reviewsGrid = document.getElementById('reviews-grid');
-      const originalReviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
-      const loadMoreBtn = document.getElementById('load-more-btn');
-      const noReviews = document.getElementById('no-reviews');
-
-      // Gestione filtri
-      function applyFilters() {
-          const rating = ratingFilter.value;
-          const search = searchFilter.value.toLowerCase();
-        const sort = sortFilter.value;
-
-        const reviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
-        const visible = [];
-
-        reviews.forEach(review => {
-          let show = true;
-          const revRating = parseFloat(review.dataset.rating) || 0;
-
-          // Filtro rating
-          if (rating && revRating < parseFloat(rating)) {
-            show = false;
-          }
-
-          // Filtro ricerca
-          if (search) {
-            const title = review.querySelector('.review-title').textContent.toLowerCase();
-            const excerpt = review.querySelector('.review-excerpt').textContent.toLowerCase();
-            if (!title.includes(search) && !excerpt.includes(search)) {
-              show = false;
-            }
-          }
-
-          review.style.display = show ? 'block' : 'none';
-          if (show) visible.push(review);
-        });
-
-        if (sort === 'rating') {
-          visible.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
-          visible.forEach(r => reviewsGrid.appendChild(r));
-        } else {
-          originalReviews.forEach(r => {
-            if (r.style.display !== 'none') {
-              reviewsGrid.appendChild(r);
-            }
-          });
-        }
-
-        const visibleCount = visible.length;
-        noReviews.style.display = visibleCount === 0 ? 'block' : 'none';
-        reviewsGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
-      }
-
-      // Event listeners per i filtri
-        ratingFilter.addEventListener('change', applyFilters);
-        searchFilter.addEventListener('input', applyFilters);
-      sortFilter.addEventListener('change', applyFilters);
-
-      // Gestione caricamento altre recensioni
-      loadMoreBtn.addEventListener('click', function() {
-        // Qui si implementerebbe la chiamata AJAX per caricare altre recensioni
-        
-        // Simulazione caricamento
-        this.innerHTML = '<i aria-hidden="true" class="fas fa-spinner fa-spin"></i> Caricamento...';
-        
-        setTimeout(() => {
-          this.innerHTML = '<i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni';
-          // Qui si aggiungerebbero le nuove recensioni al DOM
-        }, 1000);
-      });
-
-      // Gestione click su recensione per aprire dettaglio
-      reviewsGrid.addEventListener('click', function(e) {
-        const reviewCard = e.target.closest('.review-card');
-        if (reviewCard && reviewCard.getAttribute('href')) {
-          window.location.href = reviewCard.getAttribute('href');
-        }
-      });
-      reviewsGrid.addEventListener('keydown', function(e) {
-        if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('review-card')) {
-          e.preventDefault();
-          e.target.click();
-        }
-      });
-    });
-  </script>
 </body>
 </html>
 
