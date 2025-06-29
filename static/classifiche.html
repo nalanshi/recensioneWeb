@@ -23,15 +23,8 @@
     </section>
 
     <div class="rankings-container">
-      <!-- Tabs per le diverse categorie 
-      <div class="rankings-tabs">
-        <button class="tab-button active" data-tab="tecnologia">Tecnologia</button>
-        <button class="tab-button" data-tab="gastronomia">Gastronomia</button>
-        <button class="tab-button" data-tab="casa">Casa e Giardino</button>
-        <button class="tab-button" data-tab="sport">Sport e Fitness</button>
-      </div>
-      -->
-    <div class="tab-content active" id="tecnologia">
+      
+      <div class="tab-content active" id="tecnologia">
         <!-- Classifica Completa -->
         <div class="ranking-section">
           <div class="ranking-header">
@@ -53,50 +46,6 @@
         </div>
       </div>
 
-      <!-- Tab Gastronomia -->
-      <div class="tab-content" id="gastronomia">
-        <div class="ranking-section">
-          <div class="ranking-header">
-            <h2 class="ranking-title">Top Ristoranti</h2>
-            <span class="ranking-period">Gennaio 2025</span>
-          </div>
-          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-            <i aria-hidden="true" class="fas fa-utensils" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
-            Le classifiche gastronomiche saranno disponibili a breve.<br>
-            Stiamo raccogliendo le migliori recensioni dei ristoranti.
-          </p>
-        </div>
-      </div>
-
-      <!-- Tab Casa e Giardino -->
-      <div class="tab-content" id="casa">
-        <div class="ranking-section">
-          <div class="ranking-header">
-            <h2 class="ranking-title">Top Prodotti Casa e Giardino</h2>
-            <span class="ranking-period">Gennaio 2025</span>
-          </div>
-          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-            <i aria-hidden="true" class="fas fa-home" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
-            Le classifiche per casa e giardino saranno disponibili a breve.<br>
-            Stiamo raccogliendo le migliori recensioni dei prodotti.
-          </p>
-        </div>
-      </div>
-
-      <!-- Tab Sport e Fitness -->
-      <div class="tab-content" id="sport">
-        <div class="ranking-section">
-          <div class="ranking-header">
-            <h2 class="ranking-title">Top Prodotti Sport e Fitness</h2>
-            <span class="ranking-period">Gennaio 2025</span>
-          </div>
-          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-            <i aria-hidden="true" class="fas fa-dumbbell" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
-            Le classifiche per sport e fitness saranno disponibili a breve.<br>
-            Stiamo raccogliendo le migliori recensioni dei prodotti.
-          </p>
-        </div>
-      </div>
     </div>
   </main>
 
@@ -104,25 +53,8 @@
 
   <script src="../js/main.js"></script>
   <script>
-    // Script per la gestione dei tab
+    // Script pagina classifiche
     document.addEventListener('DOMContentLoaded', function() {
-      const tabButtons = document.querySelectorAll('.tab-button');
-      const tabContents = document.querySelectorAll('.tab-content');
-
-      tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const targetTab = this.dataset.tab;
-
-          // Rimuovi classe active da tutti i tab
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-
-          // Aggiungi classe active al tab selezionato
-          this.classList.add('active');
-          document.getElementById(targetTab).classList.add('active');
-        });
-      });
-
       // Gestione click su righe della classifica
       const rankingRows = document.querySelectorAll('.ranking-row');
       rankingRows.forEach(row => {
