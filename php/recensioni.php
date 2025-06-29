@@ -91,10 +91,12 @@ if (!SessionManager::isLoggedIn()) {
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
-// Recupero recensioni dal database
+// Recupero recensioni dal database con paginazione
 $reviewManager = new ReviewManager();
 $commentManager = new CommentManager();
-$result = $reviewManager->getAllReviews(1, 20);
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$limit = 20;
+$result = $reviewManager->getAllReviews($page, $limit);
 $reviewsHtml = '';
 if ($result !== false) {
     foreach ($result['reviews'] as $review) {
@@ -116,8 +118,45 @@ if ($result !== false) {
                         "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
                         "</div></a>";
     }
+
+    $totalPages = $result['total_pages'];
+    $paginationHtml = '';
+    if ($totalPages > 1) {
+        if ($page > 1) {
+            $prev = $page - 1;
+            $paginationHtml .= "<a href='?page={$prev}' class='pagination-btn' aria-label='Pagina precedente'><i aria-hidden='true' class='fas fa-chevron-left'></i></a>";
+        }
+
+        $startPage = max(1, $page - 2);
+        $endPage = min($totalPages, $page + 2);
+
+        if ($startPage > 1) {
+            $paginationHtml .= "<a href='?page=1' class='pagination-btn'>1</a>";
+            if ($startPage > 2) {
+                $paginationHtml .= "<span class='pagination-dots'>...</span>";
+            }
+        }
+
+        for ($i = $startPage; $i <= $endPage; $i++) {
+            $active = $i === $page ? 'active' : '';
+            $paginationHtml .= "<a href='?page={$i}' class='pagination-btn {$active}'>{$i}</a>";
+        }
+
+        if ($endPage < $totalPages) {
+            if ($endPage < $totalPages - 1) {
+                $paginationHtml .= "<span class='pagination-dots'>...</span>";
+            }
+            $paginationHtml .= "<a href='?page={$totalPages}' class='pagination-btn'>{$totalPages}</a>";
+        }
+
+        if ($page < $totalPages) {
+            $next = $page + 1;
+            $paginationHtml .= "<a href='?page={$next}' class='pagination-btn' aria-label='Pagina successiva'><i aria-hidden='true' class='fas fa-chevron-right'></i></a>";
+        }
+    }
 }
 $DOM = str_replace('<!--REVIEWS_PLACEHOLDER-->', $reviewsHtml, $DOM);
+$DOM = str_replace('<!--PAGINATION_PLACEHOLDER-->', $paginationHtml, $DOM);
 
 // Output della pagina
 echo $DOM;
