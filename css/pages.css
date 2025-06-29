@@ -363,29 +363,12 @@
   text-align: center;
 }
 
-.rank-position.gold {
-  color: #FFD700;
-}
-
-.rank-position.silver {
-  color: #C0C0C0;
-}
-
-.rank-position.bronze {
-  color: #CD7F32;
-}
 
 .product-info {
   align-items: center;
   gap: var(--spacing-md);
 }
 
-.product-image {
-  width: 3.75rem;
-  height: 3.75rem;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-}
 
 .product-details h4 {
   margin: 0 0 0.25rem;

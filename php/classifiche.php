@@ -96,16 +96,10 @@ foreach ($topReviews as $review) {
     $stars = Utils::generateStars(round($review['avg_rating']));
     $ratingNum = number_format($review['avg_rating'], 1);
     $title = htmlspecialchars($review['product_name']);
-    $altProduct = htmlspecialchars($review['product_name']);
-    $rowImg = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='product-image'>" : '';
-    $rankClass = '';
-    if ($position == 1) { $rankClass = 'gold'; }
-    elseif ($position == 2) { $rankClass = 'silver'; }
-    elseif ($position == 3) { $rankClass = 'bronze'; }
 
     $rowsHtml .= "<tr class='ranking-row' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
-                 "<td class='rank-position {$rankClass}' data-label='Pos.'>{$position}</td>".
-                 "<td class='product-info' data-label='Prodotto'>{$rowImg}<div class='product-details'><p class='product-title'>{$title}</p></div></td>".
+                 "<td class='rank-position' data-label='Pos.'>{$position}</td>".
+                 "<td class='product-info' data-label='Prodotto'><p class='product-title'>{$title}</p></td>".
                  "<td class='rating-display' data-label='Valutazione'><div class='rating-container'><span class='rating-number'>{$ratingNum}</span><div class='rating-stars'>{$stars}</div></div></td>".
                  "</tr>";
 
