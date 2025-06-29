@@ -28,40 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  const userMenus = document.querySelectorAll('.user-menu');
-  if (userMenus.length) {
-    userMenus.forEach((menu) => {
-      const panel = menu.querySelector('.user-menu-panel');
-      if (!panel) return;
-
-      menu.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = panel.classList.toggle('open');
-        menu.setAttribute('aria-expanded', isOpen);
-        panel.setAttribute('aria-hidden', !isOpen);
-      });
-
-      menu.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          menu.click();
-        }
-      });
-    });
-
-    document.addEventListener('click', () => {
-      userMenus.forEach((menu) => {
-        const panel = menu.querySelector('.user-menu-panel');
-        if (panel && panel.classList.contains('open')) {
-          panel.classList.remove('open');
-          menu.setAttribute('aria-expanded', 'false');
-          panel.setAttribute('aria-hidden', 'true');
-        }
-      });
-    });
-  }
-
   const commentForm = document.getElementById('comment-form');
   if (commentForm) {
     commentForm.addEventListener('submit', async (e) => {
