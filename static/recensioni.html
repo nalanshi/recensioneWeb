@@ -46,7 +46,6 @@
           <select id="sort-filter" class="filter-select">
             <option value="recent">Più recenti</option>
             <option value="rating">Valutazione</option>
-            <option value="popular">Più popolari</option>
           </select>
         </div>
       </section>
@@ -81,7 +80,7 @@
         const searchFilter = document.getElementById('search-filter');
       const sortFilter = document.getElementById('sort-filter');
       const reviewsGrid = document.getElementById('reviews-grid');
-      const originalReviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
+      const originalReviews = Array.from(reviewsGrid.querySelectorAll('.review-card-main'));
       const loadMoreBtn = document.getElementById('load-more-btn');
       const noReviews = document.getElementById('no-reviews');
 
@@ -91,7 +90,7 @@
           const search = searchFilter.value.toLowerCase();
         const sort = sortFilter.value;
 
-        const reviews = Array.from(reviewsGrid.querySelectorAll('.review-card'));
+        const reviews = Array.from(reviewsGrid.querySelectorAll('.review-card-main'));
         const visible = [];
 
         reviews.forEach(review => {
@@ -105,9 +104,8 @@
 
           // Filtro ricerca
           if (search) {
-            const title = review.querySelector('.review-title').textContent.toLowerCase();
-            const excerpt = review.querySelector('.review-excerpt').textContent.toLowerCase();
-            if (!title.includes(search) && !excerpt.includes(search)) {
+            const product = (review.dataset.product || '').toLowerCase();
+            if (!product.includes(search)) {
               show = false;
             }
           }
@@ -152,13 +150,13 @@
 
       // Gestione click su recensione per aprire dettaglio
       reviewsGrid.addEventListener('click', function(e) {
-        const reviewCard = e.target.closest('.review-card');
+        const reviewCard = e.target.closest('.review-card-main');
         if (reviewCard && reviewCard.getAttribute('href')) {
           window.location.href = reviewCard.getAttribute('href');
         }
       });
       reviewsGrid.addEventListener('keydown', function(e) {
-        if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('review-card')) {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('review-card-main')) {
           e.preventDefault();
           e.target.click();
         }
