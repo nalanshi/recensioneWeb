@@ -82,7 +82,8 @@ $template = str_replace("<!--AUTHOR_PHOTO-->", $authorPhoto, $template);
 $altProduct = htmlspecialchars($review['product_name']);
 $template = str_replace('alt="Immagine di <!--PRODUCT_NAME-->"', 'alt="Immagine di ' . $altProduct . '"', $template);
 $template = str_replace("<!--PRODUCT_NAME-->", htmlspecialchars($review['product_name']), $template);
-$ratingHtml = "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>" . Utils::generateStars($review['rating']) . "</div>";
+$ratingValue = $commentManager->getAverageRatingForReview($reviewId);
+$ratingHtml = "<div class='review-rating' aria-label='Valutazione {$ratingValue} su 5'>" . Utils::generateStars($ratingValue) . "</div>";
 $template = str_replace("<!--RATING_HTML-->", $ratingHtml, $template);
 $date = Utils::formatDate($review['created_at']);
 $template = str_replace("<!--DATE_PLACEHOLDER-->", $date, $template);
@@ -94,10 +95,10 @@ $template = str_replace("<!--ID_PLACEHOLDER-->", $reviewId, $template);
 $opinioneTitle = $userComment ? 'Questa è la tua opinione' : 'Lascia la tua opinione';
 $template = str_replace('Lascia la tua opinione', $opinioneTitle, $template);
 
-$star = $userComment['star'] ?? 1;
+$rating = $userComment['rating'] ?? 1;
 $options = '';
 for ($i = 5; $i >= 1; $i--) {
-    $selected = $star == $i ? ' selected' : '';
+    $selected = $rating == $i ? ' selected' : '';
     $options .= "<option value='{$i}'{$selected}>{$i}</option>";
 }
 $template = str_replace('<!--STAR_OPTIONS-->', $options, $template);
@@ -109,18 +110,18 @@ $template = str_replace('>Invia<', ">{$buttonText}<", $template);
 
 if ($userComment) {
     $commentDate = Utils::formatDate($userComment['created_at']);
-    $starsHtml = Utils::generateStars($userComment['star']);
-    $commentInfo = "<div class='comment'><div class='comment-author'>{$_SESSION['username']}</div><div class='comment-email'>{$email}</div><div class='comment-rating' aria-label='Valutazione {$userComment['star']} su 5'>{$starsHtml}</div><p class='comment-content'>" . htmlspecialchars($userComment['content']) . "</p><div class='comment-date'>{$commentDate}</div></div>";
+    $starsHtml = Utils::generateStars($userComment['rating']);
+    $commentInfo = "<div class='comment'><div class='comment-author'>{$_SESSION['username']}</div><div class='comment-email'>{$email}</div><div class='comment-rating' aria-label='Valutazione {$userComment['rating']} su 5'>{$starsHtml}</div><p class='comment-content'>" . htmlspecialchars($userComment['content']) . "</p><div class='comment-date'>{$commentDate}</div></div>";
     $template = str_replace('<div id="user-comment-info"></div>', $commentInfo, $template);
 }
 
 $commentsHtml = '';
 foreach ($comments as $c) {
     $date = Utils::formatDate($c['created_at']);
-    $stars = Utils::generateStars($c['star']);
+    $stars = Utils::generateStars($c['rating']);
     $commentsHtml .= "<div class='comment'><div class='comment-author'>".htmlspecialchars($c['username'])."</div>".
                      "<div class='comment-email'>".htmlspecialchars($c['email'])."</div>".
-                     "<div class='comment-rating' aria-label='Valutazione {$c['star']} su 5'>{$stars}</div>".
+                     "<div class='comment-rating' aria-label='Valutazione {$c['rating']} su 5'>{$stars}</div>".
                      "<p class='comment-content'>".htmlspecialchars($c['content'])."</p>".
                      "<div class='comment-date'>{$date}</div></div>";
 }

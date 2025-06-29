@@ -202,14 +202,13 @@ class ReviewManager {
     public function createReview($userId, $data) {
         try {
             $stmt = $this->db->prepare(
-                "INSERT INTO reviews (user_id, title, content, rating, product_name, product_image, created_at) " .
-                "VALUES (?, ?, ?, ?, ?, ?, NOW())"
+                "INSERT INTO reviews (user_id, title, content, product_name, product_image, created_at) " .
+                "VALUES (?, ?, ?, ?, ?, NOW())"
             );
             return $stmt->execute([
                 $userId,
                 $data['title'],
                 $data['content'],
-                $data['rating'],
                 $data['product_name'],
                 $data['product_image']
             ]);
@@ -238,10 +237,6 @@ class ReviewManager {
                 $params[] = $searchTerm;
             }
 
-            if (!empty($filters['rating'])) {
-                $whereConditions[] = "r.rating = ?";
-                $params[] = $filters['rating'];
-            }
 
             if (!empty($filters['date_filter'])) {
                 switch ($filters['date_filter']) {
@@ -261,10 +256,13 @@ class ReviewManager {
 
             // Query per le recensioni
             $stmt = $this->db->prepare(
-                "SELECT r.id, r.title, r.content, r.rating, r.product_name,
-                        r.product_image, r.created_at, r.updated_at
+                "SELECT r.id, r.title, r.content, r.product_name,
+                        r.product_image, r.created_at, r.updated_at,
+                        AVG(c.rating) AS rating
                  FROM reviews r
+                 LEFT JOIN comments c ON r.id = c.review_id
                  WHERE {$whereClause}
+                 GROUP BY r.id
                  ORDER BY r.created_at DESC
                  LIMIT ? OFFSET ?"
             );
@@ -322,21 +320,19 @@ class ReviewManager {
     public function updateReview($reviewId, $data, $userId = null) {
         try {
             if ($userId === null) {
-                $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, rating = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND deleted_at IS NULL");
+                $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND deleted_at IS NULL");
                 return $stmt->execute([
                     $data['title'],
                     $data['content'],
-                    $data['rating'],
                     $data['product_name'],
                     $data['product_image'],
                     $reviewId
                 ]);
             }
-            $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, rating = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
+            $stmt = $this->db->prepare("UPDATE reviews SET title = ?, content = ?, product_name = ?, product_image = ?, updated_at = NOW() WHERE id = ? AND user_id = ? AND deleted_at IS NULL");
             return $stmt->execute([
                 $data['title'],
                 $data['content'],
-                $data['rating'],
                 $data['product_name'],
                 $data['product_image'],
                 $reviewId,
@@ -353,7 +349,13 @@ class ReviewManager {
      */
     public function getReviewById($reviewId) {
         try {
-            $stmt = $this->db->prepare("SELECT r.*, u.username, u.email, u.profile_photo FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.id = ? AND r.deleted_at IS NULL");
+            $stmt = $this->db->prepare(
+                "SELECT r.*, u.username, u.email, u.profile_photo, AVG(c.rating) AS rating " .
+                "FROM reviews r " .
+                "JOIN utenti u ON r.user_id = u.id " .
+                "LEFT JOIN comments c ON r.id = c.review_id " .
+                "WHERE r.id = ? AND r.deleted_at IS NULL"
+            );
             $stmt->execute([$reviewId]);
             return $stmt->fetch();
         } catch (PDOException $e) {
@@ -364,7 +366,7 @@ class ReviewManager {
     public function getAllReviews($page = 1, $limit = 10) {
         try {
             $offset = ($page - 1) * $limit;
-            $stmt = $this->db->prepare("SELECT r.id, r.title, r.content, r.rating, r.product_name, r.product_image, r.created_at, r.updated_at, u.username FROM reviews r JOIN utenti u ON r.user_id = u.id WHERE r.deleted_at IS NULL ORDER BY r.created_at DESC LIMIT ? OFFSET ?");
+            $stmt = $this->db->prepare("SELECT r.id, r.title, r.content, r.product_name, r.product_image, r.created_at, r.updated_at, u.username, AVG(c.rating) AS rating FROM reviews r JOIN utenti u ON r.user_id = u.id LEFT JOIN comments c ON r.id = c.review_id WHERE r.deleted_at IS NULL GROUP BY r.id ORDER BY r.created_at DESC LIMIT ? OFFSET ?");
             $stmt->execute([$limit, $offset]);
             $reviews = $stmt->fetchAll();
             $count = $this->db->query("SELECT COUNT(*) as total FROM reviews WHERE deleted_at IS NULL")->fetch()['total'];
@@ -382,10 +384,10 @@ class ReviewManager {
         try {
             $stmt = $this->db->prepare(
                 "SELECT r.product_name, r.product_image, " .
-                "AVG(r.rating) AS avg_rating, COUNT(*) AS review_count, " .
-                "(SELECT r2.id FROM reviews r2 WHERE r2.product_name = r.product_name AND r2.deleted_at IS NULL " .
-                "ORDER BY r2.rating DESC, r2.created_at DESC LIMIT 1) AS review_id " .
+                "AVG(c.rating) AS avg_rating, COUNT(c.id) AS review_count, " .
+                "MIN(r.id) AS review_id " .
                 "FROM reviews r " .
+                "LEFT JOIN comments c ON r.id = c.review_id " .
                 "WHERE r.deleted_at IS NULL " .
                 "GROUP BY r.product_name, r.product_image " .
                 "ORDER BY avg_rating DESC, review_count DESC " .
@@ -414,18 +416,18 @@ class CommentManager {
     /**
      * Crea un nuovo commento
      */
-    public function createComment($reviewId, $username, $email, $star, $content) {
+    public function createComment($reviewId, $username, $email, $rating, $content) {
         try {
             // Verifica se esiste già un commento dello stesso utente per la stessa recensione
             $check = $this->db->prepare("SELECT id FROM comments WHERE review_id = ? AND username = ?");
             $check->execute([$reviewId, $username]);
             if ($existing = $check->fetch()) {
-                $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ?, created_at = NOW() WHERE id = ?");
-                return $stmt->execute([$star, $content, $existing['id']]);
+                $stmt = $this->db->prepare("UPDATE comments SET rating = ?, content = ?, created_at = NOW() WHERE id = ?");
+                return $stmt->execute([$rating, $content, $existing['id']]);
             }
 
-            $stmt = $this->db->prepare("INSERT INTO comments (review_id, username, email, star, content, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
-            return $stmt->execute([$reviewId, $username, $email, $star, $content]);
+            $stmt = $this->db->prepare("INSERT INTO comments (review_id, username, email, rating, content, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+            return $stmt->execute([$reviewId, $username, $email, $rating, $content]);
         } catch (PDOException $e) {
             error_log('Errore createComment: ' . $e->getMessage());
             return false;
@@ -437,7 +439,7 @@ class CommentManager {
      */
     public function getComments($reviewId, $limit = null) {
         try {
-            $sql = "SELECT username, email, star, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
+            $sql = "SELECT username, email, rating, content, created_at FROM comments WHERE review_id = ? ORDER BY created_at DESC";
             if ($limit) {
                 $sql .= " LIMIT " . intval($limit);
             }
@@ -455,7 +457,7 @@ class CommentManager {
      */
     public function getUserCommentForReview($reviewId, $username) {
         try {
-            $stmt = $this->db->prepare("SELECT id, star, content, created_at FROM comments WHERE review_id = ? AND username = ?");
+            $stmt = $this->db->prepare("SELECT id, rating, content, created_at FROM comments WHERE review_id = ? AND username = ?");
             $stmt->execute([$reviewId, $username]);
             return $stmt->fetch();
         } catch (PDOException $e) {
@@ -482,14 +484,14 @@ class CommentManager {
             }
 
             if (!empty($filters['rating'])) {
-                $where[] = "c.star = ?";
+                $where[] = "c.rating = ?";
                 $params[] = $filters['rating'];
             }
 
             $whereClause = implode(' AND ', $where);
 
             $stmt = $this->db->prepare(
-                "SELECT c.id, c.review_id, c.star, c.content, c.created_at, r.title
+                "SELECT c.id, c.review_id, c.rating, c.content, c.created_at, r.title
                  FROM comments c
                  JOIN reviews r ON c.review_id = r.id
                  WHERE {$whereClause}
@@ -529,11 +531,11 @@ class CommentManager {
     public function updateComment($commentId, $data, $username = null) {
         try {
             if ($username === null) {
-                $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ?");
-                return $stmt->execute([$data['star'], $data['content'], $commentId]);
+                $stmt = $this->db->prepare("UPDATE comments SET rating = ?, content = ? WHERE id = ?");
+                return $stmt->execute([$data['rating'], $data['content'], $commentId]);
             }
-            $stmt = $this->db->prepare("UPDATE comments SET star = ?, content = ? WHERE id = ? AND username = ?");
-            $stmt->execute([$data['star'], $data['content'], $commentId, $username]);
+            $stmt = $this->db->prepare("UPDATE comments SET rating = ?, content = ? WHERE id = ? AND username = ?");
+            $stmt->execute([$data['rating'], $data['content'], $commentId, $username]);
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             error_log('Errore updateComment: ' . $e->getMessage());
@@ -566,7 +568,7 @@ class CommentManager {
     public function getAverageRatingForProduct($productName) {
         try {
             $stmt = $this->db->prepare(
-                "SELECT AVG(c.star) AS avg_rating FROM comments c " .
+                "SELECT AVG(c.rating) AS avg_rating FROM comments c " .
                 "JOIN reviews r ON c.review_id = r.id " .
                 "WHERE r.product_name = ? AND r.deleted_at IS NULL"
             );
@@ -575,6 +577,18 @@ class CommentManager {
             return $row && $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 2) : 0;
         } catch (PDOException $e) {
             error_log('Errore getAverageRatingForProduct: ' . $e->getMessage());
+            return 0;
+        }
+    }
+
+    public function getAverageRatingForReview($reviewId) {
+        try {
+            $stmt = $this->db->prepare("SELECT AVG(rating) AS avg_rating FROM comments WHERE review_id = ?");
+            $stmt->execute([$reviewId]);
+            $row = $stmt->fetch();
+            return $row && $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 2) : 0;
+        } catch (PDOException $e) {
+            error_log('Errore getAverageRatingForReview: ' . $e->getMessage());
             return 0;
         }
     }
@@ -775,15 +789,15 @@ class Utils {
      * Genera stelle per il rating
      */
     public static function generateStars($rating) {
-        $stars = '';
+        $ratings = '';
         for ($i = 1; $i <= 5; $i++) {
             if ($i <= $rating) {
-                $stars .= '<i class="fas fa-star star"></i>';
+                $ratings .= '<i class="fas fa-rating rating"></i>';
             } else {
-                $stars .= '<i class="fas fa-star star empty"></i>';
+                $ratings .= '<i class="fas fa-rating rating empty"></i>';
             }
         }
-        return $stars;
+        return $ratings;
     }
 
     /**
@@ -799,9 +813,9 @@ class Utils {
  * Gestione delle sessioni
  */
 class SessionManager {
-    public static function start() {
+    public static function ratingt() {
         if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+            session_ratingt();
         }
     }
 

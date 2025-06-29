@@ -581,7 +581,7 @@ class DashboardManager {
         const reviewsHTML = data.comments.map(comment => `
             <div class="review-item" data-comment-id="${comment.id}"
                  data-content="${this.escapeHtml(comment.content)}"
-                 data-rating="${comment.star}"
+                 data-rating="${comment.rating}"
                  data-title="${this.escapeHtml(comment.title)}">
                 <div class="review-content">
                     <div class="review-header">
