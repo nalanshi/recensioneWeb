@@ -122,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "  <span class='login-text'>Home</span>\n" .
         "</a>";
     $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $homeLink, $header);
+    $header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
 
     $template = file_get_contents("../static/login.html");
     $template = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $template);

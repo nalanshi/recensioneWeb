@@ -59,7 +59,6 @@ $footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', 
       $DOM = preg_replace('/<!--\s*Sezione pericolosa\s*-->.*?<\\/div>\s*/s', '', $DOM);
   }
 
-$DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
 
 $username = $_SESSION['username'];
@@ -86,7 +85,9 @@ $icon = $profilePhoto ? "<img src='../{$profilePhoto}' alt='Foto profilo di {$us
           <a href='logout.php'><span lang='en'>Logout</span></a>
         </div>
     </details>";
-$DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
+$header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $header);
+$header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
+$DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 
 $userData = $userManager->getUserById(SessionManager::getUserId());
 if ($userData) {

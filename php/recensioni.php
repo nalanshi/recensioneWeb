@@ -35,8 +35,7 @@ $DOM = file_get_contents("../static/recensioni.html");
 $cssBase = dirname($_SERVER['PHP_SELF']) === '/' ? 'css/' : '../css/';
 $DOM = str_replace("../css/style.css", $cssBase . 'style.css', $DOM);
 $DOM = str_replace("../css/pages.css", $cssBase . 'pages.css', $DOM);
-// Inserimento header e footer
-$DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
+// Inserimento del footer immediato; l'header sarà aggiunto dopo
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
 
 // Personalizzazione del contenuto in base allo stato di login
@@ -91,7 +90,9 @@ if (!SessionManager::isLoggedIn()) {
 
 // Sostituzione dei placeholder nel template
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
-$DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
+$header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $header);
+$header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
+$DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $filters = [

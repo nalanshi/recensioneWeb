@@ -50,7 +50,9 @@ if (!SessionManager::isLoggedIn()) {
                        "</div>\n".
                        "</details>";
 }
+
 $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $header);
+$header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
 
 $template = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $template);
 $template = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $template);
