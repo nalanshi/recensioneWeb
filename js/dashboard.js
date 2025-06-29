@@ -19,17 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const section = link.dataset.section;
-      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-      document.getElementById(`${section}-section`)?.classList.add('active');
-      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-      link.closest('.nav-item')?.classList.add('active');
-      history.pushState({section}, '', `#${section}`);
-    });
-  });
 
   document.getElementById('editCommentModalClose')?.addEventListener('click', () => closeModal('editCommentModal'));
   document.getElementById('cancelEditCommentBtn')?.addEventListener('click', () => closeModal('editCommentModal'));

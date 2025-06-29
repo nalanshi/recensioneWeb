@@ -21,6 +21,18 @@ if (SessionManager::isLoggedIn()) {
 $userManager = new UserManager();
 $commentManager = new CommentManager();
 
+$activePage = 'profilo';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['page'])) {
+    $activePage = $_POST['page'];
+} elseif (isset($_GET['page']) && !is_numeric($_GET['page'])) {
+    $activePage = $_GET['page'];
+} elseif (isset($_GET['section'])) {
+    $activePage = $_GET['section'];
+}
+if ($activePage !== 'commenti') {
+    $activePage = 'profilo';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     if ($action === 'profile') {
@@ -33,19 +45,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'birth_year' => (int)($_POST['birthYear'] ?? 0)
         ];
         $userManager->updateProfile(SessionManager::getUserId(), $data);
-        header('Location: dashboard.php');
+        header('Location: dashboard.php?page=profilo');
         exit();
     } elseif ($action === 'password') {
         $userManager->changePassword(SessionManager::getUserId(), $_POST['currentPassword'] ?? '', $_POST['newPassword'] ?? '');
-        header('Location: dashboard.php');
+        header('Location: dashboard.php?page=profilo');
         exit();
     } elseif ($action === 'edit_comment') {
         $commentManager->updateComment((int)($_POST['comment_id'] ?? 0), ['rating'=>(int)($_POST['rating'] ?? 1),'content'=>trim($_POST['content'] ?? '')], $_SESSION['username']);
-        header('Location: dashboard.php?section=commenti');
+        header('Location: dashboard.php?page=commenti');
         exit();
     } elseif ($action === 'delete_comment') {
         $commentManager->deleteComment((int)$_POST['delete_comment'], $_SESSION['username']);
-        header('Location: dashboard.php?section=commenti');
+        header('Location: dashboard.php?page=commenti');
         exit();
     }
 }
@@ -118,12 +130,12 @@ if ($userData) {
     $DOM = str_replace('<select id="birthYear" name="birthYear"></select>', '<select id="birthYear" name="birthYear">'.$yearOptions.'</select>', $DOM);
 }
 
-$page = isset($_GET['page']) ? max(1,(int)$_GET['page']) : 1;
+$commentPage = isset($_GET['p']) ? max(1,(int)$_GET['p']) : 1;
 $filters = [
     'search' => trim($_GET['search'] ?? ''),
     'rating' => (int)($_GET['rating'] ?? 0)
 ];
-$comments = $commentManager->getUserComments($_SESSION['username'],$page,10,$filters);
+$comments = $commentManager->getUserComments($_SESSION['username'],$commentPage,10,$filters);
 $commentsHtml = '';
 if ($comments && !empty($comments['comments'])) {
     foreach ($comments['comments'] as $c) {
@@ -135,7 +147,7 @@ if ($comments && !empty($comments['comments'])) {
                          "<div class='review-rating'>{$stars}</div>".
                          "<p class='review-text'>".htmlspecialchars($c['content'])."</p>".
                          "<div class='review-actions'><button type='button' class='btn-action edit-comment-btn'>Modifica</button>".
-                         "<form method='post' style='display:inline'><input type='hidden' name='delete_comment' value='{$c['id']}'><input type='hidden' name='action' value='delete_comment'><button type='submit' class='btn-action btn-danger'>Elimina</button></form></div>".
+                         "<form method='post' style='display:inline'><input type='hidden' name='delete_comment' value='{$c['id']}'><input type='hidden' name='action' value='delete_comment'><input type='hidden' name='page' value='commenti'><button type='submit' class='btn-action btn-danger'>Elimina</button></form></div>".
                          "</div></div>";
     }
 }
@@ -144,10 +156,10 @@ $DOM = str_replace('<!--COMMENTS_PLACEHOLDER-->', $commentsHtml, $DOM);
 $paginationHtml = '';
 if ($comments && $comments['total_pages'] > 1) {
     $total=$comments['total_pages'];$current=$comments['page'];
-    $base='search='.urlencode($filters['search']).'&rating='.$filters['rating'];
-    if ($current>1){$paginationHtml.='<a class="pagination-btn" href="?page='.($current-1).'&'.$base.'">&laquo;</a>';}
-    for($i=1;$i<=$total;$i++){ $class=$i==$current?'pagination-btn active':'pagination-btn'; $paginationHtml.='<a class="'.$class.'" href="?page='.$i.'&'.$base.'">'.$i.'</a>'; }
-    if($current<$total){$paginationHtml.='<a class="pagination-btn" href="?page='.($current+1).'&'.$base.'">&raquo;</a>';}
+    $base='page=commenti&search='.urlencode($filters['search']).'&rating='.$filters['rating'];
+    if ($current>1){$paginationHtml.='<a class="pagination-btn" href="?p='.($current-1).'&'.$base.'">&laquo;</a>';}
+    for($i=1;$i<=$total;$i++){ $class=$i==$current?'pagination-btn active':'pagination-btn'; $paginationHtml.='<a class="'.$class.'" href="?p='.$i.'&'.$base.'">'.$i.'</a>'; }
+    if($current<$total){$paginationHtml.='<a class="pagination-btn" href="?p='.($current+1).'&'.$base.'">&raquo;</a>';}
 }
 $DOM = str_replace('<!--PAGINATION_PLACEHOLDER-->', $paginationHtml, $DOM);
 
@@ -157,6 +169,11 @@ if ($filters['search'] !== '') {
 if ($filters['rating']) {
     $DOM = str_replace('value="'.$filters['rating'].'">', 'value="'.$filters['rating'].'" selected>', $DOM);
 }
+
+$DOM = preg_replace('/<li class="nav-item(?: active)?">\s*<a href="#profilo"/', '<li class="nav-item'.($activePage==='profilo'?' active':'').'"><a href="#profilo"', $DOM);
+$DOM = preg_replace('/<li class="nav-item(?: active)?">\s*<a href="#commenti"/', '<li class="nav-item'.($activePage==='commenti'?' active':'').'"><a href="#commenti"', $DOM);
+$DOM = preg_replace('/id="profilo-section" class="content-section(?: active)?"/', 'id="profilo-section" class="content-section'.($activePage==='profilo'?' active':'').'"', $DOM);
+$DOM = preg_replace('/id="commenti-section" class="content-section(?: active)?"/', 'id="commenti-section" class="content-section'.($activePage==='commenti'?' active':'').'"', $DOM);
 
 echo $DOM;
 
