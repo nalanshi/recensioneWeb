@@ -158,8 +158,15 @@ a {
   transition: var(--transition);
 }
 
+a span {
+  text-decoration: none;
+}
+
 a:hover {
   color: var(--secondary-agid);
+}
+
+a:hover span {
   text-decoration: underline;
 }
 
@@ -467,6 +474,11 @@ nav {
 .user-menu-panel a[aria-current="page"] {
   pointer-events: none;
   cursor: default;
+}
+
+.nav-links a[aria-current="page"] span,
+.logo-link[aria-current="page"] span,
+.user-menu-panel a[aria-current="page"] span {
   text-decoration: underline;
 }
 
