@@ -883,7 +883,8 @@ class Utils {
         $dom->loadHTML('<?xml encoding="UTF-8">' . $header, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         foreach ($dom->getElementsByTagName('a') as $link) {
             $href = $link->getAttribute('href');
-            if ($href && basename(parse_url($href, PHP_URL_PATH)) === $currentPage) {
+            $path = $href ? parse_url($href, PHP_URL_PATH) : null;
+            if ($path !== null && basename($path) === $currentPage) {
                 $link->setAttribute('aria-current', 'page');
                 $link->removeAttribute('href');
             }
