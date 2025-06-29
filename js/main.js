@@ -89,7 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadReviews(page = 1) {
       reviewsPage = page;
-      history.replaceState(null, '', `?page=${page}`);
+      const baseUrl = window.location.pathname;
+      if (page > 1) {
+        history.replaceState(null, '', `?page=${page}`);
+      } else {
+        history.replaceState(null, '', baseUrl);
+      }
       if (reviewsGrid) {
         reviewsGrid.innerHTML = `\n        <div class="list-loading" role="status" aria-live="polite">\n          <span class="spinner" aria-hidden="true"></span> Caricamento in corso...\n        </div>`;
       }

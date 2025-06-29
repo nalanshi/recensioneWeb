@@ -829,6 +829,7 @@ nav {
 footer {
   background: linear-gradient(135deg, #004080, #001933);
   color: var(--text-light, #FFFFFF);
+  font-weight: bold;
   padding: calc(var(--spacing-lg, 2rem) / 2) 0 calc(var(--spacing-md, 1.5rem) / 2);
   margin-top: var(--spacing-lg, 2rem);
   position: relative;
