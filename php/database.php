@@ -26,8 +26,6 @@ class DatabaseConfig {
 
             $pdo = new PDO($dsn, self::$username, self::$password, $options);
 
-            // self::printDatabaseTables($pdo);
-            // Disabilitato per evitare output HTML che compromette le API
 
             return $pdo;
         } catch (PDOException $e) {
@@ -35,34 +33,6 @@ class DatabaseConfig {
             throw new Exception("Errore di connessione al database");
         }
     }
-
-    /**
-     * Stampa tutte le tabelle presenti nel database
-     */
-    private static function printDatabaseTables($pdo) {
-        try {
-            // Query per ottenere tutte le tabelle nel database MySQL
-            $stmt = $pdo->query("
-                SELECT table_name 
-                FROM information_schema.tables 
-                WHERE table_schema = '" . self::$dbname . "' 
-                ORDER BY table_name
-            ");
-
-            $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-            echo "<h2>Tabelle presenti nel database:</h2>";
-            echo "<ul>";
-            foreach ($tables as $table) {
-                echo "<li>" . htmlspecialchars($table) . "</li>";
-            }
-            echo "</ul>";
-        } catch (PDOException $e) {
-            error_log("Errore durante l'elenco delle tabelle: " . $e->getMessage());
-            echo "<p>Impossibile elencare le tabelle del database.</p>";
-        }
-    }
-}
 
 /**
  * Classe per la gestione degli utenti
