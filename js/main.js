@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const noReviews = document.getElementById('no-reviews');
     const reviewsPerPage = 20;
     let reviewsPage = 1;
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialPage = parseInt(urlParams.get('page'), 10);
+    if (!isNaN(initialPage) && initialPage > 1) {
+      reviewsPage = initialPage;
+    }
     let currentReviews = [];
 
     function escapeHtml(text) {
@@ -118,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function loadReviews(page = 1) {
       reviewsPage = page;
+      history.replaceState(null, '', `?page=${page}`);
       if (reviewsGrid) {
         reviewsGrid.innerHTML = `\n        <div class="list-loading" role="status" aria-live="polite">\n          <span class="spinner" aria-hidden="true"></span> Caricamento in corso...\n        </div>`;
       }
@@ -213,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchFilter) searchFilter.addEventListener('input', displayReviews);
     if (sortFilter) sortFilter.addEventListener('change', displayReviews);
 
-    loadReviews();
+    loadReviews(reviewsPage);
   }
 
   // Disable navigation link for the current page
