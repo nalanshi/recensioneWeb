@@ -114,15 +114,28 @@ if ($result !== false) {
         $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
-        $reviewsHtml .= "<a href='php/recensione.php?id={$review['id']}' class='review-card-main' title='Clicca per visualizzare la recensione del prodotto'>" .
-                         $img .
-                         "<div class='review-content'>" .
-                         "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
-                         "<div class='review-rating' aria-label='Valutazione {$avgRating} su 5'>{$stars}</div></div>" .
-                         "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
-                         "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
-                         "</div></a>";
-    }
+        $reviewsHtml .= "
+                        <li class='reviews-card' title ='Clicca per visualizzare recensione'>
+                          <a href='php/recensione.php?id={$review['id']}'>
+                            {$img}
+                            <div class='review-content'>
+                              <div class='review-header'>
+                                <h3 class='review-title'>{$title}</h3>
+                                <div class='review-rating' aria-label='Valutazione {$avgRating} su 5'>{$stars}</div>
+                              </div>
+                              <div class='review-meta'>
+                                <span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span>
+                              </div>
+                              <p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>
+                            </div>
+                            <div class='review-button'>
+                              <p class='review-link'>
+                                Vai alla recensione
+                              </p>
+                            </div>
+                          </a>
+                        </li>";
+        }
 }
 $DOM = str_replace('<!--REVIEWS_PLACEHOLDER-->', $reviewsHtml, $DOM);
 
