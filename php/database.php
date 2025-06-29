@@ -5,11 +5,11 @@
  */
 
 class DatabaseConfig {
-    private static $host = 'mysql2.sqlpub.com';
-    private static $port = '3307';
-    private static $dbname = 'databaserecensione';
-    private static $username = 'testnalan';
-    private static $password = 'l5jKAzMduE6bgAWH';
+    private static $host = 'localhost';
+    private static $port = '3306';
+    private static $dbname = 'db';
+    private static $username = 'root';
+    private static $password = '';
 
     public static function getConnection() {
         try {
