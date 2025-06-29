@@ -204,24 +204,31 @@
   border-top: 0.0625rem solid var(--border);
 }
 
-.pagination button {
+.pagination button,
+.pagination a.pagination-btn {
   padding: var(--spacing-xs) var(--spacing-sm);
   border: 0.0625rem solid var(--border);
   background: var(--surface);
   color: var(--text-secondary);
   border-radius: var(--radius-sm);
+  text-decoration: none;
   cursor: pointer;
   transition: var(--transition);
   min-width: 2.5rem;
   height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pagination button:hover {
+.pagination button:hover,
+.pagination a.pagination-btn:hover {
   color: var(--primary-agid);
   border-color: var(--primary-agid);
 }
 
-.pagination button.active {
+.pagination button.active,
+.pagination a.pagination-btn.active {
   background: var(--primary-agid);
   color: var(--text-light);
   border-color: var(--primary-agid);
