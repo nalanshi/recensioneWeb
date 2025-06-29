@@ -49,6 +49,7 @@
           <div class="profile-info-section">
             <form class="profile-form" id="profileForm" method="post" action="dashboard.php">
               <input type="hidden" name="action" value="profile">
+              <input type="hidden" name="page" value="profilo">
               <div class="profile-basic-info">
                 <div class="profile-header">
                   <div class="profile-name-section">
@@ -140,6 +141,7 @@
           <!-- Barra di ricerca -->
           <div class="search-container">
             <form class="search-box" method="get">
+              <input type="hidden" name="page" value="commenti">
               <i aria-hidden="true" class="fas fa-search"></i>
               <input type="text" id="commentSearch" name="search" placeholder="Cerca nei tuoi commenti...">
               <div class="filter-options">
@@ -183,6 +185,7 @@
       </div>
       <form class="modal-body" id="passwordForm" method="post" action="dashboard.php">
         <input type="hidden" name="action" value="password">
+        <input type="hidden" name="page" value="profilo">
         <div class="form-group">
           <label for="currentPassword"><span lang="en">Password</span> attuale*</label>
           <input type="password" id="currentPassword" name="currentPassword" required>
@@ -246,6 +249,7 @@
       </div>
       <form id="editCommentForm" class="modal-body" method="post" action="dashboard.php">
         <input type="hidden" name="action" value="edit_comment">
+        <input type="hidden" name="page" value="commenti">
         <input type="hidden" id="editCommentId" name="comment_id">
         <div class="form-group">
           <label for="editCommentRating">Valutazione*</label>
