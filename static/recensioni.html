@@ -54,12 +54,7 @@
         <!--REVIEWS_PLACEHOLDER-->
       </section>
 
-      <!-- Carica Altri -->
-      <div class="load-more">
-        <button class="load-more-btn" id="load-more-btn" tabindex="0" aria-label="Carica altre recensioni">
-          <i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni
-        </button>
-      </div>
+      <div class="pagination" id="reviewsPagination"><!--PAGINATION_PLACEHOLDER--></div>
 
       <!-- Messaggio nessuna recensione (nascosto di default) -->
       <div class="no-reviews" id="no-reviews" style="display: none;">
@@ -81,7 +76,6 @@
       const sortFilter = document.getElementById('sort-filter');
       const reviewsGrid = document.getElementById('reviews-grid');
       const originalReviews = Array.from(reviewsGrid.querySelectorAll('.review-card-main'));
-      const loadMoreBtn = document.getElementById('load-more-btn');
       const noReviews = document.getElementById('no-reviews');
 
       // Gestione filtri
@@ -135,18 +129,6 @@
         searchFilter.addEventListener('input', applyFilters);
       sortFilter.addEventListener('change', applyFilters);
 
-      // Gestione caricamento altre recensioni
-      loadMoreBtn.addEventListener('click', function() {
-        // Qui si implementerebbe la chiamata AJAX per caricare altre recensioni
-        
-        // Simulazione caricamento
-        this.innerHTML = '<i aria-hidden="true" class="fas fa-spinner fa-spin"></i> Caricamento...';
-        
-        setTimeout(() => {
-          this.innerHTML = '<i aria-hidden="true" class="fas fa-plus"></i> Carica altre recensioni';
-          // Qui si aggiungerebbero le nuove recensioni al DOM
-        }, 1000);
-      });
 
       // Gestione click su recensione per aprire dettaglio
       reviewsGrid.addEventListener('click', function(e) {
