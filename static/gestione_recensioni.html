@@ -17,14 +17,14 @@
   <aside class="sidebar" id="sidebar">
     <nav class="sidebar-nav">
       <ul class="nav-menu">
-        <li class="nav-item active">
-          <a href="#visualizza" class="nav-link" data-section="visualizza">
+        <li class="nav-item<!--VIS_ACTIVE-->">
+          <a href="gestione_recensioni.php?tab=visualizza" class="nav-link">
             <i aria-hidden="true" class="fas fa-eye"></i>
             <span>Visualizza recensioni</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#pubblica" class="nav-link" data-section="pubblica">
+        <li class="nav-item<!--PUB_ACTIVE-->">
+          <a href="gestione_recensioni.php?tab=pubblica" class="nav-link">
             <i aria-hidden="true" class="fas fa-plus"></i>
             <span>Pubblica recensione</span>
           </a>
@@ -35,7 +35,7 @@
 
   <main id="main-content" class="main-content admin-reviews" role="main">
     <div class="content-wrapper">
-      <section id="visualizza-section" class="content-section active">
+      <section id="visualizza-section" class="content-section<!--VIS_SEC-->">
         <div class="section-header">
           <h1>Gestione Recensioni</h1>
           <p>Aggiungi o elimina le recensioni</p>
@@ -44,6 +44,7 @@
         <div class="reviews-container">
           <div class="search-container">
             <form class="search-box" method="get">
+              <input type="hidden" name="tab" value="visualizza">
               <i aria-hidden="true" class="fas fa-search"></i>
               <input type="text" id="reviewSearch" name="search" placeholder="Cerca recensioni...">
               <button type="submit" class="btn btn-primary">Cerca</button>
@@ -58,7 +59,7 @@
         </div>
       </section>
 
-      <section id="pubblica-section" class="content-section">
+      <section id="pubblica-section" class="content-section<!--PUB_SEC-->">
         <div class="section-header">
           <h1>Nuova Recensione</h1>
         </div>
@@ -86,37 +87,9 @@
     </div>
   </main>
 
-  <!-- Modal per conferma eliminazione recensione -->
-  <div class="modal" id="deleteReviewModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Elimina recensione</h3>
-        <button class="modal-close" id="deleteReviewModalClose">
-          <i aria-hidden="true" class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="warning-message">
-          <i aria-hidden="true" class="fas fa-exclamation-triangle"></i>
-          <p>Sei sicuro di voler eliminare questa recensione? Questa azione è irreversibile.</p>
-        </div>
-        <div class="form-group">
-          <label for="deleteReviewConfirmation">Digita "ELIMINA" per confermare:</label>
-          <input type="text" id="deleteReviewConfirmation" placeholder="ELIMINA">
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn btn-secondary" id="cancelReviewDeleteBtn">Annulla</button>
-          <button type="button" class="btn btn-danger" id="confirmReviewDeleteBtn" disabled>Elimina</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay" id="overlay"></div>
 
   <!-- FOOTER_PLACEHOLDER -->
 
   <script src="../js/main.js"></script>
-  <script src="../js/gestione_recensioni.js" defer></script>
 </body>
 </html>

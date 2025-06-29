@@ -125,11 +125,13 @@ if ($comments && !empty($comments['comments'])) {
     foreach ($comments['comments'] as $c) {
         $stars = Utils::generateStars($c['rating']);
         $date = Utils::formatDate($c['created_at']);
-        $commentsHtml .= "<div class='review-item'><div class='review-content'>".
+        $safeContent = htmlspecialchars($c['content'], ENT_QUOTES);
+        $commentsHtml .= "<div class='review-item' data-comment-id='{$c['id']}' data-rating='{$c['rating']}' data-content='{$safeContent}'><div class='review-content'>".
                          "<div class='review-header'><h3 class='review-title'>".htmlspecialchars($c['title'])."</h3><span class='review-date'>{$date}</span></div>".
                          "<div class='review-rating'>{$stars}</div>".
                          "<p class='review-text'>".htmlspecialchars($c['content'])."</p>".
-                         "<div class='review-actions'><form method='post' style='display:inline'><input type='hidden' name='delete_comment' value='{$c['id']}'><input type='hidden' name='action' value='delete_comment'><button type='submit' class='btn-action btn-danger'>Elimina</button></form></div>".
+                         "<div class='review-actions'><button type='button' class='btn-action edit-comment-btn'>Modifica</button>".
+                         "<form method='post' style='display:inline'><input type='hidden' name='delete_comment' value='{$c['id']}'><input type='hidden' name='action' value='delete_comment'><button type='submit' class='btn-action btn-danger'>Elimina</button></form></div>".
                          "</div></div>";
     }
 }

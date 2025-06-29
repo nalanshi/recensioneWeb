@@ -80,9 +80,16 @@ $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $he
 $header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
 $DOM = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $DOM);
 
+$tab = $_GET['tab'] ?? 'visualizza';
+$DOM = str_replace('<!--VIS_ACTIVE-->', $tab==='visualizza' ? ' active' : '', $DOM);
+$DOM = str_replace('<!--PUB_ACTIVE-->', $tab==='pubblica' ? ' active' : '', $DOM);
+$DOM = str_replace('<!--VIS_SEC-->', $tab==='visualizza' ? ' active' : '', $DOM);
+$DOM = str_replace('<!--PUB_SEC-->', $tab==='pubblica' ? ' active' : '', $DOM);
+
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $search = trim($_GET['search'] ?? '');
 $result = $reviewManager->getFilteredReviews($page, 10, ['search' => $search]);
+$baseParams = 'tab=visualizza&search=' . urlencode($search);
 
 $reviewsHtml = '';
 if ($result !== false && !empty($result['reviews'])) {
@@ -98,7 +105,7 @@ if ($result !== false && !empty($result['reviews'])) {
                          "$img".
                          "<div class='review-meta'><span class='review-date'>{$date}</span></div>".
                          "<div class='review-actions'><a href='recensione.php?id={$r['id']}' class='view-btn'>Dettagli</a>".
-                         "<form method='post' style='display:inline'><input type='hidden' name='delete_id' value='{$r['id']}'><button type='submit' class='delete-btn'>Elimina</button></form></div>".
+                         "<form method='post' style='display:inline'><input type='hidden' name='delete_id' value='{$r['id']}'><button type='submit' class='delete-btn' onclick=\"return confirm('Eliminare questa recensione?');\">Elimina</button></form></div>".
                          "</div></div>";
     }
 }
@@ -109,14 +116,14 @@ if ($result !== false && $result['total_pages'] > 1) {
     $total = $result['total_pages'];
     $current = $result['page'];
     if ($current > 1) {
-        $pagination .= '<a class="pagination-btn" href="?page='.($current-1).'&search='.urlencode($search).'">&laquo;</a>';
+        $pagination .= '<a class="pagination-btn" href="?page='.($current-1).'&'.$baseParams.'">&laquo;</a>';
     }
     for ($i = 1; $i <= $total; $i++) {
         $class = $i==$current ? 'pagination-btn active' : 'pagination-btn';
-        $pagination .= '<a class="'.$class.'" href="?page='.$i.'&search='.urlencode($search).'">'.$i.'</a>';
+        $pagination .= '<a class="'.$class.'" href="?page='.$i.'&'.$baseParams.'">'.$i.'</a>';
     }
     if ($current < $total) {
-        $pagination .= '<a class="pagination-btn" href="?page='.($current+1).'&search='.urlencode($search).'">&raquo;</a>';
+        $pagination .= '<a class="pagination-btn" href="?page='.($current+1).'&'.$baseParams.'">&raquo;</a>';
     }
 }
 $DOM = str_replace('<!--PAGINATION_PLACEHOLDER-->', $pagination, $DOM);

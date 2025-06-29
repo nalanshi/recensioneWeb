@@ -549,7 +549,8 @@ body {
 }
 
 .review-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
   border: 0.0625rem solid var(--border);
@@ -557,7 +558,6 @@ body {
   margin-bottom: var(--spacing-md);
   transition: var(--transition);
   background: var(--surface);
-  flex-direction: column;
 }
 
 .review-item:hover {
@@ -635,6 +635,8 @@ body {
 .review-actions {
   display: flex;
   gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .review-actions .view-btn,
