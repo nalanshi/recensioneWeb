@@ -27,7 +27,7 @@ VALUES
     (13, 'utente13', 'utente13@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Tredici', NULL, 7, 7, 1996, 'user', NOW()),
     (14, 'utente14', 'utente14@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Quattordici', NULL, 8, 8, 1997, 'user', NOW()),
     (15, 'utente15', 'utente15@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Quindici', NULL, 9, 9, 1998, 'user', NOW()),
-    (16, 'utente16', 'utente16@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Sedici', NULL, 10, 10, 1999, 'user', NOW());
+    (16, 'utente16', 'utente16@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Sedici', NULL, 10, 10, 1999, 'user', NOW()),
     (17, 'utente17', 'utente17@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Diciassette', NULL, 11, 11, 2000, 'user', NOW()),
     (18, 'utente18', 'utente18@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Diciotto', NULL, 12, 12, 2001, 'user', NOW()),
     (19, 'utente19', 'utente19@example.com', '$2b$10$5gjvYUVBrpxLiyQquloevOb1T8BKKL/HqH8nvBkmdZ95dSdO7siq6', 'Utente', 'Diciannove', NULL, 13, 1, 2002, 'user', NOW()),
