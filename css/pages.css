@@ -86,7 +86,6 @@
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: var(--transition);
-  cursor: pointer;
 }
 
 .review-card-main {
