@@ -43,15 +43,18 @@
 
         <div class="reviews-container">
           <div class="search-container">
-            <div class="search-box">
+            <form class="search-box" method="get">
               <i aria-hidden="true" class="fas fa-search"></i>
-              <input type="text" id="reviewSearch" placeholder="Cerca recensioni...">
-            </div>
+              <input type="text" id="reviewSearch" name="search" placeholder="Cerca recensioni...">
+              <button type="submit" class="btn btn-primary">Cerca</button>
+            </form>
           </div>
 
-          <section class="reviews-grid admin-reviews-grid" id="reviews-list" aria-label="Elenco recensioni"></section>
+          <section class="reviews-grid admin-reviews-grid" id="reviews-list" aria-label="Elenco recensioni">
+            <!--REVIEWS_PLACEHOLDER-->
+          </section>
 
-          <div class="pagination" id="reviewsPagination"></div>
+          <div class="pagination" id="reviewsPagination"><!--PAGINATION_PLACEHOLDER--></div>
         </div>
       </section>
 
@@ -60,7 +63,7 @@
           <h1>Nuova Recensione</h1>
         </div>
 
-        <form id="create-review-form" class="review-form">
+        <form id="create-review-form" class="review-form" action="gestione_recensioni.php" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="review-title">Titolo</label>
             <input type="text" id="review-title" name="title" required aria-required="true">

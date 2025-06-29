@@ -47,10 +47,11 @@
         <div id="profileLoading" class="list-loading" role="status" aria-live="polite">
           <span class="spinner" aria-hidden="true"></span> Caricamento profilo...
         </div>
-        <div class="profile-container hidden" id="profileContainer">
+        <div class="profile-container" id="profileContainer">
           <!-- Informazioni profilo -->
           <div class="profile-info-section">
-            <form class="profile-form" id="profileForm">
+            <form class="profile-form" id="profileForm" method="post" action="dashboard.php">
+              <input type="hidden" name="action" value="profile">
               <div class="profile-basic-info">
                 <div class="profile-header">
                   <div class="profile-name-section">
@@ -121,7 +122,7 @@
         </div>
 
         <!-- Sezione pericolosa -->
-        <div class="danger-zone hidden" id="dangerZone">
+        <div class="danger-zone" id="dangerZone">
           <h3>Zona pericolosa</h3>
           <p>Le azioni seguenti sono irreversibili. Procedi con cautela.</p>
           <button class="btn btn-danger" id="deleteAccountBtn">
@@ -141,12 +142,11 @@
         <div class="reviews-container">
           <!-- Barra di ricerca -->
           <div class="search-container">
-            <div class="search-box">
+            <form class="search-box" method="get">
               <i aria-hidden="true" class="fas fa-search"></i>
-              <input type="text" id="commentSearch" placeholder="Cerca nei tuoi commenti...">
-            </div>
-            <div class="filter-options">
-              <select id="commentRatingFilter">
+              <input type="text" id="commentSearch" name="search" placeholder="Cerca nei tuoi commenti...">
+              <div class="filter-options">
+              <select id="commentRatingFilter" name="rating">
                 <option value="">Tutte le valutazioni</option>
                 <option value="5">5 stelle</option>
                 <option value="4">4 stelle</option>
@@ -154,17 +154,19 @@
                 <option value="2">2 stelle</option>
                 <option value="1">1 stella</option>
               </select>
+              <button type="submit" class="btn btn-primary">Filtra</button>
             </div>
+            </form>
           </div>
 
           <!-- Lista commenti -->
           <div class="reviews-list" id="commentsList">
-            <!-- I commenti verranno caricati dinamicamente -->
+            <!--COMMENTS_PLACEHOLDER-->
           </div>
 
           <!-- Paginazione -->
           <div class="pagination" id="commentsPagination">
-            <!-- Paginazione generata dinamicamente -->
+            <!--PAGINATION_PLACEHOLDER-->
           </div>
         </div>
       </section>
@@ -182,7 +184,8 @@
           <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
-      <form class="modal-body" id="passwordForm">
+      <form class="modal-body" id="passwordForm" method="post" action="dashboard.php">
+        <input type="hidden" name="action" value="password">
         <div class="form-group">
           <label for="currentPassword"><span lang="en">Password</span> attuale*</label>
           <input type="password" id="currentPassword" name="currentPassword" required>
@@ -244,7 +247,8 @@
           <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
-      <form id="editCommentForm" class="modal-body">
+      <form id="editCommentForm" class="modal-body" method="post" action="dashboard.php">
+        <input type="hidden" name="action" value="edit_comment">
         <input type="hidden" id="editCommentId" name="comment_id">
         <div class="form-group">
           <label for="editCommentRating">Valutazione*</label>

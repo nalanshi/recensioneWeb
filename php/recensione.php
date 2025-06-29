@@ -6,6 +6,24 @@ require_once 'database.php';
 
 SessionManager::start();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!SessionManager::isLoggedIn()) {
+        header('Location: login.php');
+        exit();
+    }
+    $reviewId = (int)($_POST['review_id'] ?? 0);
+    $rating = (int)($_POST['rating'] ?? 1);
+    $content = trim($_POST['content'] ?? '');
+    if ($reviewId && $content) {
+        $commentManager = new CommentManager();
+        $username = $_SESSION['username'];
+        $email = $_SESSION['user_data']['email'] ?? '';
+        $commentManager->createComment($reviewId, $username, $email, $rating, $content);
+    }
+    header('Location: recensione.php?id=' . $reviewId);
+    exit();
+}
+
 // Sincronizza i dati dell'utente con il database per ottenere l'ultima foto profilo
 if (SessionManager::isLoggedIn()) {
     $userManager = new UserManager();
