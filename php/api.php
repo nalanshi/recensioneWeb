@@ -212,8 +212,7 @@ function handle_reviews($userId, $reviewManager) {
                 $limit = (int)($_GET['limit'] ?? 10);
                 $filters = [
                     'search' => Utils::sanitizeInput($_GET['search'] ?? ''),
-                    'rating' => (int)($_GET['rating'] ?? 0),
-                    'date_filter' => Utils::sanitizeInput($_GET['date_filter'] ?? '')
+                    'rating' => (int)($_GET['rating'] ?? 0)
                 ];
                 $filters = array_filter($filters);
                 if ($isAdmin && isset($_GET['all'])) {
@@ -455,7 +454,6 @@ function handle_user_comments($commentManager) {
                 $filters = [
                     'search' => Utils::sanitizeInput($_GET['search'] ?? ''),
                     'rating' => (int)($_GET['rating'] ?? 0),
-                    'date_filter' => Utils::sanitizeInput($_GET['date_filter'] ?? '')
                 ];
                 $filters = array_filter($filters);
                 $result = $commentManager->getUserComments($username, $page, $limit, $filters);
