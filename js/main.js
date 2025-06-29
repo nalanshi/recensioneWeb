@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortFilter = document.getElementById('sort-filter');
     const pagination = document.getElementById('reviewsPagination');
     const noReviews = document.getElementById('no-reviews');
-    const reviewsPerPage = 20;
+    const reviewsPerPage = 10;
     let reviewsPage = 1;
     const urlParams = new URLSearchParams(window.location.search);
     const initialPage = parseInt(urlParams.get('page'), 10);
