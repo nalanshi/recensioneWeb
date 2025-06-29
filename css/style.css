@@ -67,8 +67,14 @@ body {
   font-family: Montserrat, sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.5;
   font-size: 1rem;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
+}
+
+p {
+  margin-bottom: 2em;
 }
 
 /* Contenuto solo per screen reader */
@@ -248,7 +254,7 @@ textarea:focus,
 /* Sezione Prodotti Consigliati - Scorrevole */
 .recommended-products {
   padding: var(--spacing-xl) 5%;
-  max-width: 125rem;
+  max-width: min(125rem, 100%);
   margin: 0 auto;
 }
 
@@ -831,7 +837,7 @@ footer::before {
 }
 
 .footer-content {
-  max-width: 75rem;
+  max-width: min(75rem, 100%);
   margin: 0 auto;
   padding: 0 5%;
   display: grid;
