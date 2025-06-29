@@ -90,6 +90,11 @@
 }
 
 .review-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-md);
+}
+
+.review-card:has(.view-btn:hover) {
   transform: translateY(-0.25rem);
   box-shadow: var(--shadow-lg);
 }
