@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classifiche prodotti tecnologici - ReviewDiver</title>
-  <meta name="description" content="Scopri le classifiche dei prodotti più apprezzati nelle categorie tecnologia, gastronomia, casa e giardino, sport e fitness su ReviewDiver">
+  <title>Classifiche - ReviewDiver</title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/pages.css" />
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
@@ -12,162 +11,90 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- Salta Link -->
-  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
-  
   <!-- HEADER_PLACEHOLDER -->
 
   <main id="main-content" class="main-content" role="main">
     <!-- Hero Section -->
-    <section class="rankings-hero" aria-labelledby="rankings-title">
+    <section class="rankings-hero">
       <div class="rankings-container">
-        <h1 id="rankings-title">Classifiche prodotti</h1>
+        <h1>Classifiche</h1>
         <p>Scopri i prodotti più apprezzati e le tendenze del momento nelle nostre classifiche aggiornate</p>
       </div>
     </section>
 
     <div class="rankings-container">
-      <!-- Tab per la navigazione -->
-      <nav class="rankings-tabs" role="tablist" aria-label="Navigazione categorie classifiche">
-        <button class="tab-button active" 
-                role="tab" 
-                aria-selected="true" 
-                aria-controls="tecnologia" 
-                id="tab-tecnologia"
-                data-tab="tecnologia">
-          <i class="fas fa-microchip" aria-hidden="true"></i>
-          Tecnologia
-        </button>
-        <button class="tab-button" 
-                role="tab" 
-                aria-selected="false" 
-                aria-controls="gastronomia" 
-                id="tab-gastronomia"
-                data-tab="gastronomia">
-          <i class="fas fa-utensils" aria-hidden="true"></i>
-          Gastronomia
-        </button>
-        <button class="tab-button" 
-                role="tab" 
-                aria-selected="false" 
-                aria-controls="casa" 
-                id="tab-casa"
-                data-tab="casa">
-          <i class="fas fa-home" aria-hidden="true"></i>
-          Casa e Giardino
-        </button>
-        <button class="tab-button" 
-                role="tab" 
-                aria-selected="false" 
-                aria-controls="sport" 
-                id="tab-sport"
-                data-tab="sport">
-          <i class="fas fa-dumbbell" aria-hidden="true"></i>
-          Sport e Fitness
-        </button>
-      </nav>
-
-      <!-- Tab Tecnologia -->
-      <div class="tab-content active" 
-           id="tecnologia" 
-           role="tabpanel" 
-           aria-labelledby="tab-tecnologia"
-           tabindex="0">
-        <!-- Tabella Ranking -->
+      <!-- Tabs per le diverse categorie 
+      <div class="rankings-tabs">
+        <button class="tab-button active" data-tab="tecnologia">Tecnologia</button>
+        <button class="tab-button" data-tab="gastronomia">Gastronomia</button>
+        <button class="tab-button" data-tab="casa">Casa e Giardino</button>
+        <button class="tab-button" data-tab="sport">Sport e Fitness</button>
+      </div>
+      -->
+    <div class="tab-content active" id="tecnologia">
+        <!-- Classifica Completa -->
         <div class="ranking-section">
-          <header class="ranking-header">
+          <div class="ranking-header">
             <h2 class="ranking-title">Top 10 Prodotti Tecnologici</h2>
-            <span class="ranking-period" aria-label="Periodo di riferimento">Gennaio 2025</span>
-          </header>
-
-          <div class="table-container" role="region" aria-labelledby="tech-ranking-title" tabindex="0">
-            <h3 id="tech-ranking-title" class="sr-only">Classifica prodotti tecnologici</h3>
-            <table class="ranking-table" 
-                   role="table" 
-                   aria-label="Classifica dei top 10 prodotti tecnologici"
-                   aria-describedby="tech-table-description">
-              <caption id="tech-table-description">
-                Tabella con la classifica dei 10 prodotti tecnologici più apprezzati del mese di gennaio 2025, 
-                ordinata per valutazione media. Ogni riga contiene posizione, nome prodotto e valutazione.
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col" abbr="Posizione">Pos.</th>
-                  <th scope="col">Prodotto</th>
-                  <th scope="col">Valutazione Media</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!--RANKING_ROWS_PLACEHOLDER-->
-              </tbody>
-            </table>
           </div>
+
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th>Pos.</th>
+                <th>Prodotto</th>
+                <th>Valutazione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--RANKING_ROWS_PLACEHOLDER-->
+            </tbody>
+          </table>
         </div>
       </div>
 
       <!-- Tab Gastronomia -->
-      <div class="tab-content" 
-           id="gastronomia" 
-           role="tabpanel" 
-           aria-labelledby="tab-gastronomia"
-           tabindex="0"
-           aria-hidden="true">
+      <div class="tab-content" id="gastronomia">
         <div class="ranking-section">
-          <header class="ranking-header">
+          <div class="ranking-header">
             <h2 class="ranking-title">Top Ristoranti</h2>
-            <span class="ranking-period" aria-label="Periodo di riferimento">Gennaio 2025</span>
-          </header>
-          <div class="empty-state" role="status" aria-live="polite">
-            <i aria-hidden="true" class="fas fa-utensils" style="font-size: 2rem; margin-bottom: var(--spacing-md); display: block; text-align: center;"></i>
-            <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-              Le classifiche gastronomiche saranno disponibili a breve.<br>
-              Stiamo raccogliendo le migliori recensioni dei ristoranti.
-            </p>
+            <span class="ranking-period">Gennaio 2025</span>
           </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i aria-hidden="true" class="fas fa-utensils" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche gastronomiche saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei ristoranti.
+          </p>
         </div>
       </div>
 
       <!-- Tab Casa e Giardino -->
-      <div class="tab-content" 
-           id="casa" 
-           role="tabpanel" 
-           aria-labelledby="tab-casa"
-           tabindex="0"
-           aria-hidden="true">
+      <div class="tab-content" id="casa">
         <div class="ranking-section">
-          <header class="ranking-header">
+          <div class="ranking-header">
             <h2 class="ranking-title">Top Prodotti Casa e Giardino</h2>
-            <span class="ranking-period" aria-label="Periodo di riferimento">Gennaio 2025</span>
-          </header>
-          <div class="empty-state" role="status" aria-live="polite">
-            <i aria-hidden="true" class="fas fa-home" style="font-size: 2rem; margin-bottom: var(--spacing-md); display: block; text-align: center;"></i>
-            <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-              Le classifiche per casa e giardino saranno disponibili a breve.<br>
-              Stiamo raccogliendo le migliori recensioni dei prodotti.
-            </p>
+            <span class="ranking-period">Gennaio 2025</span>
           </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i aria-hidden="true" class="fas fa-home" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche per casa e giardino saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei prodotti.
+          </p>
         </div>
       </div>
 
       <!-- Tab Sport e Fitness -->
-      <div class="tab-content" 
-           id="sport" 
-           role="tabpanel" 
-           aria-labelledby="tab-sport"
-           tabindex="0"
-           aria-hidden="true">
+      <div class="tab-content" id="sport">
         <div class="ranking-section">
-          <header class="ranking-header">
+          <div class="ranking-header">
             <h2 class="ranking-title">Top Prodotti Sport e Fitness</h2>
-            <span class="ranking-period" aria-label="Periodo di riferimento">Gennaio 2025</span>
-          </header>
-          <div class="empty-state" role="status" aria-live="polite">
-            <i aria-hidden="true" class="fas fa-dumbbell" style="font-size: 2rem; margin-bottom: var(--spacing-md); display: block; text-align: center;"></i>
-            <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
-              Le classifiche per sport e fitness saranno disponibili a breve.<br>
-              Stiamo raccogliendo le migliori recensioni dei prodotti.
-            </p>
+            <span class="ranking-period">Gennaio 2025</span>
           </div>
+          <p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-xl);">
+            <i aria-hidden="true" class="fas fa-dumbbell" style="font-size: 2rem; margin-bottom: var(--spacing-md);"></i><br>
+            Le classifiche per sport e fitness saranno disponibili a breve.<br>
+            Stiamo raccogliendo le migliori recensioni dei prodotti.
+          </p>
         </div>
       </div>
     </div>
@@ -177,53 +104,11 @@
 
   <script src="../js/main.js"></script>
   <script>
-    // Script per la gestione delle tab
+    // Script per la gestione dei tab
     document.addEventListener('DOMContentLoaded', function() {
       const tabButtons = document.querySelectorAll('.tab-button');
       const tabContents = document.querySelectorAll('.tab-content');
 
-      // Funzione per cambiare tab
-      function switchTab(targetTab, targetButton) {
-        // Rimozione tab attivi
-        tabButtons.forEach(btn => {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
-          btn.setAttribute('tabindex', '-1');
-        });
-        
-        tabContents.forEach(content => {
-          content.classList.remove('active');
-          content.setAttribute('aria-hidden', 'true');
-        });
-
-        // Aggiunta stato attivo alla scheda e ai pulsanti
-        targetButton.classList.add('active');
-        targetButton.setAttribute('aria-selected', 'true');
-        targetButton.setAttribute('tabindex', '0');
-        
-        const targetContent = document.getElementById(targetTab);
-        if (targetContent) {
-          targetContent.classList.add('active');
-          targetContent.setAttribute('aria-hidden', 'false');
-          targetContent.focus();
-        }
-
-        // Cambiamento per gli screen reader
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'sr-only';
-        announcement.textContent = `Scheda ${targetButton.textContent.trim()} selezionata`;
-        document.body.appendChild(announcement);
-        
-        setTimeout(() => {
-          if (document.body.contains(announcement)) {
-            document.body.removeChild(announcement);
-          }
-        }, 1000);
-      }
-
-      // Bottone per i click
       tabButtons.forEach(button => {
         button.addEventListener('click', function() {
           const targetTab = this.dataset.tab;
