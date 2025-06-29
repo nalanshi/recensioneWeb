@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <span class="review-date">${escapeHtml(r.formatted_date)}</span>
               </div>
               <div class="review-actions">
-                <a href="recensione.php?id=${r.id}" class="view-btn">Visualizza</a>
+                <a href="recensione.php?id=${r.id}" class="view-btn">Dettagli</a>
                 <button class="delete-btn" data-id="${r.id}">Elimina</button>
               </div>
             </div>
