@@ -24,11 +24,11 @@
 
       <div class="reviews-container">
         <!-- Filtri -->
-        <section class="reviews-filters" aria-label="Filtri recensioni">
+        <form class="reviews-filters" aria-label="Filtri recensioni" method="get" id="filter-form">
 
         <div class="filter-group">
           <label for="rating-filter">Valutazione</label>
-          <select id="rating-filter" class="filter-select">
+          <select id="rating-filter" name="rating" class="filter-select">
             <option value="">Tutte le valutazioni</option>
             <option value="5">5 stelle</option>
             <option value="4">4+ stelle</option>
@@ -38,17 +38,18 @@
 
         <div class="filter-group">
           <label for="search-filter">Cerca</label>
-          <input type="text" id="search-filter" class="filter-input" placeholder="Cerca recensioni...">
+          <input type="text" id="search-filter" name="search" class="filter-input" placeholder="Cerca recensioni...">
         </div>
 
         <div class="filter-group">
           <label for="sort-filter">Ordina per</label>
-          <select id="sort-filter" class="filter-select">
+          <select id="sort-filter" name="sort" class="filter-select">
             <option value="recent">Più recenti</option>
             <option value="rating">Valutazione</option>
           </select>
         </div>
-      </section>
+        <button type="submit" class="btn btn-primary">Applica</button>
+      </form>
 
   <section class="reviews-grid" id="reviews-grid" aria-label="Elenco recensioni">
         <!--REVIEWS_PLACEHOLDER-->
@@ -56,8 +57,8 @@
 
       <div class="pagination" id="reviewsPagination" role="navigation" aria-label="Paginazione"><!--PAGINATION_PLACEHOLDER--></div>
 
-      <!-- Messaggio nessuna recensione (nascosto di default) -->
-      <div class="no-reviews" id="no-reviews" style="display: none;">
+      <!-- Messaggio nessuna recensione -->
+      <div class="no-reviews" id="no-reviews">
         <i aria-hidden="true" class="fas fa-search"></i>
         <h2>Nessuna recensione trovata</h2>
         <p>Prova a modificare i filtri di ricerca per trovare altre recensioni.</p>

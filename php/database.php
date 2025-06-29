@@ -380,6 +380,70 @@ class ReviewManager {
         }
     }
 
+    public function getFilteredReviews($page = 1, $limit = 10, $filters = []) {
+        try {
+            $offset = ($page - 1) * $limit;
+            $where = ["r.deleted_at IS NULL"];
+            $params = [];
+            if (!empty($filters['search'])) {
+                $where[] = "(LOWER(r.product_name) LIKE LOWER(?) OR LOWER(r.title) LIKE LOWER(?))";
+                $search = '%' . $filters['search'] . '%';
+                $params[] = $search;
+                $params[] = $search;
+            }
+            $whereClause = implode(' AND ', $where);
+            $order = "r.created_at DESC";
+            if (!empty($filters['sort']) && $filters['sort'] === 'rating') {
+                $order = "rating DESC";
+            }
+            $having = '';
+            if (!empty($filters['rating'])) {
+                $having = "HAVING rating >= ?";
+            }
+
+            $sql = "SELECT r.id, r.title, r.content, r.product_name, r.product_image, r.created_at, r.updated_at, u.username, AVG(c.rating) AS rating
+                    FROM reviews r
+                    JOIN utenti u ON r.user_id = u.id
+                    LEFT JOIN comments c ON r.id = c.review_id
+                    WHERE {$whereClause}
+                    GROUP BY r.id
+                    {$having}
+                    ORDER BY {$order}
+                    LIMIT ? OFFSET ?";
+
+            $stmt = $this->db->prepare($sql);
+            $execParams = $params;
+            if (!empty($filters['rating'])) {
+                $execParams[] = $filters['rating'];
+            }
+            $execParams[] = $limit;
+            $execParams[] = $offset;
+            $stmt->execute($execParams);
+            $reviews = $stmt->fetchAll();
+
+            $countSql = "SELECT COUNT(*) as total FROM (
+                            SELECT r.id, AVG(c.rating) AS rating
+                            FROM reviews r
+                            LEFT JOIN comments c ON r.id = c.review_id
+                            WHERE {$whereClause}
+                            GROUP BY r.id
+                            {$having}
+                        ) t";
+            $countStmt = $this->db->prepare($countSql);
+            $countParams = $params;
+            if (!empty($filters['rating'])) {
+                $countParams[] = $filters['rating'];
+            }
+            $countStmt->execute($countParams);
+            $count = $countStmt->fetch()['total'];
+
+            return ['reviews' => $reviews, 'total' => $count, 'page' => $page, 'limit' => $limit, 'total_pages' => ceil($count / $limit)];
+        } catch (PDOException $e) {
+            error_log('Errore getFilteredReviews: ' . $e->getMessage());
+            return false;
+        }
+    }
+
     /**
      * Restituisce i prodotti ordinati per valutazione media delle recensioni
      */

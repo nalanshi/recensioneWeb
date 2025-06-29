@@ -91,8 +91,77 @@ if (!SessionManager::isLoggedIn()) {
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
-// I contenuti delle recensioni vengono caricati tramite JavaScript
-// quindi i segnaposto rimangono invariati nel DOM.
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$filters = [
+    'rating' => isset($_GET['rating']) ? (int)$_GET['rating'] : 0,
+    'search' => trim($_GET['search'] ?? ''),
+    'sort'   => $_GET['sort'] ?? 'recent'
+];
+
+$reviewManager = new ReviewManager();
+$commentManager = new CommentManager();
+$result = $reviewManager->getFilteredReviews($page, 10, $filters);
+
+$reviewsHtml = '';
+if ($result !== false && !empty($result['reviews'])) {
+    foreach ($result['reviews'] as $review) {
+        $rating = $review['rating'] ?? $commentManager->getAverageRatingForReview($review['id']);
+        $stars = Utils::generateStars($rating);
+        $date = Utils::formatDate($review['created_at']);
+        $altProduct = htmlspecialchars($review['product_name']);
+        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
+        $title = htmlspecialchars($review['title']);
+        $user = htmlspecialchars($review['username']);
+        $excerpt = strlen($review['content']) > 150 ? substr($review['content'],0,150).'...' : $review['content'];
+        $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card-main'>".
+                        "<div class='review-content'>".
+                        "<div class='review-header'><h3 class='review-title'>{$title}</h3>".
+                        "<div class='review-rating' aria-label='Valutazione {$rating} su 5'>{$stars}</div></div>".
+                        "$img".
+                        "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>".
+                        "<p class='review-excerpt'>".htmlspecialchars($excerpt)."</p>".
+                        "</div></a>";
+    }
+}
+$DOM = str_replace('<!--REVIEWS_PLACEHOLDER-->', $reviewsHtml, $DOM);
+
+$paginationHtml = '';
+if ($result !== false && $result['total_pages'] > 1) {
+    $total = $result['total_pages'];
+    $current = $result['page'];
+    $baseParams = ['rating'=>$filters['rating'],'search'=>$filters['search'],'sort'=>$filters['sort']];
+    if ($current > 1) {
+        $params = array_merge($baseParams,['page'=>$current-1]);
+        $paginationHtml .= '<a class="pagination-btn" href="?'.http_build_query($params).'">&laquo;</a>';
+    }
+    for ($i = 1; $i <= $total; $i++) {
+        $params = array_merge($baseParams,['page'=>$i]);
+        $class = $i==$current ? 'pagination-btn active' : 'pagination-btn';
+        $paginationHtml .= '<a class="'.$class.'" href="?'.http_build_query($params).'">'.$i.'</a>';
+    }
+    if ($current < $total) {
+        $params = array_merge($baseParams,['page'=>$current+1]);
+        $paginationHtml .= '<a class="pagination-btn" href="?'.http_build_query($params).'">&raquo;</a>';
+    }
+}
+$DOM = str_replace('<!--PAGINATION_PLACEHOLDER-->', $paginationHtml, $DOM);
+
+if ($result !== false && empty($result['reviews'])) {
+    // keep no reviews message
+} else {
+    $DOM = preg_replace('/<div class="no-reviews".*?\/div>\s*/s','',$DOM,1);
+}
+
+// Preimposta valori dei filtri
+if ($filters['rating']) {
+    $DOM = str_replace("value=\"{$filters['rating']}\"", "value=\"{$filters['rating']}\" selected", $DOM);
+}
+$DOM = str_replace("name=\"search\" class=\"filter-input\"", "name=\"search\" class=\"filter-input\" value=\"".htmlspecialchars($filters['search'],ENT_QUOTES)."\"", $DOM);
+if ($filters['sort'] === 'rating') {
+    $DOM = str_replace('value="rating"', 'value="rating" selected', $DOM);
+} else {
+    $DOM = str_replace('value="recent"', 'value="recent" selected', $DOM);
+}
 
 // Output della pagina
 echo $DOM;
