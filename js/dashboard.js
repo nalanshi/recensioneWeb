@@ -24,6 +24,8 @@ class DashboardManager {
     async init() {
         this.setupEventListeners();
         this.setupSidebar();
+        this.showPage();
+        this.toggleProfileLoading(true);
         await this.loadUserData();
         this.setupFormValidation();
         this.setupDateSelectors();
@@ -270,6 +272,23 @@ class DashboardManager {
         throw new Error(text);
     }
 
+    toggleProfileLoading(show) {
+        const container = document.getElementById('profileContainer');
+        const dangerZone = document.getElementById('dangerZone');
+        const loading = document.getElementById('profileLoading');
+        if (container && loading) {
+            if (show) {
+                container.classList.add('hidden');
+                if (dangerZone) dangerZone.classList.add('hidden');
+                loading.classList.remove('hidden');
+            } else {
+                container.classList.remove('hidden');
+                if (dangerZone) dangerZone.classList.remove('hidden');
+                loading.classList.add('hidden');
+            }
+        }
+    }
+
     /**
      * Carica dati utente
      */
@@ -279,13 +298,14 @@ class DashboardManager {
 
             if (data.success) {
                 this.populateUserData(data.data);
-                this.showPage();
             } else {
                 this.showNotification('Errore nel caricamento dei dati utente', 'error');
             }
+            this.toggleProfileLoading(false);
         } catch (error) {
             console.error('Errore caricamento dati utente:', error);
             this.showNotification('Errore di connessione', 'error');
+            this.toggleProfileLoading(false);
         }
     }
 
