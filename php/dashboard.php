@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $header = file_get_contents("../static/header.html");
 $footer = file_get_contents("../static/footer.html");
-$footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', $footer);
+// Rendi il footer visibile anche senza JavaScript
+$footer = str_replace('<footer', '<footer id="dashboardFooter"', $footer);
   $DOM = file_get_contents("../static/dashboard.html");
 
   if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
@@ -60,6 +61,9 @@ $footer = str_replace('<footer', '<footer class="hidden" id="dashboardFooter"', 
   }
 
 $DOM = str_replace("<!-- FOOTER_PLACEHOLDER -->", $footer, $DOM);
+// Rimuovi le classi che nascondono i contenuti quando JavaScript è disabilitato
+$DOM = str_replace('class="sidebar hidden"', 'class="sidebar"', $DOM);
+$DOM = str_replace('class="main-content hidden"', 'class="main-content"', $DOM);
 
 $username = $_SESSION['username'];
 
