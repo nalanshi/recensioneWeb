@@ -16,8 +16,6 @@ require_once 'database.php';
 session_set_cookie_params([
     'lifetime' => 3600,           // Durata del cookie di sessione (1 ora)
     'path' => '/',                // Percorso del cookie
-    'secure' => true,             // Cookie inviato solo su HTTPS
-    'httponly' => true            // Cookie non accessibile via JavaScript
 ]);
 SessionManager::start();
 
