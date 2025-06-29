@@ -44,7 +44,10 @@
           <h1>Il mio profilo</h1>
           <p>Gestisci le informazioni del tuo account</p>
         </div>
-        <div class="profile-container">
+        <div id="profileLoading" class="list-loading" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span> Caricamento profilo...
+        </div>
+        <div class="profile-container hidden" id="profileContainer">
           <!-- Informazioni profilo -->
           <div class="profile-info-section">
             <form class="profile-form" id="profileForm">
@@ -117,7 +120,7 @@
         </div>
 
         <!-- Sezione pericolosa -->
-        <div class="danger-zone">
+        <div class="danger-zone hidden" id="dangerZone">
           <h3>Zona pericolosa</h3>
           <p>Le azioni seguenti sono irreversibili. Procedi con cautela.</p>
           <button class="btn btn-danger" id="deleteAccountBtn">
