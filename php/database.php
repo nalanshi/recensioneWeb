@@ -34,6 +34,8 @@ class DatabaseConfig {
         }
     }
 
+}
+
 /**
  * Classe per la gestione degli utenti
  */
@@ -813,9 +815,9 @@ class Utils {
  * Gestione delle sessioni
  */
 class SessionManager {
-    public static function ratingt() {
+    public static function start() {
         if (session_status() === PHP_SESSION_NONE) {
-            session_ratingt();
+            session_start();
         }
     }
 
