@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto</a>
   <!-- HEADER_PLACEHOLDER -->
 
   <main id="main-content" class="main-content" role="main">
@@ -23,27 +24,27 @@
     </section>
 
     <div class="rankings-container">
-      <!-- Tabs per le diverse categorie 
-      <div class="rankings-tabs">
-        <button class="tab-button active" data-tab="tecnologia">Tecnologia</button>
-        <button class="tab-button" data-tab="gastronomia">Gastronomia</button>
-        <button class="tab-button" data-tab="casa">Casa e Giardino</button>
-        <button class="tab-button" data-tab="sport">Sport e Fitness</button>
+      <!-- Tabs per le diverse categorie -->
+      <div class="rankings-tabs" role="tablist">
+        <button id="tab-tecnologia" class="tab-button active" role="tab" aria-controls="tecnologia" aria-selected="true">Tecnologia</button>
+        <button id="tab-gastronomia" class="tab-button" role="tab" aria-controls="gastronomia" aria-selected="false">Gastronomia</button>
+        <button id="tab-casa" class="tab-button" role="tab" aria-controls="casa" aria-selected="false">Casa e Giardino</button>
+        <button id="tab-sport" class="tab-button" role="tab" aria-controls="sport" aria-selected="false">Sport e Fitness</button>
       </div>
-      -->
-    <div class="tab-content active" id="tecnologia">
+    <div class="tab-content active" id="tecnologia" role="tabpanel" aria-labelledby="tab-tecnologia" tabindex="0">
         <!-- Classifica Completa -->
         <div class="ranking-section">
           <div class="ranking-header">
             <h2 class="ranking-title">Top 10 Prodotti Tecnologici</h2>
           </div>
 
-          <table class="ranking-table">
+          <table class="ranking-table" role="table" aria-describedby="tecnologia-caption">
+            <caption id="tecnologia-caption">Tabella Top 10 Prodotti Tecnologici</caption>
             <thead>
               <tr>
-                <th>Pos.</th>
-                <th>Prodotto</th>
-                <th>Valutazione</th>
+                <th scope="col">Pos.</th>
+                <th scope="col">Prodotto</th>
+                <th scope="col">Valutazione</th>
               </tr>
             </thead>
             <tbody>
@@ -54,7 +55,7 @@
       </div>
 
       <!-- Tab Gastronomia -->
-      <div class="tab-content" id="gastronomia">
+      <div class="tab-content" id="gastronomia" role="tabpanel" aria-labelledby="tab-gastronomia" aria-hidden="true" tabindex="0">
         <div class="ranking-section">
           <div class="ranking-header">
             <h2 class="ranking-title">Top Ristoranti</h2>
@@ -69,7 +70,7 @@
       </div>
 
       <!-- Tab Casa e Giardino -->
-      <div class="tab-content" id="casa">
+      <div class="tab-content" id="casa" role="tabpanel" aria-labelledby="tab-casa" aria-hidden="true" tabindex="0">
         <div class="ranking-section">
           <div class="ranking-header">
             <h2 class="ranking-title">Top Prodotti Casa e Giardino</h2>
@@ -84,7 +85,7 @@
       </div>
 
       <!-- Tab Sport e Fitness -->
-      <div class="tab-content" id="sport">
+      <div class="tab-content" id="sport" role="tabpanel" aria-labelledby="tab-sport" aria-hidden="true" tabindex="0">
         <div class="ranking-section">
           <div class="ranking-header">
             <h2 class="ranking-title">Top Prodotti Sport e Fitness</h2>

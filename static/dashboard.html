@@ -42,7 +42,7 @@
       <section id="profilo-section" class="content-section active">
         <div class="section-header">
           <h1>Il mio profilo</h1>
-          <p>Gestisci le informazioni del tuo <span lang="en">account</span></p>
+          <p>Gestisci le informazioni del tuo account</p>
         </div>
         <div id="profileLoading" class="list-loading" role="status" aria-live="polite">
           <span class="spinner" aria-hidden="true"></span> Caricamento profilo...
@@ -62,7 +62,6 @@
                       <div class="form-group">
                         <label for="firstName">Nome*</label>
                         <input type="text" id="firstName" name="firstName" required>
-                        <small class="form-note">I campi contrassegnati con l’asterisco (*) sono obbligatori, perciò non possono essere lasciati vuoti</small>
                       </div>
                     </div>
                   </div>
@@ -143,7 +142,7 @@
           <div class="search-container">
             <div class="search-box">
               <i aria-hidden="true" class="fas fa-search"></i>
-              <input type="text" id="commentSearch" placeholder="Cerca nei tuoi commenti...">
+              <input type="text" id="commentSearch" placeholder="Cerca nei tuoi commenti..." aria-label="Cerca nei tuoi commenti">
             </div>
             <div class="filter-options">
               <select id="commentRatingFilter">
@@ -153,6 +152,12 @@
                 <option value="3">3 stelle</option>
                 <option value="2">2 stelle</option>
                 <option value="1">1 stella</option>
+              </select>
+              <select id="commentDateFilter">
+                <option value="">Tutte le date</option>
+                <option value="week">Ultima settimana</option>
+                <option value="month">Ultimo mese</option>
+                <option value="year">Ultimo anno</option>
               </select>
             </div>
           </div>
@@ -178,7 +183,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3>Cambia <span lang="en">password</span></h3>
-        <button class="modal-close" id="passwordModalClose">
+        <button class="modal-close" id="passwordModalClose" aria-label="Chiudi finestra di dialogo">
           <i aria-hidden="true" class="fas fa-times"></i>
         </button>
       </div>
@@ -248,7 +253,7 @@
         <input type="hidden" id="editCommentId" name="comment_id">
         <div class="form-group">
           <label for="editCommentRating">Valutazione*</label>
-          <select id="editCommentRating" name="rating" required>
+          <select id="editCommentRating" name="star" required>
             <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>
