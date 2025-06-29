@@ -21,17 +21,8 @@ if (SessionManager::isLoggedIn()) {
 $userManager = new UserManager();
 $commentManager = new CommentManager();
 
-$activePage = 'profilo';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['page'])) {
-    $activePage = $_POST['page'];
-} elseif (isset($_GET['page']) && !is_numeric($_GET['page'])) {
-    $activePage = $_GET['page'];
-} elseif (isset($_GET['section'])) {
-    $activePage = $_GET['section'];
-}
-if ($activePage !== 'commenti') {
-    $activePage = 'profilo';
-}
+$pageParam = $_POST['page'] ?? $_GET['page'] ?? $_GET['section'] ?? 'profilo';
+$activePage = ($pageParam === 'commenti') ? 'commenti' : 'profilo';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
