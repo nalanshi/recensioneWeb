@@ -34,14 +34,12 @@ CREATE TABLE reviews (
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    rating INT NOT NULL,
     product_name VARCHAR(60) NOT NULL,
     product_image VARCHAR(255),      -- Path to product image
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT NULL,
     deleted_at TIMESTAMP NULL DEFAULT NULL,            -- Soft delete timestamp (NULL if active)
-    FOREIGN KEY (user_id) REFERENCES utenti(id),
-    CHECK (rating BETWEEN 1 AND 5)
+    FOREIGN KEY (user_id) REFERENCES utenti(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -50,11 +48,12 @@ CREATE TABLE comments (
     review_id INT NOT NULL,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    star TINYINT NOT NULL DEFAULT 1,
+    rating TINYINT NOT NULL DEFAULT 1,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY unique_comment (review_id, username),
-    FOREIGN KEY (review_id) REFERENCES reviews(id)
+    FOREIGN KEY (review_id) REFERENCES reviews(id),
+    CHECK (rating BETWEEN 1 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

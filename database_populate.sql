@@ -32,39 +32,39 @@ VALUES
 -- Sample Reviews
 -- Note: In a real MySQL environment, you would use DATE_SUB(NOW(), INTERVAL n DAY) for historical dates
 -- For compatibility, we're using NOW() for all timestamps
-INSERT INTO reviews (id, user_id, title, content, rating, product_name, product_image, created_at)
+INSERT INTO reviews (id, user_id, title, content, product_name, product_image, created_at)
 VALUES
     -- Mario's reviews
-    (1, 2, 'Ottimo smartphone!', 'Ho acquistato questo smartphone un mese fa e sono rimasto molto soddisfatto. La fotocamera è eccezionale e la batteria dura tutto il giorno. Lo consiglio vivamente!', 5, 'Smartphone XYZ Pro', 'images/products/product1.jpg', NOW()),
-    (2, 2, 'Buona fotocamera ma costosa', 'La qualità delle foto è ottima, ma il prezzo è un po'' alto rispetto alla concorrenza. Comunque, sono soddisfatto dell''acquisto.', 4, 'Fotocamera DSLR 4K', 'images/products/product2.jpg', NOW()),
+    (1, 2, 'Ottimo smartphone!', 'Ho acquistato questo smartphone un mese fa e sono rimasto molto soddisfatto. La fotocamera è eccezionale e la batteria dura tutto il giorno. Lo consiglio vivamente!', 'Smartphone XYZ Pro', 'images/products/product1.jpg', NOW()),
+    (2, 2, 'Buona fotocamera ma costosa', 'La qualità delle foto è ottima, ma il prezzo è un po'' alto rispetto alla concorrenza. Comunque, sono soddisfatto dell''acquisto.', 'Fotocamera DSLR 4K', 'images/products/product2.jpg', NOW()),
 
     -- Giulia's reviews
-    (3, 3, 'Cuffie eccezionali!', 'La cancellazione del rumore è fantastica, il suono è cristallino e la batteria dura tantissimo. Le uso tutti i giorni per lavorare e ascoltare musica.', 5, 'Cuffie Wireless Premium', 'images/products/product3.jpg', NOW()),
-    (4, 3, 'Tablet perfetto per lo studio', 'Leggero, veloce e con un ottimo display. Lo uso per prendere appunti all''università e per leggere libri. La batteria dura tutta la giornata.', 5, 'Tablet Ultra Slim', 'images/products/product1.jpg', NOW()),
+    (3, 3, 'Cuffie eccezionali!', 'La cancellazione del rumore è fantastica, il suono è cristallino e la batteria dura tantissimo. Le uso tutti i giorni per lavorare e ascoltare musica.', 'Cuffie Wireless Premium', 'images/products/product3.jpg', NOW()),
+    (4, 3, 'Tablet perfetto per lo studio', 'Leggero, veloce e con un ottimo display. Lo uso per prendere appunti all''università e per leggere libri. La batteria dura tutta la giornata.', 'Tablet Ultra Slim', 'images/products/product1.jpg', NOW()),
 
     -- Luca's reviews
-    (5, 4, 'Action camera buona ma non eccezionale', 'La qualità video è buona, ma la stabilizzazione potrebbe essere migliore. Comunque, per il prezzo è un buon prodotto.', 3, 'Action Camera HD', 'images/products/product2.jpg', NOW()),
-    (6, 4, 'Smartphone con qualche difetto', 'Il design è bello e le prestazioni sono buone, ma la fotocamera in condizioni di scarsa luminosità non è all''altezza. La batteria dura poco se si usano app pesanti.', 3, 'Smartphone XYZ Pro', 'images/products/product1.jpg', NOW()),
+    (5, 4, 'Action camera buona ma non eccezionale', 'La qualità video è buona, ma la stabilizzazione potrebbe essere migliore. Comunque, per il prezzo è un buon prodotto.', 'Action Camera HD', 'images/products/product2.jpg', NOW()),
+    (6, 4, 'Smartphone con qualche difetto', 'Il design è bello e le prestazioni sono buone, ma la fotocamera in condizioni di scarsa luminosità non è all''altezza. La batteria dura poco se si usano app pesanti.', 'Smartphone XYZ Pro', 'images/products/product1.jpg', NOW()),
 
     -- Sofia's reviews
-    (7, 5, 'Fotocamera professionale eccellente', 'Uso questa fotocamera per lavoro e sono estremamente soddisfatta. La qualità delle immagini è eccezionale e le funzionalità professionali sono complete.', 5, 'Fotocamera DSLR 4K', 'images/products/product2.jpg', NOW()),
+    (7, 5, 'Fotocamera professionale eccellente', 'Uso questa fotocamera per lavoro e sono estremamente soddisfatta. La qualità delle immagini è eccezionale e le funzionalità professionali sono complete.', 'Fotocamera DSLR 4K', 'images/products/product2.jpg', NOW()),
 
     -- Marco's reviews
-    (8, 6, 'Cuffie comode ma audio migliorabile', 'Molto comode da indossare anche per lunghi periodi, ma la qualità audio non è eccezionale. La cancellazione del rumore funziona bene.', 4, 'Cuffie Wireless Premium', 'images/products/product3.jpg', NOW()),
-    (9, 6, 'Tablet con ottimo rapporto qualità-prezzo', 'Non è il top di gamma, ma per quello che costa offre prestazioni molto buone. Il display è luminoso e la batteria dura a lungo.', 4, 'Tablet Ultra Slim', 'images/products/product1.jpg', NOW()),
-    (10, 7, 'Mouse ergonomico', 'Un mouse molto comodo per lavorare tutto il giorno.', 4, 'Mouse Ergonomico', NULL, NOW()),
-    (11, 8, 'Tastiera meccanica', 'Ottimo feedback dei tasti e retroilluminazione.', 5, 'Tastiera Meccanica', NULL, NOW()),
-    (12, 9, 'Monitor 4K', 'Schermo nitido e colori vibranti, ma un po'' caro.', 4, 'Monitor 4K', NULL, NOW()),
-    (13, 10, 'Router veloce', 'Installazione semplice e copertura eccellente.', 5, 'Router Wi-Fi', NULL, NOW()),
-    (14, 11, 'Stampante economica', 'Buona per l''uso domestico, ma un po'' rumorosa.', 3, 'Stampante Basic', NULL, NOW()),
-    (15, 12, 'Webcam HD', 'Immagine chiara e microfono discreto.', 4, 'Webcam HD', NULL, NOW()),
-    (16, 13, 'Hard disk esterno', 'Tanta capacità a un prezzo contenuto.', 5, 'HDD 2TB', NULL, NOW()),
-    (17, 14, 'Chiavetta USB', 'Velocità di trasferimento buona e design compatto.', 4, 'USB 64GB', NULL, NOW()),
-    (18, 15, 'Altoparlante Bluetooth', 'Suono potente e connessione stabile.', 5, 'Speaker BT', NULL, NOW()),
-    (19, 16, 'Controller per PC', 'Impugnatura comoda e compatibilità perfetta.', 4, 'Controller Pro', NULL, NOW());
+    (8, 6, 'Cuffie comode ma audio migliorabile', 'Molto comode da indossare anche per lunghi periodi, ma la qualità audio non è eccezionale. La cancellazione del rumore funziona bene.', 'Cuffie Wireless Premium', 'images/products/product3.jpg', NOW()),
+    (9, 6, 'Tablet con ottimo rapporto qualità-prezzo', 'Non è il top di gamma, ma per quello che costa offre prestazioni molto buone. Il display è luminoso e la batteria dura a lungo.', 'Tablet Ultra Slim', 'images/products/product1.jpg', NOW()),
+    (10, 7, 'Mouse ergonomico', 'Un mouse molto comodo per lavorare tutto il giorno.', 'Mouse Ergonomico', NULL, NOW()),
+    (11, 8, 'Tastiera meccanica', 'Ottimo feedback dei tasti e retroilluminazione.', 'Tastiera Meccanica', NULL, NOW()),
+    (12, 9, 'Monitor 4K', 'Schermo nitido e colori vibranti, ma un po'' caro.', 'Monitor 4K', NULL, NOW()),
+    (13, 10, 'Router veloce', 'Installazione semplice e copertura eccellente.', 'Router Wi-Fi', NULL, NOW()),
+    (14, 11, 'Stampante economica', 'Buona per l''uso domestico, ma un po'' rumorosa.', 'Stampante Basic', NULL, NOW()),
+    (15, 12, 'Webcam HD', 'Immagine chiara e microfono discreto.', 'Webcam HD', NULL, NOW()),
+    (16, 13, 'Hard disk esterno', 'Tanta capacità a un prezzo contenuto.', 'HDD 2TB', NULL, NOW()),
+    (17, 14, 'Chiavetta USB', 'Velocità di trasferimento buona e design compatto.', 'USB 64GB', NULL, NOW()),
+    (18, 15, 'Altoparlante Bluetooth', 'Suono potente e connessione stabile.', 'Speaker BT', NULL, NOW()),
+    (19, 16, 'Controller per PC', 'Impugnatura comoda e compatibilità perfetta.', 'Controller Pro', NULL, NOW());
 
 -- Sample Comments
-INSERT INTO comments (review_id, username, email, star, content, created_at)
+INSERT INTO comments (review_id, username, email, rating, content, created_at)
 VALUES
     (1, 'antonio97', 'antonio@example.com', 5, 'Bel prodotto!', NOW()),
     (2, 'bea90', 'bea@example.com', 4, 'Molto utile!', NOW()),

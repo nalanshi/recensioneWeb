@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formData = new FormData();
     formData.append('title', form.title.value);
     formData.append('product_name', form.product.value);
-    formData.append('rating', form.rating.value);
     formData.append('content', form.content.value);
     if (form.image.files[0]) {
       formData.append('product_image', form.image.files[0]);

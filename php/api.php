@@ -211,8 +211,7 @@ function handle_reviews($userId, $reviewManager) {
                 $page = (int)($_GET['page'] ?? 1);
                 $limit = (int)($_GET['limit'] ?? 10);
                 $filters = [
-                    'search' => Utils::sanitizeInput($_GET['search'] ?? ''),
-                    'rating' => (int)($_GET['rating'] ?? 0)
+                    'search' => Utils::sanitizeInput($_GET['search'] ?? '')
                 ];
                 $filters = array_filter($filters);
                 if ($isAdmin && isset($_GET['all'])) {
@@ -250,7 +249,6 @@ function handle_reviews($userId, $reviewManager) {
                 $data = [
                     'title' => Utils::sanitizeInput($input['title'] ?? ''),
                     'content' => Utils::sanitizeInput($input['content'] ?? ''),
-                    'rating' => (int)($input['rating'] ?? 0),
                     'product_name' => Utils::sanitizeInput($input['product_name'] ?? ''),
                     'product_image' => $productImagePath
                 ];
@@ -260,9 +258,6 @@ function handle_reviews($userId, $reviewManager) {
                 }
                 if (empty($data['content']) || strlen($data['content']) < 10) {
                     $errors[] = 'Il contenuto deve contenere almeno 10 caratteri';
-                }
-                if ($data['rating'] < 1 || $data['rating'] > 5) {
-                    $errors[] = 'La valutazione deve essere tra 1 e 5 stelle';
                 }
                 if (empty($data['product_name'])) {
                     $errors[] = 'Il nome del prodotto è obbligatorio';
@@ -303,7 +298,6 @@ function handle_reviews($userId, $reviewManager) {
                 $data = [
                     'title' => Utils::sanitizeInput($input['title'] ?? ''),
                     'content' => Utils::sanitizeInput($input['content'] ?? ''),
-                    'rating' => (int)($input['rating'] ?? 0),
                     'product_name' => Utils::sanitizeInput($input['product_name'] ?? ''),
                     'product_image' => $productImagePath
                 ];
@@ -313,9 +307,6 @@ function handle_reviews($userId, $reviewManager) {
                 }
                 if (empty($data['content']) || strlen($data['content']) < 10) {
                     $errors[] = 'Il contenuto deve contenere almeno 10 caratteri';
-                }
-                if ($data['rating'] < 1 || $data['rating'] > 5) {
-                    $errors[] = 'La valutazione deve essere tra 1 e 5 stelle';
                 }
                 if (empty($data['product_name'])) {
                     $errors[] = 'Il nome del prodotto è obbligatorio';
@@ -395,13 +386,13 @@ function handle_comments($commentManager) {
                 }
 
                 $reviewId = (int)($_POST['review_id'] ?? 0);
-                $star = min(5, max(1, intval($_POST['star'] ?? 1)));
+                $rating = min(5, max(1, intval($_POST['rating'] ?? 1)));
                 $content = Utils::sanitizeInput($_POST['content'] ?? '');
                 $username = $_SESSION['user_data']['username'] ?? '';
                 $email = $_SESSION['user_data']['email'] ?? '';
 
                 if ($reviewId && $username && $content) {
-                    if ($commentManager->createComment($reviewId, $username, $email, $star, $content)) {
+                    if ($commentManager->createComment($reviewId, $username, $email, $rating, $content)) {
                         echo json_encode(['success' => true]);
                     } else {
                         http_response_code(500);
@@ -460,7 +451,7 @@ function handle_user_comments($commentManager) {
                 if ($result !== false) {
                     foreach ($result['comments'] as &$comment) {
                         $comment['formatted_date'] = Utils::formatDate($comment['created_at']);
-                        $comment['stars_html'] = Utils::generateStars($comment['star']);
+                        $comment['stars_html'] = Utils::generateStars($comment['rating']);
                         $comment['content_preview'] = strlen($comment['content']) > 150
                             ? substr($comment['content'], 0, 150) . '...'
                             : $comment['content'];
@@ -479,7 +470,7 @@ function handle_user_comments($commentManager) {
                     break;
                 }
                 $data = [
-                    'star' => (int)($_POST['star'] ?? 1),
+                    'rating' => (int)($_POST['rating'] ?? 1),
                     'content' => Utils::sanitizeInput($_POST['content'] ?? '')
                 ];
                 $updated = $commentManager->updateComment($commentId, $data, $username);

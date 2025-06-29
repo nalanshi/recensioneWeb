@@ -91,11 +91,13 @@ $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
 // Recupero ultime 10 recensioni
 $reviewManager = new ReviewManager();
+$commentManager = new CommentManager();
 $result = $reviewManager->getAllReviews(1, 10);
 $reviewsHtml = '';
 if ($result !== false) {
     foreach ($result['reviews'] as $review) {
-        $stars = Utils::generateStars($review['rating']);
+        $avgRating = $commentManager->getAverageRatingForReview($review['id']);
+        $stars = Utils::generateStars($avgRating);
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
         $altProduct = htmlspecialchars($review['product_name']);
@@ -106,7 +108,7 @@ if ($result !== false) {
                          $img .
                          "<div class='review-content'>" .
                          "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
-                         "<div class='review-rating' aria-label='Valutazione {$review['rating']} su 5'>{$stars}</div></div>" .
+                         "<div class='review-rating' aria-label='Valutazione {$avgRating} su 5'>{$stars}</div></div>" .
                          "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
                          "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
                          "</div></a>";
