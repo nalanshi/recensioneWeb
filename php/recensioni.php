@@ -91,72 +91,8 @@ if (!SessionManager::isLoggedIn()) {
 $DOM = str_replace("<!--LOGIN_PLACEHOLDER-->", $contenutoLogin, $DOM);
 $DOM = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $DOM);
 
-// Recupero recensioni dal database con paginazione
-$reviewManager = new ReviewManager();
-$commentManager = new CommentManager();
-$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$limit = 20;
-$result = $reviewManager->getAllReviews($page, $limit);
-$reviewsHtml = '';
-if ($result !== false) {
-    foreach ($result['reviews'] as $review) {
-        $avgRating = $commentManager->getAverageRatingForReview($review['id']);
-        $ratingText = htmlspecialchars($avgRating) . "/5";
-        $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
-        $date = Utils::formatDate($review['created_at']);
-        $altProduct = htmlspecialchars($review['product_name']);
-        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
-        $title = htmlspecialchars($review['title']);
-        $user = htmlspecialchars($review['username']);
-        $prodNameAttr = $altProduct;
-        $reviewsHtml .= "<a href='recensione.php?id={$review['id']}' class='review-card-main' data-rating='{$avgRating}' data-product=\"{$prodNameAttr}\">" .
-                        "<div class='review-content'>" .
-                        "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
-                        "<div class='review-rating' aria-label='Valutazione {$avgRating} su 5'>{$ratingText}</div></div>" .
-                        $img .
-                        "<div class='review-meta'><span class='review-author'>{$user}</span><span>•</span><span class='review-date'>{$date}</span></div>" .
-                        "<p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>" .
-                        "</div></a>";
-    }
-
-    $totalPages = $result['total_pages'];
-    $paginationHtml = '';
-    if ($totalPages > 1) {
-        if ($page > 1) {
-            $prev = $page - 1;
-            $paginationHtml .= "<a href='?page={$prev}' class='pagination-btn' aria-label='Pagina precedente'><i aria-hidden='true' class='fas fa-chevron-left'></i></a>";
-        }
-
-        $startPage = max(1, $page - 2);
-        $endPage = min($totalPages, $page + 2);
-
-        if ($startPage > 1) {
-            $paginationHtml .= "<a href='?page=1' class='pagination-btn'>1</a>";
-            if ($startPage > 2) {
-                $paginationHtml .= "<span class='pagination-dots'>...</span>";
-            }
-        }
-
-        for ($i = $startPage; $i <= $endPage; $i++) {
-            $active = $i === $page ? 'active' : '';
-            $paginationHtml .= "<a href='?page={$i}' class='pagination-btn {$active}'>{$i}</a>";
-        }
-
-        if ($endPage < $totalPages) {
-            if ($endPage < $totalPages - 1) {
-                $paginationHtml .= "<span class='pagination-dots'>...</span>";
-            }
-            $paginationHtml .= "<a href='?page={$totalPages}' class='pagination-btn'>{$totalPages}</a>";
-        }
-
-        if ($page < $totalPages) {
-            $next = $page + 1;
-            $paginationHtml .= "<a href='?page={$next}' class='pagination-btn' aria-label='Pagina successiva'><i aria-hidden='true' class='fas fa-chevron-right'></i></a>";
-        }
-    }
-}
-$DOM = str_replace('<!--REVIEWS_PLACEHOLDER-->', $reviewsHtml, $DOM);
-$DOM = str_replace('<!--PAGINATION_PLACEHOLDER-->', $paginationHtml, $DOM);
+// I contenuti delle recensioni vengono caricati tramite JavaScript
+// quindi i segnaposto rimangono invariati nel DOM.
 
 // Output della pagina
 echo $DOM;
