@@ -111,12 +111,11 @@ if ($result !== false) {
         $excerpt = strlen($review['content']) > 150 ? substr($review['content'], 0, 150) . '...' : $review['content'];
         $date = Utils::formatDate($review['created_at']);
         $altProduct = htmlspecialchars($review['product_name']);
-        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
+        $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
         $reviewsHtml .= "
-                        <li class='reviews-card' title ='Clicca per visualizzare recensione'>
-                          <a href='php/recensione.php?id={$review['id']}'>
+                        <li class='reviews-card'>
                             {$img}
                             <div class='review-content'>
                               <div class='review-header'>
@@ -128,12 +127,13 @@ if ($result !== false) {
                               </div>
                               <p class='review-excerpt'>" . htmlspecialchars($excerpt) . "</p>
                             </div>
-                            <div class='review-button'>
-                              <p class='review-link'>
-                                Vai alla recensione
-                              </p>
-                            </div>
-                          </a>
+                            <a href='php/recensione.php?id={$review['id']}'>
+                              <div class='review-button' aria-hidden='true'  title ='Clicca per visualizzare recensione'>
+                                <p class='review-link'>
+                                  Vai alla recensione
+                                </p>
+                              </div>
+                            </a>
                         </li>";
         }
 }
