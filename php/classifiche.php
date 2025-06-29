@@ -93,8 +93,9 @@ $topReviews = $reviewManager->getTopProducts(10);
 $rowsHtml = '';
 $position = 1;
 foreach ($topReviews as $review) {
-    $stars = Utils::generateStars(round($review['avg_rating']));
-    $ratingNum = number_format($review['avg_rating'], 1);
+    $avgRating = $review['avg_rating'] ?? 0;
+    $stars = Utils::generateStars(round($avgRating));
+    $ratingNum = number_format($avgRating, 1);
     $title = htmlspecialchars($review['product_name']);
 
     $rowsHtml .= "<tr class='ranking-row' tabindex='0' role='link' data-review-id='{$review['review_id']}' aria-label='Dettagli {$title}'>".
