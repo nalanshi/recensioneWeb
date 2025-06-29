@@ -30,23 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   const commentForm = document.getElementById('comment-form');
   if (commentForm) {
-    commentForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(commentForm);
-      try {
-        const res = await fetch('../php/api.php?endpoint=comments', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        if (data.success) {
-          commentForm.reset();
-          window.location.reload();
-        } else {
-          alert(data.message || 'Errore');
-        }
-      } catch {
-        alert('Errore di rete');
+    commentForm.addEventListener('submit', () => {
+      const submitBtn = commentForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
       }
     });
   }
