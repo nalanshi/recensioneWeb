@@ -104,7 +104,7 @@ if ($result !== false) {
         $img = $review['product_image'] ? "<img src='../{$review['product_image']}' alt='{$altProduct}' class='review-image'>" : '';
         $title = htmlspecialchars($review['title']);
         $user = htmlspecialchars($review['username']);
-        $reviewsHtml .= "<a href='php/recensione.php?id={$review['id']}' class='review-card-main'>" .
+        $reviewsHtml .= "<a href='php/recensione.php?id={$review['id']}' class='review-card-main' title='Clicca per visualizzare la recensione del prodotto'>" .
                          $img .
                          "<div class='review-content'>" .
                          "<div class='review-header'><h3 class='review-title'>{$title}</h3>" .
