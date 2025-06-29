@@ -874,6 +874,24 @@ class Utils {
         return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
     }
 
+    /**
+     * Evidenzia il link di navigazione della pagina corrente
+     */
+    public static function markCurrentNavLink($header, $currentPage) {
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="UTF-8">' . $header, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        foreach ($dom->getElementsByTagName('a') as $link) {
+            $href = $link->getAttribute('href');
+            if ($href && basename(parse_url($href, PHP_URL_PATH)) === $currentPage) {
+                $link->setAttribute('aria-current', 'page');
+                $link->removeAttribute('href');
+            }
+        }
+        libxml_clear_errors();
+        return $dom->saveHTML();
+    }
+
 }
 
 /**

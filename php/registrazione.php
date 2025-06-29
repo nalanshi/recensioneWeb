@@ -164,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $header = str_replace("<!-- HEADER_LOGIN_PLACEHOLDER -->", $headerLoginHtml, $header);
+    $header = Utils::markCurrentNavLink($header, basename($_SERVER['PHP_SELF']));
 
     $template = file_get_contents("../static/registrazione.html");
     $template = str_replace("<!-- HEADER_PLACEHOLDER -->", $header, $template);
