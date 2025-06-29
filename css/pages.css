@@ -89,6 +89,22 @@
   cursor: pointer;
 }
 
+.review-card-main {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+
+.review-card-main:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-lg);
+}
+
+
 .review-card:hover {
   transform: none;
   box-shadow: var(--shadow-md);
