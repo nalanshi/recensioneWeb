@@ -26,6 +26,12 @@ if (SessionManager::isLoggedIn()) {
 
 // Caricamento di header e footer comuni
 $header = file_get_contents("static/header.html");
+// Corregge i percorsi nel menù quando l'header è incluso dalla root
+if (dirname($_SERVER['PHP_SELF']) === '/') {
+    $header = str_replace("../index.php", "index.php", $header);
+    $header = str_replace("../php/", "php/", $header);
+    $header = str_replace("../images/", "images/", $header);
+}
 $footer = file_get_contents("static/footer.html");
 
 // Caricamento del template HTML
